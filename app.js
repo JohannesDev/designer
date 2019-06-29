@@ -75,7 +75,7 @@ canvas.addEventListener('mouseup', function (event) {
 
     case "pen":
       endPoint = new Point(x,y)
-      var line = new Line(startPoint, endPoint)
+      svg.add(new Line(startPoint, endPoint));
       svg.redraw();
       break
 

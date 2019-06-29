@@ -1,42 +1,67 @@
 var canvas
 var ctx
+var objectList = []
 
 class SVG {
-    constructor(){
-        canvas = document.getElementById("drawing")
-        ctx = canvas.getContext("2d")
- 
-    }
+  constructor() {
+    canvas = document.getElementById("drawing")
+    ctx = canvas.getContext("2d")
+
+  }
+
+  add(object) {
+    objectList.push(object)
+
+  }
 
 
-    redraw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.stroke()
-    }
+
+  redraw() {
+    //var line = new Line(new Point(0, 0),new Point(100, 100))
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    objectList.forEach(function (object, index) {
+      switch (objectList[index].constructor.name) {
+        case "Line":
+          new Line(object.startPoint, object.endPoint)
+
+      }
+
+    })
+    ctx.stroke()
+
+
+
+
+
+
+
+
+  }
 
 }
 
 
 class Point {
-    constructor(x, y) {
-      this.x = x;
-      this.y = y;
-    }
+  constructor(x, y) {
+    this.x = x;
+    this.y = y;
+  }
 }
 
-class Line{
-    constructor(startPoint, endPoint) {
-      this.startPoint = startPoint;
-      this.endPoint = endPoint;
+class Line {
+  constructor(startPoint, endPoint) {
+    this.startPoint = startPoint;
+    this.endPoint = endPoint;
 
-      ctx.moveTo(startPoint.x, startPoint.y)
-      ctx.lineTo(endPoint.x, endPoint.y)
-      ctx.moveTo(endPoint.x, endPoint.y)
-      
-      ctx.lineCap = 'round'
-      ctx.lineWidth = 6
-      
-      
-    }
+    ctx.moveTo(startPoint.x, startPoint.y)
+    ctx.lineTo(endPoint.x, endPoint.y)
+    ctx.moveTo(endPoint.x, endPoint.y)
+
+    ctx.lineCap = 'round'
+    ctx.lineWidth = 6
+
+
   }
+}
 
