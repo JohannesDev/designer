@@ -11,6 +11,15 @@ class SVG {
 
   add(object) {
     objectList.push(object)
+  }
+
+  remove(object) {
+    console.log("vorher: " + objectList);
+    
+    let index = objectList.indexOf(object)
+    objectList.splice(index, 1);
+
+    console.log("nach: " + objectList);
 
   }
 
@@ -19,16 +28,19 @@ class SVG {
   redraw() {
     //var line = new Line(new Point(0, 0),new Point(100, 100))
     ctx.clearRect(0, 0, canvas.width, canvas.height);
+    
 
-    objectList.forEach(function (object, index) {
-      switch (objectList[index].constructor.name) {
-        case "Line":
-          new Line(object.startPoint, object.endPoint)
-
-      }
-
-    })
-    ctx.stroke()
+    if (objectList.length > 0) {
+  
+      objectList.forEach(function (object, index) {
+        switch (objectList[index].constructor.name) {
+          case "Line":
+            new Line(object.startPoint, object.endPoint)
+        }
+      })
+      ctx.stroke()
+    }
+    
 
 
 

@@ -7,6 +7,7 @@ var canvas
 var startPoint
 var stopPoint
 
+var myLine
 
 function setup() {
   svg = new SVG()
@@ -40,6 +41,9 @@ canvas.addEventListener('mousedown', function (event) {
 
     case "pen":
       startPoint = new Point(x,y)
+      myLine = new Line(startPoint, new Point(100,120))
+      svg.add(myLine)
+      svg.redraw();
       break
 
     case "draw":
@@ -58,7 +62,6 @@ canvas.addEventListener('mousemove', function (event) {
     
   }
   else if (down == true && mode == "pen") {
-
   }
 
 })
@@ -75,7 +78,8 @@ canvas.addEventListener('mouseup', function (event) {
 
     case "pen":
       endPoint = new Point(x,y)
-      svg.add(new Line(startPoint, endPoint));
+
+      svg.remove(myLine)
       svg.redraw();
       break
 
