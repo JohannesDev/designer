@@ -106,7 +106,6 @@ canvas.addEventListener('mouseup', function (event) {
       svg.remove(cachedLine)
       svg.add(new Line(startPoint, endPoint))
       svg.redraw()
-      console.log(objectList);
       
       break
 

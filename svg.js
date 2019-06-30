@@ -34,7 +34,7 @@ class SVG {
     objectList.forEach(function (object, index) {
       var k = (object.endPoint.y - object.startPoint.y) / (object.endPoint.x - object.startPoint.x)
       var d = k * object.startPoint.x - object.startPoint.y
-      console.log(d);
+      
       
     })
   }
