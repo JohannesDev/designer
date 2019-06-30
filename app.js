@@ -1,4 +1,4 @@
-var mode = "move"
+var mode = MODES.SELECT
 var down = false;
 var svg
 
@@ -7,7 +7,7 @@ var canvas
 var startPoint
 var stopPoint
 
-var cacheLine
+var cachedLine
 
 
 function setup() {
@@ -17,16 +17,24 @@ function setup() {
 
 document.addEventListener('mousedown', function (event) {
   switch (event.target.id) {
-    case "btn_move":
-      mode = "move"
+    case "btn_select":      
+      mode = MODES.SELECT
       break
 
-    case "btn_pen":
-      mode = "pen"
+    case "btn_pen_line":
+      mode = MODES.PEN.LINE
+      break
+
+    case "btn_pen_rect":
+      mode = MODES.PEN.RECT
+      break
+
+    case "btn_pen_circle":
+      mode = MODES.PEN.CIRCLE
       break
 
     case "btn_draw":
-      mode = "draw"
+      mode = MODES.DRAW
       break
   }
 });
@@ -37,14 +45,27 @@ canvas.addEventListener('mousedown', function (event) {
   let y = event.y - event.target.offsetTop
 
   switch (mode) {
-    case "move":
+    case MODES.SELECT:
+      var clickedObject = svg.checkIfObjectClicked(new Point(x,y))
+      
       break
 
-    case "pen":
-      startPoint = new Point(x,y)
+    case MODES.PEN:
       break
 
-    case "draw":
+    case MODES.PEN.LINE:
+      startPoint = new Point(x, y)
+      cachedLine = new Line(startPoint, startPoint)
+      svg.add(cachedLine)
+      break
+
+    case MODES.PEN.RECT:
+      break
+
+    case MODES.PEN.CIRCLE:
+      break
+
+    case MODES.DRAW:
 
       break
   }
@@ -52,19 +73,19 @@ canvas.addEventListener('mousedown', function (event) {
 
 
 canvas.addEventListener('mousemove', function (event) {
+
   let x = event.x - event.target.offsetLeft
   let y = event.y - event.target.offsetTop
 
-  if (down == true && mode == "draw") {
+  if (down == true && mode == MODES.SELECT) {
     
     
   }
-  else if (down == true && mode == "pen") {
-    console.log("noew");
-    
-    
-    cacheLine = new Line(startPoint, new Point(100,120))
-    svg.add(cacheLine)
+
+  else if (down == true && mode == MODES.PEN.LINE) {
+    svg.remove(cachedLine)
+    cachedLine = new Line(startPoint, new Point(x, y))
+    svg.add(cachedLine)
     svg.redraw();
   }
 
@@ -77,18 +98,19 @@ canvas.addEventListener('mouseup', function (event) {
   let y = event.y - event.target.offsetTop
 
   switch (mode) {
-    case "move":
+    case MODES.SELECT:
       break
 
-    case "pen":
-      endPoint = new Point(x,y)
-
-      
-      svg.redraw();
+    case MODES.PEN.LINE:
+      endPoint = new Point(x, y)
+      svg.remove(cachedLine)
+      svg.add(new Line(startPoint, endPoint))
+      svg.redraw()
+      console.log(objectList);
       
       break
 
-    case "draw":
+    case MODES.DRAW:
 
       break
   }

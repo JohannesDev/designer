@@ -2,6 +2,17 @@ var canvas
 var ctx
 var objectList = []
 
+const MODES = {
+  SELECT: "select",
+  PEN: {
+    LINE: "pen.line",
+    RECT: "pen.rect",
+    CIRCLE: "pen.circle"
+  },
+  DRAW: "draw"
+  
+};
+
 class SVG {
   constructor() {
     canvas = document.getElementById("drawing")
@@ -18,6 +29,15 @@ class SVG {
 
   }
 
+  checkIfObjectClicked(point){
+    
+    objectList.forEach(function (object, index) {
+      var k = (object.endPoint.y - object.startPoint.y) / (object.endPoint.x - object.startPoint.x)
+      var d = k * object.startPoint.x - object.startPoint.y
+      console.log(d);
+      
+    })
+  }
 
 
   redraw() {
