@@ -7,7 +7,7 @@ var canvas
 var startPoint
 var stopPoint
 
-var cachedLine
+var cachedObject
 
 
 function setup() {
@@ -17,7 +17,7 @@ function setup() {
 
 document.addEventListener('mousedown', function (event) {
   switch (event.target.id) {
-    case "btn_select":      
+    case "btn_select":
       mode = MODES.SELECT
       break
 
@@ -29,8 +29,8 @@ document.addEventListener('mousedown', function (event) {
       mode = MODES.PEN.RECT
       break
 
-    case "btn_pen_circle":
-      mode = MODES.PEN.CIRCLE
+    case "btn_pen_ellipse":
+      mode = MODES.PEN.ELLIPSE
       break
 
     case "btn_draw":
@@ -43,31 +43,31 @@ canvas.addEventListener('mousedown', function (event) {
   down = true;
   let x = event.x - event.target.offsetLeft
   let y = event.y - event.target.offsetTop
+  console.log(mode);
+  if (mode === MODES.SELECT) {
+    var clickedObject = svg.checkIfObjectClicked(new Point(x, y))
+  }
+  else if (mode === MODES.PEN.LINE || mode === MODES.PEN.RECT || mode === MODES.PEN.ELLIPSE) {
+    startPoint = new Point(x, y)
 
-  switch (mode) {
-    case MODES.SELECT:
-      var clickedObject = svg.checkIfObjectClicked(new Point(x,y))
-      
-      break
+    switch (mode) {
+      case MODES.PEN.LINE:
+        cachedObject = new Line(startPoint, startPoint)
+        break
 
-    case MODES.PEN:
-      break
+      case MODES.PEN.RECT:
+          cachedObject = new Rect(startPoint, startPoint)
+          
+        break
 
-    case MODES.PEN.LINE:
-      startPoint = new Point(x, y)
-      cachedLine = new Line(startPoint, startPoint)
-      svg.add(cachedLine)
-      break
+      case MODES.PEN.ELLIPSE:
+          cachedObject = new Ellipse(startPoint, startPoint)
+        break
+    }
 
-    case MODES.PEN.RECT:
-      break
-
-    case MODES.PEN.CIRCLE:
-      break
-
-    case MODES.DRAW:
-
-      break
+    svg.add(cachedObject)
+  }
+  else if (mode === MODES.DRAW) {
   }
 });
 
@@ -78,14 +78,28 @@ canvas.addEventListener('mousemove', function (event) {
   let y = event.y - event.target.offsetTop
 
   if (down == true && mode == MODES.SELECT) {
-    
-    
+
+
   }
 
-  else if (down == true && mode == MODES.PEN.LINE) {
-    svg.remove(cachedLine)
-    cachedLine = new Line(startPoint, new Point(x, y))
-    svg.add(cachedLine)
+  else if (down == true && (mode === MODES.PEN.LINE || mode === MODES.PEN.RECT || mode === MODES.PEN.ELLIPSE)) {
+    svg.remove(cachedObject)
+
+    switch (mode) {
+      case MODES.PEN.LINE:
+          cachedObject = new Line(startPoint, new Point(x, y))
+        break
+
+      case MODES.PEN.RECT:
+          cachedObject = new Rect(startPoint, new Point(x, y))
+        break
+
+      case MODES.PEN.ELLIPSE:
+          cachedObject = new Ellipse(startPoint, new Point(x, y))
+        break
+    }
+
+    svg.add(cachedObject)
     svg.redraw();
   }
 
@@ -97,22 +111,34 @@ canvas.addEventListener('mouseup', function (event) {
   let x = event.x - event.target.offsetLeft
   let y = event.y - event.target.offsetTop
 
-  switch (mode) {
-    case MODES.SELECT:
-      break
-
-    case MODES.PEN.LINE:
-      endPoint = new Point(x, y)
-      svg.remove(cachedLine)
-      svg.add(new Line(startPoint, endPoint))
-      svg.redraw()
-      
-      break
-
-    case MODES.DRAW:
-
-      break
+  if (mode === MODES.SELECT) {
   }
+  else if (mode === MODES.PEN.LINE || mode === MODES.PEN.RECT || mode === MODES.PEN.ELLIPSE) {
+    endPoint = new Point(x, y)
+    svg.remove(cachedObject)
+
+    switch (mode) {
+      case MODES.PEN.LINE:
+        svg.add(new Line(startPoint, endPoint))
+        break
+
+      case MODES.PEN.RECT:
+        svg.add(new Rect(startPoint, endPoint))
+        
+        break
+
+      case MODES.PEN.ELLIPSE:
+          svg.add(new Ellipse(startPoint, endPoint))
+        break
+    }
+
+    svg.redraw()
+  }
+  else if(mode === MODES.DRAW){
+
+  }
+
+
 });
 
 
