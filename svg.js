@@ -6,7 +6,6 @@ class SVG {
   constructor() {
     canvas = document.getElementById("drawing")
     ctx = canvas.getContext("2d")
-
   }
 
   add(object) {
@@ -14,40 +13,31 @@ class SVG {
   }
 
   remove(object) {
-    console.log("vorher: " + objectList);
-    
     let index = objectList.indexOf(object)
     objectList.splice(index, 1);
-
-    console.log("nach: " + objectList);
 
   }
 
 
 
   redraw() {
-    //var line = new Line(new Point(0, 0),new Point(100, 100))
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
     
-
-    if (objectList.length > 0) {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
   
+    if (objectList.length > 0) {      
       objectList.forEach(function (object, index) {
         switch (objectList[index].constructor.name) {
           case "Line":
             new Line(object.startPoint, object.endPoint)
         }
+
+        ctx.stroke()
       })
-      ctx.stroke()
+      
     }
     
-
-
-
-
-
-
-
+   
+  
 
   }
 
@@ -66,6 +56,7 @@ class Line {
     this.startPoint = startPoint;
     this.endPoint = endPoint;
 
+    ctx.beginPath()
     ctx.moveTo(startPoint.x, startPoint.y)
     ctx.lineTo(endPoint.x, endPoint.y)
     ctx.moveTo(endPoint.x, endPoint.y)
