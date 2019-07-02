@@ -4,6 +4,8 @@
 <head>
   <meta charset="UTF-8">
   <title>title</title>
+
+  <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
@@ -17,8 +19,8 @@
   </menu>
 
 
-  <canvas id="drawing" width="1000" height="500" @mousedown={canvasMouseDown} @mousemove={canvasMouseMove}
-    @mouseup={canvasMouseUp} />
+  <canvas id="drawing" width="1000" height="500" @mousedown="canvasMouseDown" @mousemove="canvasMouseMove"
+    @mouseup="canvasMouseUp" />
 
 
   </div>

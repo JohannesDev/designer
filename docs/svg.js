@@ -46,7 +46,7 @@ class SVG {
         }
 
         ctx.lineCap = 'round'
-        ctx.lineWidth = 8
+        ctx.lineWidth = 2
         //ctx.fillStyle = "red";
         //ctx.fill();
         ctx.stroke();
@@ -66,6 +66,9 @@ class Point {
   constructor(x, y) {
     this.x = x;
     this.y = y;
+
+    console.log(x);
+    console.log(y);
   }
 }
 
@@ -86,7 +89,6 @@ class Rect {
   constructor(startPoint, endPoint) {
     this.startPoint = startPoint;
     this.endPoint = endPoint;
-    
 
     ctx.beginPath()
     ctx.moveTo(startPoint.x, startPoint.y)
