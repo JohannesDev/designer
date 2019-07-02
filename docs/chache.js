@@ -1,6 +1,3 @@
-<script>
-  import { onMount } from "svelte";
-  import { SVG, Point, Line, Rect, Ellipse } from "./svg";
 
   let svg;
   let mode;
@@ -119,21 +116,3 @@
     }
   }
 
-
-</script>
-
-<menu>
-  <button on:click={e => (mode = 'select')}>select</button>
-  <button on:click={e => (mode = 'pen.line')}>Pen line</button>
-  <button on:click={e => (mode = 'pen.rect')}>Pen rectangle</button>
-  <button on:click={e => (mode = 'pen.ellipse')}>Pen ellipse</button>
-  <button on:click={e => (mode = 'draw')}>Draw</button>
-</menu>
-
-<canvas
-  id="drawing"
-  width="1000"
-  height="500"
-  on:mousedown={canvasDown}
-  on:mousemove={canvasMouseMove}
-  on:mouseup={canvasMouseUp} />

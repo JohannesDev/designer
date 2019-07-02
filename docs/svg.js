@@ -2,7 +2,7 @@ let canvas
 let ctx
 var objectList = []
 
-export class SVG {
+class SVG {
   constructor() {
     canvas = document.getElementById("drawing")
     ctx = canvas.getContext("2d")
@@ -62,14 +62,14 @@ export class SVG {
 }
 
 
-export class Point {
+class Point {
   constructor(x, y) {
     this.x = x;
     this.y = y;
   }
 }
 
-export class Line {
+class Line {
   constructor(startPoint, endPoint) {
     this.startPoint = startPoint;
     this.endPoint = endPoint;
@@ -82,10 +82,11 @@ export class Line {
 }
 
 
-export class Rect {
+class Rect {
   constructor(startPoint, endPoint) {
     this.startPoint = startPoint;
     this.endPoint = endPoint;
+    
 
     ctx.beginPath()
     ctx.moveTo(startPoint.x, startPoint.y)
@@ -100,7 +101,7 @@ export class Rect {
   }
 }
 
-export class Ellipse {
+class Ellipse {
   constructor(startPoint, endPoint) {
     this.startPoint = startPoint;
     this.endPoint = endPoint;

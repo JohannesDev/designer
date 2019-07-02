@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>title</title>
+</head>
+
+<body>
+  <div id="app">
+  <menu>
+    <button @click="mode = 'select'">select</button>
+    <button @click="mode = 'pen.line'">Pen line</button>
+    <button @click="mode = 'pen.rect'">Pen rectangle</button>
+    <button @click="mode = 'pren.ellipse'">Pen ellipse</button>
+    <button @click="mode = 'draw'">Draw</button>
+  </menu>
+
+
+  <canvas id="drawing" width="1000" height="500" @mousedown={canvasMouseDown} @mousemove={canvasMouseMove}
+    @mouseup={canvasMouseUp} />
+
+
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="svg.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
