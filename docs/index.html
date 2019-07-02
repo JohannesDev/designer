@@ -3,29 +3,46 @@
 
 <head>
   <meta charset="UTF-8">
-  <title>title</title>
-
+  <title>Designer</title>
+  <script src="https://kit.fontawesome.com/b4a05170ea.js"></script>
   <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
 <body>
   <div id="app">
-  <menu>
-    <button @click="mode = 'select'">select</button>
-    <button @click="mode = 'pen.line'">Pen line</button>
-    <button @click="mode = 'pen.rect'">Pen rectangle</button>
-    <button @click="mode = 'pren.ellipse'">Pen ellipse</button>
-    <button @click="mode = 'draw'">Draw</button>
-  </menu>
+
+    <j-bar>
+      <j-button-group>
+        <j-button v-bind:class="{active: mode==='select'}" @click="mode = 'select'"> <i
+            class="fas fa-mouse-pointer fa-lg"></i>
+        </j-button>
+      </j-button-group>
+
+      <j-button-group>
+        <j-button v-bind:class="{active: mode==='pen.line'}" @click="mode = 'pen.line'"> <i
+            class="fas fa-pen fa-lg"></i>
+        </j-button>
+        <j-button v-bind:class="{active: mode==='pen.rect'}" @click="mode = 'pen.rect'"> <i
+            class="fas fa-vector-square fa-lg"></i></j-button>
+        <j-button v-bind:class="{active: mode==='pen.ellipse'}" @click="mode = 'pen.ellipse'"> <i
+            class="far fa-circle fa-lg"></i></j - button>
+      </j-button-group>
+      <j-button-group>
+        <j-button v-bind:class="{active: mode==='draw'}" @click="mode = 'draw'"> <i
+            class="fas fa-paint-brush fa-lg"></i>
+        </j-button>
+      </j-button-group>
+    </j-bar>
 
 
-  <canvas id="drawing" width="1000" height="500" @mousedown="canvasMouseDown" @mousemove="canvasMouseMove"
-    @mouseup="canvasMouseUp" />
+    <canvas id="drawing" width="1000" height="500" @mousedown="canvasMouseDown" @mousemove="canvasMouseMove"
+      @mouseup="canvasMouseUp" />
 
 
   </div>
 
   <script src="https://cdn.jsdelivr.net/npm/vue"></script>
+  <script src="components/navbar.js"></script>
   <script src="svg.js"></script>
   <script src="app.js"></script>
 </body>

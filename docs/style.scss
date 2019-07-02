@@ -5,3 +5,30 @@ html {
 canvas{
   border-style: solid;
 }
+
+j-button{
+  padding: 1.2em;
+  border-radius: 5em;
+}
+
+j-button.active{
+  background-color: #0ABDAB;
+
+}
+j-button-group{
+  padding: 1.5em;
+  margin-right: 0.5em;
+  margin-left: 0.5em;
+  background-color: #AAAAAA;
+  border-radius: 5em;
+}
+
+j-bar{
+  padding: 0.5em;
+  border-radius: 0.5em;
+  display: flex;
+  margin-top: 2em;
+  margin-right: 3em;
+  margin-left: 3em;
+  box-shadow: 5px 5px 15px #CECDCD;
+}
