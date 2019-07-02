@@ -8,8 +8,24 @@ class SVG {
     ctx = canvas.getContext("2d")
   }
 
+  drawLine(x1, y1, x2, y2) {
+    let startPoint = new Point(x1, y1)
+    let stopPoint = new Point(x2, y2)
+
+    let line = new Line(startPoint, stopPoint)
+
+    objectList.push(line)
+  }
+
+  selectLine(x, y) {
+    objectList.forEach(function (object, index) {
+      let j = ctx.isPointInStroke(object.path, x, y);
+
+    })
+  }
+
   add(object) {
-    objectList.push(object)
+
   }
 
   remove(object) {
@@ -23,7 +39,7 @@ class SVG {
 
     let state = ctx.isPointInStroke(point.x, point.y);
     console.log(state);
-    
+
   }
 
 
@@ -45,13 +61,19 @@ class SVG {
             break
         }
 
-        ctx.lineCap = 'round'
-        ctx.lineWidth = 2
+        //ctx.lineCap = 'round'
+        //ctx.lineWidth = 2
         //ctx.fillStyle = "red";
         //ctx.fill();
-        ctx.stroke();
+        //ctx.stroke();
       })
 
+    }
+
+    function stroke(path) {
+      ctx.lineCap = 'round'
+      ctx.lineWidth = 2
+      ctx.stroke(path)
     }
 
 
@@ -66,22 +88,26 @@ class Point {
   constructor(x, y) {
     this.x = x;
     this.y = y;
-
-    console.log(x);
-    console.log(y);
   }
 }
 
 class Line {
+
   constructor(startPoint, endPoint) {
     this.startPoint = startPoint;
     this.endPoint = endPoint;
+    this.path = new Path2D()
 
-    ctx.beginPath()
-    ctx.moveTo(startPoint.x, startPoint.y)
-    ctx.lineTo(endPoint.x, endPoint.y)
-    ctx.moveTo(endPoint.x, endPoint.y)
+    //ctx.beginPath()
+    this.path.moveTo(startPoint.x, startPoint.y)
+    this.path.lineTo(endPoint.x, endPoint.y)
+    this.path.moveTo(endPoint.x, endPoint.y)
+
+    ctx.lineCap = 'round'
+    ctx.lineWidth = 7
+    ctx.stroke(this.path)
   }
+
 }
 
 
@@ -108,8 +134,8 @@ class Ellipse {
     this.startPoint = startPoint;
     this.endPoint = endPoint;
 
-    let radiusx = Math.abs((endPoint.x - startPoint.x)/2)
-    let radiusy = Math.abs((endPoint.y - startPoint.y)/2)
+    let radiusx = Math.abs((endPoint.x - startPoint.x) / 2)
+    let radiusy = Math.abs((endPoint.y - startPoint.y) / 2)
 
     ctx.beginPath()
     ctx.arcTo(startPoint.x, startPoint.y, radiusx, radiusy, 5);
