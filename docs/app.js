@@ -28,23 +28,16 @@ var app = new Vue({
         downY = y
 
         currentDrawingObject = svg.drawLine(x, y, x, y)
-        console.log(currentDrawingObject);
-
       }
 
       if (this.mode === "selectLine") {
         selectedObject = svg.selectLine(x, y)
-
-
       }
 
       if (this.mode === "removeLine") {
         svg.removeLine(selectedObject)
 
-
       }
-
-
     },
 
 
@@ -53,21 +46,19 @@ var app = new Vue({
       if (down) {
         let currentX = event.x - event.target.offsetLeft;
         let currentY = event.y - event.target.offsetTop;
-        //svg.redrawLine(downX, downY, currentX, currentY, false)
+
       }
 
 
     },
 
 
-
-
     canvasMouseUp: function (event) {
       down = false;
-      let x = event.x - event.target.offsetLeft;
-      let y = event.y - event.target.offsetTop;
+      let upX = event.x - event.target.offsetLeft;
+      let upY = event.y - event.target.offsetTop;
 
-
+      svg.redrawLine(downX, downY, upX, upY, currentDrawingObject)
     },
 
   }

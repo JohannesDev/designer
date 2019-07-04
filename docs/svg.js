@@ -13,10 +13,18 @@ class SVG {
     let line = new Line(x1, y1, x2, y2)
     objectList.push(line)
     this.redraw()
-    return objectList.length
+    return (objectList.length - 1)
   }
 
   redrawLine(x1, y1, x2, y2, index) {
+    let object = objectList[index]
+
+    object.x1 = x1
+    object.y1 = y1
+    object.x2 = x2
+    object.y2 = y2
+
+    this.redraw()
   }
 
 
@@ -29,6 +37,8 @@ class SVG {
         if (pointIsInObject) {
           objectIndex = index
           object.drawBoundingBox()
+
+
         }
 
       })
@@ -60,18 +70,13 @@ class SVG {
   }
 
 
-
-  loog(string) {
-    console.log(string);
-
-  }
-
   redraw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (objectList.length > 0) {
       objectList.forEach(function (object, index) {
         object.draw()
+
       })
     }
   }
@@ -87,17 +92,14 @@ class Line {
     this.y2 = y2;
     this.path = new Path2D()
     this.boundingPath = new Path2D()
-
-    //ctx.beginPath()
-    this.path.moveTo(x1, y1)
-    this.path.lineTo(x2, y2)
-    this.path.moveTo(x2, y2)
-
-
-
   }
+
   draw() {
     let path = this.path
+
+    path.moveTo(this.x1, this.y1)
+    path.lineTo(this.x2, this.y2)
+    path.moveTo(this.x2, this.y2)
 
     ctx.lineCap = 'round'
     ctx.lineWidth = 20
