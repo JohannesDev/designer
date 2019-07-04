@@ -15,22 +15,35 @@ class SVG {
     let line = new Line(startPoint, stopPoint)
 
     objectList.push(line)
+
+
+
   }
 
-  selectLine(x, y) {
-    objectList.forEach(function (object, index) {
-      let j = ctx.isPointInStroke(object.path, x, y);
+  stressTest() {
+    for (let i = 0; i < 1000000; i++) {
+      let rx = (Math.random() * 900) + 0
+      let ry = (Math.random() * 400) + 0
+      let startPoint = new Point(rx, ry)
+      let stopPoint = new Point(rx + 100, ry + 100)
+      let line = new Line(startPoint, stopPoint)
+      objectList.push(line)
+    }
+    this.redraw()
 
-    })
+    alert("donw")
   }
 
   add(object) {
 
   }
 
-  remove(object) {
-    let index = objectList.indexOf(object)
+  removeLine(object) {
+    //let index = objectList.indexOf(object)
+    let index = 0;
     objectList.splice(index, 1);
+
+    this.redraw()
 
   }
 

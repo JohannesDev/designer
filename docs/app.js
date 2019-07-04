@@ -19,7 +19,8 @@ var app = new Vue({
       let x = event.x - event.target.offsetLeft;
       let y = event.y - event.target.offsetTop;
 
-      svg.drawLine(x, y, 50, 50);
+      svg.stressTest()
+
 
     },
 
@@ -71,7 +72,7 @@ var app = new Vue({
       let x = event.x - event.target.offsetLeft;
       let y = event.y - event.target.offsetTop;
 
-      svg.selectLine(x, y)
+      svg.removeLine()
 
     },
 
