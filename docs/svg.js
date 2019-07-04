@@ -8,16 +8,41 @@ class SVG {
     ctx = canvas.getContext("2d")
   }
 
+
   drawLine(x1, y1, x2, y2) {
-    let startPoint = new Point(x1, y1)
-    let stopPoint = new Point(x2, y2)
-
-    let line = new Line(startPoint, stopPoint)
-
+    let line = new Line(x1, y1, x2, y2)
     objectList.push(line)
+    this.redraw()
+    return objectList.length
+  }
+
+  redrawLine(x1, y1, x2, y2, index) {
+  }
 
 
+  selectLine(x, y) {
+    let objectIndex
 
+    if (objectList.length > 0) {
+      objectList.forEach(function (object, index) {
+        let pointIsInObject = ctx.isPointInStroke(object.path, x, y);
+        if (pointIsInObject) {
+          objectIndex = index
+          object.drawBoundingBox()
+        }
+
+      })
+    }
+
+    return objectIndex;
+  }
+
+  removeLine(index) {
+    if (index != null) {
+      objectList.splice(index, 1);
+
+      this.redraw()
+    }
   }
 
   stressTest() {
@@ -34,126 +59,69 @@ class SVG {
     alert("donw")
   }
 
-  add(object) {
+
+
+  loog(string) {
+    console.log(string);
 
   }
-
-  removeLine(object) {
-    //let index = objectList.indexOf(object)
-    let index = 0;
-    objectList.splice(index, 1);
-
-    this.redraw()
-
-  }
-
-  checkIfObjectClicked(point) {
-    console.log(objectList[0]);
-
-    let state = ctx.isPointInStroke(point.x, point.y);
-    console.log(state);
-
-  }
-
 
   redraw() {
-
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (objectList.length > 0) {
       objectList.forEach(function (object, index) {
-        switch (objectList[index].constructor.name) {
-          case "Line":
-            new Line(object.startPoint, object.endPoint)
-            break
-          case "Rect":
-            new Rect(object.startPoint, object.endPoint)
-            break
-          case "Ellipse":
-            new Ellipse(object.startPoint, object.endPoint)
-            break
-        }
-
-        //ctx.lineCap = 'round'
-        //ctx.lineWidth = 2
-        //ctx.fillStyle = "red";
-        //ctx.fill();
-        //ctx.stroke();
+        object.draw()
       })
-
     }
-
-    function stroke(path) {
-      ctx.lineCap = 'round'
-      ctx.lineWidth = 2
-      ctx.stroke(path)
-    }
-
-
-
-
   }
 
-}
-
-
-class Point {
-  constructor(x, y) {
-    this.x = x;
-    this.y = y;
-  }
 }
 
 class Line {
 
-  constructor(startPoint, endPoint) {
-    this.startPoint = startPoint;
-    this.endPoint = endPoint;
+  constructor(x1, y1, x2, y2) {
+    this.x1 = x1;
+    this.y1 = y1;
+    this.x2 = x2;
+    this.y2 = y2;
     this.path = new Path2D()
+    this.boundingPath = new Path2D()
 
     //ctx.beginPath()
-    this.path.moveTo(startPoint.x, startPoint.y)
-    this.path.lineTo(endPoint.x, endPoint.y)
-    this.path.moveTo(endPoint.x, endPoint.y)
+    this.path.moveTo(x1, y1)
+    this.path.lineTo(x2, y2)
+    this.path.moveTo(x2, y2)
+
+
+
+  }
+  draw() {
+    let path = this.path
 
     ctx.lineCap = 'round'
-    ctx.lineWidth = 7
-    ctx.stroke(this.path)
+    ctx.lineWidth = 20
+    ctx.strokeStyle = "#000000";
+    ctx.stroke(path)
+  }
+
+  drawBoundingBox() {
+    let path = this.boundingPath
+    let radius = 5
+
+    path.moveTo(this.x1, this.y1)
+    path.lineTo(this.x2, this.y2)
+    path.moveTo(this.x2, this.y2)
+
+    path.moveTo(this.x2 + radius, this.y2)
+    path.arc(this.x2, this.y2, radius, 0, 2 * Math.PI);
+
+    ctx.strokeStyle = "#436191";
+    ctx.fillStyle = "#FFffff";
+    ctx.lineWidth = 1
+    ctx.stroke(path)
+    ctx.fill(path)
   }
 
 }
-
-
-class Rect {
-  constructor(startPoint, endPoint) {
-    this.startPoint = startPoint;
-    this.endPoint = endPoint;
-
-    ctx.beginPath()
-    ctx.moveTo(startPoint.x, startPoint.y)
-
-    ctx.lineTo(endPoint.x, startPoint.y)
-    ctx.lineTo(endPoint.x, endPoint.y)
-    ctx.lineTo(startPoint.x, endPoint.y)
-    ctx.lineTo(startPoint.x, startPoint.y)
-
-    ctx.closePath()
-
-  }
-}
-
-class Ellipse {
-  constructor(startPoint, endPoint) {
-    this.startPoint = startPoint;
-    this.endPoint = endPoint;
-
-    let radiusx = Math.abs((endPoint.x - startPoint.x) / 2)
-    let radiusy = Math.abs((endPoint.y - startPoint.y) / 2)
-
-    ctx.beginPath()
-    ctx.arcTo(startPoint.x, startPoint.y, radiusx, radiusy, 5);
-
-  }
-}
-
 

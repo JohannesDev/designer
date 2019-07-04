@@ -12,22 +12,10 @@
   <div id="app">
 
     <j-bar>
-      <j-button v-bind:class="{active: mode==='select'}" @click="mode = 'select'"> <i
-          class="fas fa-mouse-pointer fa-lg"></i>
-      </j-button>
-
-      <j-button v-bind:class="{active: mode==='pen.line'}" @click="mode = 'pen.line'"> <i class="fas fa-pen fa-lg"></i>
-      </j-button>
-      <j-button v-bind:class="{active: mode==='pen.rect'}" @click="mode = 'pen.rect'"> <i
-          class="fas fa-vector-square fa-lg"></i></j-button>
-      <j-button v-bind:class="{active: mode==='pen.ellipse'}" @click="mode = 'pen.ellipse'"> <i
-          class="far fa-circle fa-lg"></i></j - button>
-
-        <j-button v-bind:class="{active: mode==='draw'}" @click="mode = 'draw'"> <i
-            class="fas fa-paint-brush fa-lg"></i>
-        </j-button>
+      <button @click="mode = 'line'">Line</button>
+      <button @click="mode = 'selectLine'">select Line</button>
+      <button @click="mode = 'removeLine'">remove Line</button>
     </j-bar>
-
 
     <canvas id="drawing" width="1000" height="500" @mousedown="canvasMouseDown" @mousemove="canvasMouseMove"
       @mouseup="canvasMouseUp" />
