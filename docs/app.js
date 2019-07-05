@@ -33,6 +33,7 @@ var app = new Vue({
 
       if (this.mode === "selectLine") {
         selectedObject = svg.selectLine(x, y)
+
         selectedPath = svg.getClickedPath(x, y, selectedObject)
 
       }
@@ -46,14 +47,16 @@ var app = new Vue({
 
 
     canvasMouseMove: function (event) {
-      if (down == true && selectedObject != null) {
+      if (down == true && selectedObject != undefined) {
         let currentX = event.x - event.target.offsetLeft;
         let currentY = event.y - event.target.offsetTop;
 
+
+
         switch (selectedPath) {
           case 0: break
-          case 1: svg.transformLine(downX, downY, currentX, currentY, selectedObject); break
-          case 2: svg.transformLine(downX, downY, currentX, currentY, selectedObject); break
+          case 1: svg.transformLine(currentX, currentY, undefined, undefined, selectedObject); break
+          case 2: svg.transformLine(undefined, undefined, currentX, currentY, selectedObject); break
         }
 
       }
@@ -75,7 +78,7 @@ var app = new Vue({
       let upY = event.y - event.target.offsetTop;
 
       svg.transformLine(downX, downY, upX, upY, currentDrawingObject)
-      currentDrawingObject = null
+      currentDrawingObject = undefined
     },
 
   }

@@ -13,17 +13,16 @@ class SVG {
     let line = new Line(x1, y1, x2, y2)
     objectList.push(line)
     this.redraw()
-    return (objectList.length - 1)
+    return line
   }
 
-  transformLine(x1, y1, x2, y2, index) {
-    if (index != null) {
-      let object = objectList[index]
+  transformLine(x1, y1, x2, y2, currentObject) {
 
-      object.x1 = x1
-      object.y1 = y1
-      object.x2 = x2
-      object.y2 = y2
+    if (typeof currentObject !== 'undefined') {
+      if (typeof x1 !== 'undefined') currentObject.x1 = x1
+      if (typeof y1 !== 'undefined') currentObject.y1 = y1
+      if (typeof x2 !== 'undefined') currentObject.x2 = x2
+      if (typeof y2 !== 'undefined') currentObject.y2 = y2
 
       this.redraw()
     }
@@ -31,25 +30,27 @@ class SVG {
 
 
   selectLine(x, y) {
-    let objectIndex
+    let selectedObject
     this.redraw()
 
     if (objectList.length > 0) {
       objectList.forEach(function (object, index) {
         let pointIsInObject = ctx.isPointInStroke(object.path, x, y);
         if (pointIsInObject) {
-          objectIndex = index
+          selectedObject = object
           object.drawBoundingBox()
         }
 
       })
     }
 
-    return objectIndex;
+    return selectedObject;
   }
 
-  getClickedPath(x, y, index) {
-    let object = objectList[index]
+  getClickedPath(x, y, clickedObject) {
+    let object = clickedObject
+
+
 
 
     let distancePoint1 = Math.abs(object.x1 - x) + Math.abs(object.y1 - y)
@@ -67,8 +68,9 @@ class SVG {
     }
   }
 
-  removeLine(index) {
-    if (index != null) {
+  removeLine(object) {
+    if (object != null) {
+      objectList.indexOf(object)
       objectList.splice(index, 1);
 
       this.redraw()
