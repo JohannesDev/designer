@@ -47,10 +47,9 @@ var app = new Vue({
 
 
     canvasMouseMove: function (event) {
-      if (down == true && selectedObject != undefined) {
+      /*if (down == true && selectedObject != undefined) {
         let currentX = event.x - event.target.offsetLeft;
         let currentY = event.y - event.target.offsetTop;
-
 
 
         switch (selectedPath) {
@@ -68,7 +67,7 @@ var app = new Vue({
       }
 
 
-
+*/
     },
 
 

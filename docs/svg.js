@@ -1,17 +1,18 @@
 let canvas
 let ctx
-var objectList = []
+
 
 class SVG {
   constructor() {
-    canvas = document.getElementById("drawing")
-    ctx = canvas.getContext("2d")
+    this.canvas = document.getElementById("drawing");
+    this.ctx = this.canvas.getContext("2d");
+    this.objectList = [];
   }
 
 
   drawLine(x1, y1, x2, y2) {
     let line = new Line(x1, y1, x2, y2)
-    objectList.push(line)
+    this.objectList.push(line)
     this.redraw()
     return line
   }
@@ -33,9 +34,9 @@ class SVG {
     let selectedObject
     this.redraw()
 
-    if (objectList.length > 0) {
-      objectList.forEach(function (object, index) {
-        let pointIsInObject = ctx.isPointInStroke(object.path, x, y);
+    if (this.objectList.length > 0) {
+      this.objectList.forEach(function (object, index) {
+        let pointIsInObject = this.ctx.isPointInStroke(object.path, x, y);
         if (pointIsInObject) {
           selectedObject = object
           object.drawBoundingBox()
@@ -70,8 +71,8 @@ class SVG {
 
   removeLine(object) {
     if (object != null) {
-      objectList.indexOf(object)
-      objectList.splice(index, 1);
+      this.objectList.indexOf(object)
+      this.objectList.splice(index, 1);
 
       this.redraw()
     }
@@ -84,7 +85,7 @@ class SVG {
       let startPoint = new Point(rx, ry)
       let stopPoint = new Point(rx + 100, ry + 100)
       let line = new Line(startPoint, stopPoint)
-      objectList.push(line)
+      this.objectList.push(line)
     }
     this.redraw()
 
@@ -93,11 +94,13 @@ class SVG {
 
 
   redraw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
 
-    if (objectList.length > 0) {
-      objectList.forEach(function (object, index) {
-        object.draw()
+    let reference = this
+
+    if (this.objectList.length > 0) {
+      this.objectList.forEach(function (object, index) {
+        object.draw(reference.ctx)
 
       })
     }
@@ -116,7 +119,7 @@ class Line {
     this.boundingPath = new Path2D()
   }
 
-  draw() {
+  draw(ctx) {
     let path = this.path = new Path2D()
 
     path.moveTo(this.x1, this.y1)
