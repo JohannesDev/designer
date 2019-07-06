@@ -1,29 +1,39 @@
-let canvas
 let ctx
-
+let canvas
+let canvasY
+let canvasX
+let down = false
 
 class SVG {
   constructor() {
-    this.canvas = document.getElementById("drawing");
-    this.ctx = this.canvas.getContext("2d");
+    canvas = document.getElementById("drawing");
+    ctx = canvas.getContext("2d");
+
     this.objectList = [];
+    this.activeObject
+    this.transformationOption
   }
+
+
 
 
   drawLine(x1, y1, x2, y2) {
     let line = new Line(x1, y1, x2, y2)
+    this.activeObject = line
     this.objectList.push(line)
+
     this.redraw()
-    return line
   }
 
   transformLine(x1, y1, x2, y2, currentObject) {
+    let index = this.objectList.indexOf(currentObject)
+
 
     if (typeof currentObject !== 'undefined') {
-      if (typeof x1 !== 'undefined') currentObject.x1 = x1
-      if (typeof y1 !== 'undefined') currentObject.y1 = y1
-      if (typeof x2 !== 'undefined') currentObject.x2 = x2
-      if (typeof y2 !== 'undefined') currentObject.y2 = y2
+      if (typeof x1 !== 'undefined') this.objectList[index].x1 = x1;
+      if (typeof y1 !== 'undefined') this.objectList[index].y1 = y1
+      if (typeof x2 !== 'undefined') this.objectList[index].x2 = x2
+      if (typeof y2 !== 'undefined') this.objectList[index].y2 = y2
 
       this.redraw()
     }
@@ -31,52 +41,52 @@ class SVG {
 
 
   selectLine(x, y) {
-    let selectedObject
+    //selecting Line
     this.redraw()
+    let reference = this
+    this.activeObject = undefined
 
     if (this.objectList.length > 0) {
       this.objectList.forEach(function (object, index) {
-        let pointIsInObject = this.ctx.isPointInStroke(object.path, x, y);
+        let pointIsInObject = ctx.isPointInStroke(object.path, x, y);
         if (pointIsInObject) {
-          selectedObject = object
+
+          reference.activeObject = object
           object.drawBoundingBox()
+
+          //determining which Point of the line was clicked
+          let distancePoint1 = Math.abs(reference.activeObject.x1 - x) + Math.abs(reference.activeObject.y1 - y)
+          let distancePoint2 = Math.abs(reference.activeObject.x2 - x) + Math.abs(reference.activeObject.y2 - y)
+
+          if (distancePoint1 < 10) {
+            reference.transformationOption = 0
+          }
+          else if (distancePoint2 < 10) {
+            reference.transformationOption = 2
+          }
+          else {
+            reference.transformationOption = 1
+          }
+
+
         }
 
       })
     }
 
-    return selectedObject;
-  }
-
-  getClickedPath(x, y, clickedObject) {
-    let object = clickedObject
-
-
-
-
-    let distancePoint1 = Math.abs(object.x1 - x) + Math.abs(object.y1 - y)
-    let distancePoint2 = Math.abs(object.x2 - x) + Math.abs(object.y2 - y)
-
-
-    if (distancePoint1 < 10) {
-      return 1;
-    }
-    else if (distancePoint2 < 10) {
-      return 2;
-    }
-    else {
-      return 0;
-    }
   }
 
   removeLine(object) {
     if (object != null) {
-      this.objectList.indexOf(object)
+      let index = this.objectList.indexOf(object)
       this.objectList.splice(index, 1);
+      this.activeObject = undefined
 
       this.redraw()
     }
   }
+
+
 
   stressTest() {
     for (let i = 0; i < 1000000; i++) {
@@ -94,13 +104,11 @@ class SVG {
 
 
   redraw() {
-    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-
-    let reference = this
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (this.objectList.length > 0) {
       this.objectList.forEach(function (object, index) {
-        object.draw(reference.ctx)
+        object.draw()
 
       })
     }
@@ -119,7 +127,7 @@ class Line {
     this.boundingPath = new Path2D()
   }
 
-  draw(ctx) {
+  draw() {
     let path = this.path = new Path2D()
 
     path.moveTo(this.x1, this.y1)
@@ -158,4 +166,19 @@ class Line {
   }
 
 }
+
+
+document.addEventListener('mousedown', function (addEventListener) {
+  down = true
+});
+
+document.addEventListener('mousemove', function (addEventListener) {
+  canvasX = event.x - event.target.offsetLeft;
+  canvasY = event.y - event.target.offsetTop;
+});
+
+document.addEventListener('mouseup', function (addEventListener) {
+  down = false
+});
+
 
