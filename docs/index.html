@@ -12,19 +12,18 @@
   <div id="app">
 
     <j-bar>
-      <button @click="mode = 'line'">Line</button>
-      <button @click="mode = 'selectLine'">select Line</button>
-      <button @click="mode = 'removeLine'">remove Line</button>
+      <button>Line</button>
+      <button>select Line</button>
+      <button>remove Line</button>
     </j-bar>
 
-    <canvas id="drawing" width="1000" height="500" @mousedown="canvasMouseDown" @mousemove="canvasMouseMove"
-      @mouseup="canvasMouseUp" />
+    <canvas id="drawing" width="1000" height="500" />
 
 
   </div>
 
-  <script src="https://cdn.jsdelivr.net/npm/vue"></script>
-  <script src="svg.js"></script>
+  <script src="library/svg.js"></script>
+  <!--<script src="library/benchmark.js"></script>-->
   <script src="app.js"></script>
 </body>
 

@@ -3,6 +3,7 @@ let canvas
 let canvasY
 let canvasX
 let down = false
+let mode = "line"
 
 class SVG {
   constructor() {
@@ -87,22 +88,6 @@ class SVG {
   }
 
 
-
-  stressTest() {
-    for (let i = 0; i < 1000000; i++) {
-      let rx = (Math.random() * 900) + 0
-      let ry = (Math.random() * 400) + 0
-      let startPoint = new Point(rx, ry)
-      let stopPoint = new Point(rx + 100, ry + 100)
-      let line = new Line(startPoint, stopPoint)
-      this.objectList.push(line)
-    }
-    this.redraw()
-
-    alert("donw")
-  }
-
-
   redraw() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
 
@@ -168,16 +153,16 @@ class Line {
 }
 
 
-document.addEventListener('mousedown', function (addEventListener) {
+document.addEventListener('mousedown', function (event) {
   down = true
 });
 
-document.addEventListener('mousemove', function (addEventListener) {
+document.addEventListener('mousemove', function (event) {
   canvasX = event.x - event.target.offsetLeft;
   canvasY = event.y - event.target.offsetTop;
 });
 
-document.addEventListener('mouseup', function (addEventListener) {
+document.addEventListener('mouseup', function (event) {
   down = false
 });
 
