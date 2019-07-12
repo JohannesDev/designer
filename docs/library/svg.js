@@ -3,7 +3,7 @@ let canvas
 let canvasY
 let canvasX
 let down = false
-let mode = "line"
+
 
 class SVG {
   constructor() {

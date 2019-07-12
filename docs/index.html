@@ -11,31 +11,57 @@
 <body>
   <div id="app">
 
-    <j-toolbar>
-      <j-button><img src="res/pointer.svg" class="icon"></j-button>
-      <j-button><img src="res/line.svg" class="icon"></j-button>
-      <j-button><img src="res/square.svg" class="icon"></j-button>
+    <toolbar>
+      <icon-button id="button-drawline"><img src="res/pointer.svg" class="icon"></icon-button>
+      <icon-button id="button-selectline"><img src="res/line.svg" class="icon"></icon-button>
+      <icon-button id="button-deleteline"><img src="res/square.svg" class="icon"></icon-button>
+    </toolbar>
 
+    <toolbar-settings>
+      <icon-button>afsdgds</icon-button>
+      <icon-button>afdggdss</icon-button>
+      <icon-button>afgdsgs</icon-button>
 
-      <button>Line</button>
-      <button>select Line</button>
-      <button>remove Line</button>
-    </j-toolbar>
-
-    <j-tool-settings-bar>
-      <j-button>afsdgds</j-button>
-      <j-button>afdggdss</j-button>
-      <j-button>afgdsgs</j-button>
-
-    </j-tool-settings-bar>
+    </toolbar-settings>
 
 
 
-    <canvas id="drawing" width="1000" height="500" />
+
+    <main>
+      <canvas id="drawing" width="1700" height="500"></canvas>
+      <panel>
+        <color-palette>
+          <color class="purple"></color>
+          <color class="pink"></color>
+          <color class="rose"></color>
+          <color class="salmon"></color>
+          <color class="orange"></color>
+
+          <color class="orange"></color>
+          <color class="salmon"></color>
+          <color class="rose"></color>
+          <color class="pink"></color>
+          <color class="purple"></color>
+
+
+
+
+
+          <color class="purple"></color>
+          <color class="pink"></color>
+          <color class="rose"></color>
+          <color class="salmon"></color>
+          <color class="orange"></color>
+        </color-palette>
+
+      </panel>
+    </main>
+
 
 
   </div>
 
+  <script src="library/listeners.js"></script>
   <script src="library/svg.js"></script>
   <!--<script src="library/benchmark.js"></script>-->
   <script src="app.js"></script>

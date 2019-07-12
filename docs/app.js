@@ -1,19 +1,9 @@
 
 let svg = new SVG()
 
-document.addEventListener('mousedown', function (event) {
-  if (event.target.innerHTML === "Line") {
-    mode = "line"
-  }
 
-  else if (event.target.innerHTML === "select Line") {
-    mode = "selectLine"
-  }
 
-  else if (event.target.innerHTML === "remove Line") {
-    mode = "removeLine"
-  }
-});
+
 
 canvas.addEventListener('mousedown', function (event) {
 
@@ -53,6 +43,7 @@ document.addEventListener('mousemove', function (event) {
 
 
 document.addEventListener('mouseup', function (event) {
+
   if (down === true && mode == "line") {
     svg.transformLine(undefined, undefined, canvasX, canvasY, svg.activeObject)
   }
