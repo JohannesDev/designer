@@ -1,1 +1,1 @@
-html{box-sizing:border-box}canvas{border-style:solid}j-button{padding:1.2em;border-radius:5em}j-button.active{background-color:#0ABDAB}j-bar{padding:0.5em;margin-bottom:1em;border-radius:0.5em;display:flex;box-shadow:5px 5px 15px #CECDCD}
+html{box-sizing:border-box}canvas{border-style:solid}j-toolbar{display:flex;box-shadow:5px 5px 15px #CECDCD}j-toolbar j-button{padding:0.5em}j-toolbar j-button img.icon{width:1.2em;height:1.2em}j-tool-settings-bar{display:flex;box-shadow:5px 5px 15px #CECDCD}j-tool-settings-bar j-button{padding:0.5em}
