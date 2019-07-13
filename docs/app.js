@@ -1,10 +1,6 @@
 
 let svg = new SVG()
 
-
-
-
-
 canvas.addEventListener('mousedown', function (event) {
 
 
@@ -22,7 +18,7 @@ canvas.addEventListener('mousedown', function (event) {
 });
 
 
-document.addEventListener('mousemove', function (event) {
+canvas.addEventListener('mousemove', function (event) {
   if (down === true && svg.activeObject != undefined && mode == "selectLine") {
 
     switch (svg.transformationOption) {

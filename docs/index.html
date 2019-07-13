@@ -17,18 +17,17 @@
       <icon-button id="button-deleteline"><img src="res/square.svg" class="icon"></icon-button>
     </toolbar>
 
-    <toolbar-settings>
-      <icon-button>afsdgds</icon-button>
-      <icon-button>afdggdss</icon-button>
-      <icon-button>afgdsgs</icon-button>
-
-    </toolbar-settings>
-
-
 
 
     <main>
-      <canvas id="drawing" width="1700" height="500"></canvas>
+      <toolbar-settings>
+        <icon-button>afsdgds</icon-button>
+        <icon-button>afdggdss</icon-button>
+        <icon-button>afgdsgs</icon-button>
+
+      </toolbar-settings>
+
+
       <panel>
         <color-palette>
           <color class="purple"></color>
@@ -43,10 +42,6 @@
           <color class="pink"></color>
           <color class="purple"></color>
 
-
-
-
-
           <color class="purple"></color>
           <color class="pink"></color>
           <color class="rose"></color>
@@ -55,12 +50,17 @@
         </color-palette>
 
       </panel>
+
+      <canvas-container>
+        <canvas id="drawing"></canvas>
+      </canvas-container>
     </main>
 
 
 
   </div>
 
+  <script src="library/globalsAndConstants.js"></script>
   <script src="library/listeners.js"></script>
   <script src="library/svg.js"></script>
   <!--<script src="library/benchmark.js"></script>-->

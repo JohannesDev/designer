@@ -34,29 +34,40 @@ toolbar-settings {
 }
 
 main {
-  display: flex;
+  width: 100%;
+  display: grid;
+  grid-template-columns: 1fr 250px;
+  grid-template-rows: 50px 400px;
 
-  canvas {
-    border-style: solid;
+  toolbar-settings {
+    grid-column: 1/ 2;
+    grid-row: 1/ -1;
+  }
+  canvas-container {
+    grid-column: 1/ 2;
+    grid-row: 2/ 3;
 
-    flex-grow: 1;
+    canvas {
+      border-style: solid;
+    }
   }
 
   panel {
-    width: 20rem;
+    grid-column: 2/ 3;
+
     display: flex;
     flex-direction: column;
 
     color-palette {
-      padding-top: 0.7em;
+      padding-top: 10px;
 
       display: grid;
       grid-template-columns: repeat(5, 1fr);
-      grid-row-gap: 0.7em;
+      grid-row-gap: 10px;
       justify-items: center;
 
       color {
-        width: 2em;
+        width: 35px;
         border-radius: 1.5em;
       }
       color:after {

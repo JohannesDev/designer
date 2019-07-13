@@ -1,14 +1,14 @@
-let ctx
-let canvas
-let canvasY
-let canvasX
-let down = false
+
 
 
 class SVG {
   constructor() {
     canvas = document.getElementById("drawing");
     ctx = canvas.getContext("2d");
+
+    let rect = canvas.parentNode.getBoundingClientRect();
+    canvas.width = rect.width;
+    canvas.height = rect.height;
 
     this.objectList = [];
     this.activeObject

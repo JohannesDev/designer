@@ -1,9 +1,6 @@
-let mode = 'line'
 let previousButton
 
 document.addEventListener('mousedown', function (event) {
-
-
 
     if (event.target.id === 'button-drawline' || event.target.parentElement.id === 'button-drawline') {
         mode = 'line'
@@ -36,4 +33,7 @@ document.addEventListener('mousedown', function (event) {
 
 
 });
+
+
+
 
