@@ -56,24 +56,25 @@ class SVG {
           object.drawBoundingBox()
 
           //determining which Point of the line was clicked
-          let distancePoint1 = Math.abs(reference.activeObject.x1 - x) + Math.abs(reference.activeObject.y1 - y)
-          let distancePoint2 = Math.abs(reference.activeObject.x2 - x) + Math.abs(reference.activeObject.y2 - y)
+          let point1 = ctx.isPointInPath(object.transformationPoint1, x, y);
+          let point2 = ctx.isPointInPath(object.transformationPoint2, x, y);
 
-          if (distancePoint1 < 10) {
+          if (point1) {
             reference.transformationOption = 0
           }
-          else if (distancePoint2 < 10) {
+          else if (point2) {
             reference.transformationOption = 2
           }
           else {
             reference.transformationOption = 1
           }
-
-
         }
 
       })
     }
+
+
+
 
   }
 
@@ -110,6 +111,8 @@ class Line {
     this.y2 = y2;
     this.path = new Path2D()
     this.boundingPath = new Path2D()
+    this.transformationPoint1 = new Path2D()
+    this.transformationPoint2 = new Path2D()
   }
 
   draw() {
@@ -127,20 +130,19 @@ class Line {
 
   drawBoundingBox() {
     let path = this.boundingPath = new Path2D()
+    let pathPoint1 = this.transformationPoint1 = new Path2D()
+    let pathPoint2 = this.transformationPoint2 = new Path2D()
     let radius = 5
 
     path.moveTo(this.x1, this.y1)
     path.lineTo(this.x2, this.y2)
     path.moveTo(this.x2, this.y2)
 
-    path.moveTo(this.x1 + radius, this.y1)
-    path.arc(this.x1, this.y1, radius, 0, 2 * Math.PI);
+    pathPoint1.moveTo(this.x1 + radius, this.y1)
+    pathPoint1.arc(this.x1, this.y1, radius, 0, 2 * Math.PI);
 
-    path.moveTo(this.x2 + radius, this.y2)
-    path.arc(this.x2, this.y2, radius, 0, 2 * Math.PI);
-
-    path.moveTo((this.x2 - this.x1) / 2 + this.x1, (this.y2 - this.y1) / 2 + this.y1)
-    path.arc((this.x2 - this.x1) / 2 + this.x1, (this.y2 - this.y1) / 2 + this.y1, radius, 0, 2 * Math.PI);
+    pathPoint2.moveTo(this.x2 + radius, this.y2)
+    pathPoint2.arc(this.x2, this.y2, radius, 0, 2 * Math.PI);
 
     ctx.strokeStyle = "#436191";
     ctx.fillStyle = "#FFffff";
@@ -148,6 +150,12 @@ class Line {
 
     ctx.stroke(path)
     ctx.fill(path)
+
+    ctx.stroke(pathPoint1)
+    ctx.fill(pathPoint1)
+
+    ctx.stroke(pathPoint2)
+    ctx.fill(pathPoint2)
   }
 
 }
