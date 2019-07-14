@@ -20,6 +20,8 @@ class SVG {
 
   drawLine(x1, y1, x2, y2) {
     let line = new Line(x1, y1, x2, y2)
+    line.lineWidth = ui_lineWidth
+
     this.activeObject = line
     this.objectList.push(line)
 
@@ -46,6 +48,8 @@ class SVG {
     this.redraw()
     let reference = this
     this.activeObject = undefined
+
+
 
     if (this.objectList.length > 0) {
       this.objectList.forEach(function (object, index) {
@@ -109,10 +113,14 @@ class Line {
     this.y1 = y1;
     this.x2 = x2;
     this.y2 = y2;
+
     this.path = new Path2D()
+
     this.boundingPath = new Path2D()
     this.transformationPoint1 = new Path2D()
     this.transformationPoint2 = new Path2D()
+
+    this.lineWidth = 20
   }
 
   draw() {
@@ -123,7 +131,7 @@ class Line {
     path.moveTo(this.x2, this.y2)
 
     ctx.lineCap = 'round'
-    ctx.lineWidth = 20
+    ctx.lineWidth = this.lineWidth
     ctx.strokeStyle = "#000000";
     ctx.stroke(path)
   }

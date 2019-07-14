@@ -21,11 +21,19 @@
 
     <main>
       <toolbar-settings>
-        <icon-button>afsdgds</icon-button>
-        <icon-button>afdggdss</icon-button>
-        <icon-button>afgdsgs</icon-button>
+        <settings-group>
+          <input type="text" value="25" id="lineWidth">
+        </settings-group>
 
+        <tabs>
+          <tab>Swatches</tab>
+          <tab>Colors</tab>
+          <tab>Text</tab>
+        </tabs>
       </toolbar-settings>
+
+
+
 
 
       <panel>
@@ -51,6 +59,11 @@
 
       </panel>
 
+
+
+
+
+
       <canvas-container>
         <canvas id="drawing"></canvas>
       </canvas-container>
@@ -61,7 +74,7 @@
   </div>
 
   <script src="library/globalsAndConstants.js"></script>
-  <script src="library/listeners.js"></script>
+  <script src="library/ui.js"></script>
   <script src="library/svg.js"></script>
   <!--<script src="library/benchmark.js"></script>-->
   <script src="app.js"></script>

@@ -40,8 +40,20 @@ main {
   grid-template-rows: 50px 400px;
 
   toolbar-settings {
-    grid-column: 1/ 2;
-    grid-row: 1/ -1;
+    grid-column: 1/ -1;
+    grid-row: 1/ 2;
+
+    display: flex;
+    align-items: center;
+
+    settings-group {
+      flex: 1;
+    }
+    tabs {
+      min-width: 250px;
+      display: flex;
+      justify-content: space-around;
+    }
   }
   canvas-container {
     grid-column: 1/ 2;
