@@ -4,7 +4,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Designer</title>
-  <script src="https://kit.fontawesome.com/b4a05170ea.js"></script>
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4/css/tachyons.min.css">
   <link href="style.css" rel="stylesheet" type="text/css">
 </head>
 
@@ -12,6 +12,7 @@
   <div id="app">
 
     <toolbar>
+      <icon-button id="button-drawline"><img src="res/hamburger.svg" class="icon"></icon-button>
       <icon-button id="button-drawline"><img src="res/pointer.svg" class="icon"></icon-button>
       <icon-button id="button-selectline"><img src="res/line.svg" class="icon"></icon-button>
       <icon-button id="button-deleteline"><img src="res/square.svg" class="icon"></icon-button>
@@ -22,7 +23,7 @@
     <main>
       <toolbar-settings>
         <settings-group>
-          <input type="text" value="25" id="lineWidth">
+          <input type="text" value="25" id="lineWidth" class="lineWidth">
         </settings-group>
 
         <tabs>
