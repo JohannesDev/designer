@@ -5,7 +5,7 @@ canvas.addEventListener('mousedown', function (event) {
 
 
   if (mode === "line") {
-    svg.drawLine(canvasX, canvasY, canvasX, canvasY)
+    svg.drawLine(canvasX, canvasY, canvasX, canvasY, ui_lineWidth)
   }
 
   if (mode === "selectLine") {
@@ -19,7 +19,7 @@ canvas.addEventListener('mousedown', function (event) {
 
 
 canvas.addEventListener('mousemove', function (event) {
-  if (down === true && svg.activeObject != undefined && mode == "selectLine") {
+  /*if (down === true && svg.activeObject != undefined && mode == "selectLine") {
 
     switch (svg.transformationOption) {
       case 0: svg.transformLine(canvasX, canvasY, undefined, undefined, svg.activeObject); break
@@ -34,13 +34,13 @@ canvas.addEventListener('mousemove', function (event) {
   }
   else if (down === true && mode == "line") {
     svg.transformLine(undefined, undefined, canvasX, canvasY, svg.activeObject)
-  }
+  }*/
 });
 
 
 document.addEventListener('mouseup', function (event) {
 
-  if (down === true && mode == "line") {
+  if (mode == "line") {
     svg.transformLine(undefined, undefined, canvasX, canvasY, svg.activeObject)
   }
 

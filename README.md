@@ -10,10 +10,8 @@
 
 
 <!-- PROJECT SHIELDS -->
-[![Build Status][build-shield]]()
-[![Contributors][contributors-shield]]()
-[![MIT License][license-shield]][license-url]
-[![LinkedIn][linkedin-shield]][linkedin-url]
+
+![GitHub code size in bytes](https://img.shields.io/github/languages/code-size/JohannesDev/designer.svg)
 
 
 

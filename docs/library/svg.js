@@ -18,9 +18,9 @@ class SVG {
 
 
 
-  drawLine(x1, y1, x2, y2) {
+  drawLine(x1, y1, x2, y2, lineWidth) {
     let line = new Line(x1, y1, x2, y2)
-    line.lineWidth = ui_lineWidth
+    line.lineWidth = lineWidth
 
     this.activeObject = line
     this.objectList.push(line)
@@ -120,7 +120,7 @@ class Line {
     this.transformationPoint1 = new Path2D()
     this.transformationPoint2 = new Path2D()
 
-    this.lineWidth = 20
+    this.lineWidth = 5
   }
 
   draw() {
