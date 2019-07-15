@@ -6,9 +6,9 @@ class SVG {
     canvas = document.getElementById("drawing");
     ctx = canvas.getContext("2d");
 
-    let rect = canvas.parentNode.getBoundingClientRect();
-    canvas.width = rect.width;
-    canvas.height = rect.height;
+    let parent = canvas.parentNode.getBoundingClientRect();
+    canvas.width = parent.width - 40;
+    canvas.height = parent.height - 40;
 
     this.objectList = [];
     this.activeObject
@@ -132,7 +132,7 @@ class Line {
 
     ctx.lineCap = 'round'
     ctx.lineWidth = this.lineWidth
-    ctx.strokeStyle = "#000000";
+    ctx.strokeStyle = "#FFFFFF";
     ctx.stroke(path)
   }
 
@@ -153,7 +153,7 @@ class Line {
     pathPoint2.arc(this.x2, this.y2, radius, 0, 2 * Math.PI);
 
     ctx.strokeStyle = "#436191";
-    ctx.fillStyle = "#FFffff";
+    ctx.fillStyle = "#FFFFFF";
     ctx.lineWidth = 1
 
     ctx.stroke(path)

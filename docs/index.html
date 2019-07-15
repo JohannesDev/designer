@@ -11,25 +11,26 @@
 <body>
   <div id="app">
 
-    <toolbar>
-      <icon-button id="button-drawline"><img src="res/hamburger.svg" class="icon"></icon-button>
-      <icon-button id="button-drawline"><img src="res/pointer.svg" class="icon"></icon-button>
-      <icon-button id="button-selectline"><img src="res/line.svg" class="icon"></icon-button>
-      <icon-button id="button-deleteline"><img src="res/square.svg" class="icon"></icon-button>
+    <toolbar class="jb__flex jb__bg__pm--light">
+      <icon-button class="jb__pd1"><img src="res/hamburger.svg" class="icon"></icon-button>
+      <icon-button class="jb__pd1 jb__active" id="button-drawline"><img src="res/pointer.svg" class="icon">
+      </icon-button>
+      <icon-button class="jb__pd1" id="button-selectline"><img src="res/line.svg" class="icon"></icon-button>
+      <icon-button class="jb__pd1" id="button-deleteline"><img src="res/square.svg" class="icon"></icon-button>
     </toolbar>
 
 
 
-    <main>
-      <toolbar-settings>
+    <main class="jb__grid jb__bg__pm--dark">
+      <toolbar-settings class="jb__grid--cfull jb__flex jb__flex--center jb__shadow ">
         <settings-group>
-          <input type="text" value="25" id="lineWidth" class="lineWidth">
+          <input type="text" value="25" id="lineWidth" class="lineWidth  jb__mg1 ">
         </settings-group>
 
         <tabs>
-          <tab>Swatches</tab>
-          <tab>Colors</tab>
-          <tab>Text</tab>
+          <tab class="jb__txt--white jb__active jb__pd1--tb">Swatches</tab>
+          <tab class="jb__txt--white jb__pd1--tb">Colors</tab>
+          <tab class="jb__txt--white jb__pd1--tb">Text</tab>
         </tabs>
       </toolbar-settings>
 
@@ -37,25 +38,25 @@
 
 
 
-      <panel>
+      <panel class="jb__flex__column">
         <color-palette>
-          <color class="purple"></color>
-          <color class="pink"></color>
-          <color class="rose"></color>
-          <color class="salmon"></color>
-          <color class="orange"></color>
+          <color class="jb__bg__purple"></color>
+          <color class="jb__bg__pink"></color>
+          <color class="jb__bg__rose"></color>
+          <color class="jb__bg__salmon"></color>
+          <color class="jb__bg__orange"></color>
 
-          <color class="orange"></color>
-          <color class="salmon"></color>
-          <color class="rose"></color>
-          <color class="pink"></color>
-          <color class="purple"></color>
+          <color class="jb__bg__orange"></color>
+          <color class="jb__bg__salmon"></color>
+          <color class="jb__bg__rose"></color>
+          <color class="jb__bg__pink"></color>
+          <color class="jb__bg__purple"></color>
 
-          <color class="purple"></color>
-          <color class="pink"></color>
-          <color class="rose"></color>
-          <color class="salmon"></color>
-          <color class="orange"></color>
+          <color class="jb__bg__purple"></color>
+          <color class="jb__bg__pink"></color>
+          <color class="jb__bg__rose"></color>
+          <color class="jb__bg__salmon"></color>
+          <color class="jb__bg__orange"></color>
         </color-palette>
 
       </panel>
