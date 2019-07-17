@@ -7,8 +7,8 @@ class SVG {
     ctx = canvas.getContext("2d");
 
     let parent = canvas.parentNode.getBoundingClientRect();
-    canvas.width = parent.width - 40;
-    canvas.height = parent.height - 40;
+    canvas.width = parent.width;
+    canvas.height = parent.height;
 
     this.objectList = [];
     this.activeObject
