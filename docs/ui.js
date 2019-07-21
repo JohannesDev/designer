@@ -1,6 +1,5 @@
 let previousButton
 
-let inputLineWidth = document.getElementById('lineWidth');
 
 
 
@@ -39,11 +38,6 @@ document.addEventListener('mousedown', function (event) {
 
 });
 
-
-inputLineWidth.addEventListener('change', function (event) {
-    ui_lineWidth = event.target.value
-
-});
 
 
 
