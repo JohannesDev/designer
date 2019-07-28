@@ -1,30 +1,14 @@
 
 let drawingHelper = new DrawingHelper();
-
 //drawingHelper.drawRect(10,10,50,50)
 
-drawingHelper.drawRect(120,120,50,50)
+let rect = new Rect(10,10,100,100)
 
-
-
-
-$('drawing').addEventListener('mousedown', (event) => {
-    if (event.target.instance.type === "svg") {
+$('window').addEventListener('mousedown', (event) => {
+    console.log(event.target);
     
-    }
-});
-
-$('drawing').addEventListener('mousemove', () => {
-    if (event.target.instance.type === "svg") {
-    }
-    
-});
-
-$('drawing').addEventListener('mouseup', () => {
-
-});
-
-
+    let rect = new Rect(100,100,100,100)
+})
 
 
 
