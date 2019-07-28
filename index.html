@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Designer</title>
+
+  <link href="util.css" rel="stylesheet" type="text/css">
+  <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div id="app" class="h100">
+    <div id="header" class="flex__row">
+      <div class="txt__def mg__l__big">Position</div>
+      <div class="txt__def mg__lr__def">X</div>
+      <input type="text" class="br__def mg__lr__def txt__def" />
+      <div class="txt__def mg__lr__def">Y</div>
+      <input type="text" class="br__def mg__lr__def txt__def" />
+
+
+      <div class="txt__def mg__lr__def mg__l__big">Width</div>
+      <input type="text" class="br__def mg__lr__def txt__def" />
+      <div class="txt__def mg__lr__def">Height</div>
+      <input type="text" class="br__def mg__lr__def txt__def" />
+
+
+    </div>
+
+    <div id="panel">
+      <img src="res/pointer.png" />
+      <img src="res/rect.png" />
+      <img src="res/circle.png" />
+
+    </div>
+
+    <div id="window">
+        <div id="drawing">
+          </div>
+    </div>
+
+    <div id="properties"></div>
+  </div>
+  
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/svg.js/3.0.13/svg.js"></script>
+  <script src="domHelper.js"></script>
+  <script src="drawingHelper.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
