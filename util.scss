@@ -10,6 +10,14 @@ html, body {
   * {
     -moz-box-sizing: border-box;
     box-sizing: border-box;
+
+    //remove
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
   }
 
   .h100{
@@ -50,3 +58,12 @@ html, body {
     padding-left: 5px;
     padding-right: 5px;
     }
+
+    .unselectable {
+      -webkit-touch-callout: none;
+      -webkit-user-select: none;
+      -khtml-user-select: none;
+      -moz-user-select: none;
+      -ms-user-select: none;
+      user-select: none;
+  }

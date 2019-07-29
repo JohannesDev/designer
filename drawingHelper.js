@@ -10,14 +10,10 @@ class DrawingHelper {
 
     constructor() {
         canvas = new fabric.Canvas('drawing', {
-            width: $('window').clientWidth,
-            height: $('window').clientHeight
+            width: $('#window').clientWidth,
+            height: $('#window').clientHeight
         })
     }
-
- 
-
-
 
     objectClicked(){
         //returns true if object is active
@@ -46,34 +42,6 @@ class Rect {
         return rect;
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-$('window').addEventListener('mousedown', (event) => { 
-    mouseX = event.pageX - $('drawing').offsetLeft
-    mouseY = event.pageY - $('drawing').offsetTop
-    down = true;
-});
-
-$('drawing').addEventListener('mousemove', () => {
-    mouseX = event.pageX - $('drawing').offsetLeft
-    mouseY = event.pageY - $('drawing').offsetTop
-});
-
-$('drawing').addEventListener('mouseup', () => {
-    mouseX = event.pageX - $('drawing').offsetLeft
-    mouseY = event.pageY - $('drawing').offsetTop
-    down = false;
-});
 
 
 
