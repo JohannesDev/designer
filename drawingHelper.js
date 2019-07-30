@@ -34,13 +34,13 @@ class DrawingHelper {
 
         canvas.on('mouse:move', function (options) {
             if (down === true && currentPanelElement === $('#btn_rect')) {
-                
-                
-                if(typeof rect != 'undefined'){
+
+
+                if (typeof rect != 'undefined') {
                     let x = options.pointer.x - rect.get('left')
                     let y = options.pointer.y - rect.get('top')
-    
-                    rect.set({ width: x, height: y});
+
+                    rect.set({ width: x, height: y });
                     rect.setCoords()
                     canvas.renderAll();
                 }
@@ -57,7 +57,7 @@ class DrawingHelper {
 
 
 
-        
+
 
     }
 
@@ -67,8 +67,6 @@ class DrawingHelper {
     }*/
 
 }
-
-
 
 
 
@@ -85,19 +83,23 @@ class Rect {
 
         canvas.add(this._rect)
 
-        
+
 
         this._rect.on('selected', options => {
-            
+
         });
-        
-        
+
+
 
         return this._rect;
     }
 
 
 }
+
+
+
+
 
 
 

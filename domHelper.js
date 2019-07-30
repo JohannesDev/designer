@@ -22,8 +22,8 @@ let $ = function (selector) {
 let currentPanelElement = ""
 let previousPanelElement = $('#btn_pointer')
 
-let x = $('.panel__item')
-for(let element of x){
+let panelItems = $('.panel__item')
+for(let element of panelItems){
 	element.addEventListener('click', (event) => {
 		currentPanelElement = event.currentTarget
 		
@@ -60,5 +60,21 @@ $('#drawing').addEventListener('mouseup', () => {
     //mouseY = event.pageY - $('#window').offsetTop
     //down = false;
 });
+
+
+
+const UI = {
+	button_pointer: $('#btn_pointer'),
+	button_rect: $('#btn_rect'),
+	button_circle: $('#btn_circle'),
+
+	color_turquoise: $('#turquoise'),
+	color_tangopink: $('#tangopink'),
+	color_ube: $('#ube'),
+	color_liberty: $('#liberty'),
+	color_gargoyleglass: $('#gargoyleglass')
+}
+
+
 
 
