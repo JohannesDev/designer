@@ -68,20 +68,22 @@ class DrawingHelper {
 
 }
 
-
-
 class Rect {
     constructor(x, y, width, height) {
+
         this._rect = new fabric.Rect({
             left: x,
             top: y,
             fill: 'blue',
             width: width,
-            height: height
+            height: height,
+            stroke: '#666',
+            strokeWidth: 5,
             //cornerStyle: "circle"
         });
 
         canvas.add(this._rect)
+
 
 
 
