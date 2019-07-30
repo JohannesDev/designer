@@ -45,20 +45,20 @@ for(let element of x){
 
 
 $('#window').addEventListener('mousedown', (event) => { 
-    mouseX = event.pageX - $('#window').offsetLeft
-    mouseY = event.pageY - $('#window').offsetTop
-    down = true;
+    //mouseX = event.pageX - $('#window').offsetLeft
+    //mouseY = event.pageY - $('#window').offsetTop
+    //down = true;
 });
 
 $('#drawing').addEventListener('mousemove', () => {
-    mouseX = event.pageX - $('#window').offsetLeft
-    mouseY = event.pageY - $('#window').offsetTop
+    //mouseX = event.pageX - $('#window').offsetLeft
+    //mouseY = event.pageY - $('#window').offsetTop
 });
 
 $('#drawing').addEventListener('mouseup', () => {
-    mouseX = event.pageX - $('#window').offsetLeft
-    mouseY = event.pageY - $('#window').offsetTop
-    down = false;
+    //mouseX = event.pageX - $('#window').offsetLeft
+    //mouseY = event.pageY - $('#window').offsetTop
+    //down = false;
 });
 
 

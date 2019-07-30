@@ -59,5 +59,35 @@ img{
 
 #properties{
     background-color: $primary--dark;
+
+    display: flex;
+    flex-direction: column;
+
+}
+color{
+    width: 40px;
+    height: 40px;
+
+    margin-left: auto;
+    margin-right: auto;
+
+    border-radius: 100%;
+    border: 1px solid grey;
+}
+
+.turquoise{
+    background-color: #23f0c7;
+}
+.tangopink{
+    background-color: #EF767A;
+}
+.ube{
+    background-color: #7D7ABC;
+}
+.liberty{
+    background-color: #6457A6;
+}
+.gargoyleglass{
+    background-color: #FFE347;
 }
 
