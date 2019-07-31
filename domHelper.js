@@ -43,26 +43,6 @@ for(let element of panelItems){
 }
 
 
-
-$('#window').addEventListener('mousedown', (event) => { 
-    //mouseX = event.pageX - $('#window').offsetLeft
-    //mouseY = event.pageY - $('#window').offsetTop
-    //down = true;
-});
-
-$('#drawing').addEventListener('mousemove', () => {
-    //mouseX = event.pageX - $('#window').offsetLeft
-    //mouseY = event.pageY - $('#window').offsetTop
-});
-
-$('#drawing').addEventListener('mouseup', () => {
-    //mouseX = event.pageX - $('#window').offsetLeft
-    //mouseY = event.pageY - $('#window').offsetTop
-    //down = false;
-});
-
-
-
 const UI = {
 	button_pointer: $('#btn_pointer'),
 	button_rect: $('#btn_rect'),

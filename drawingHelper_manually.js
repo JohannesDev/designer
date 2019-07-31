@@ -37,7 +37,7 @@ class DrawingHelper {
         this._objectList.push(rect)
         this._objectList.push(rect2)
 
-        //this.redraw()
+        this.redraw()
 
 
 
@@ -77,7 +77,7 @@ class DrawingHelper {
                 }
             })
             
-            //this.redraw()
+            this.redraw()
         })
 
         canvas.addEventListener('mousemove', (event) => {
@@ -86,7 +86,7 @@ class DrawingHelper {
                 this._activeObject.x = event.layerX - this._clickOffsetX
                 this._activeObject.y = event.layerY - this._clickOffsetY
 
-                //this.redraw()
+                this.redraw()
             }
             //Scaling with top right corner
             else if (this.down === true && this._mode === MODES.SCALE_TL) {
@@ -117,7 +117,7 @@ class DrawingHelper {
                 this._activeObject.height = event.layerY - this._activeObject.y;
             }
 
-            //this.redraw()
+            this.redraw()
         })
 
         canvas.addEventListener('mouseup', (event) => {
