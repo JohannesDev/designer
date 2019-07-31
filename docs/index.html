@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <title>Designer</title>
+
+  <link href="util.css" rel="stylesheet" type="text/css">
+  <link href="style.css" rel="stylesheet" type="text/css">
+</head>
+
+<body>
+  <div id="app" class="h100">
+    <div id="header" class="flex__row">
+      <div class="txt__def mg__l__big">Position</div>
+      <div class="txt__def mg__lr__def">X</div>
+      <input type="text" class="br__def mg__lr__def txt__def" />
+      <div class="txt__def mg__lr__def">Y</div>
+      <input type="text" class="br__def mg__lr__def txt__def" />
+
+
+      <div class="txt__def mg__lr__def mg__l__big">Width</div>
+      <input type="text" class="br__def mg__lr__def txt__def" />
+      <div class="txt__def mg__lr__def">Height</div>
+      <input type="text" class="br__def mg__lr__def txt__def" />
+
+
+    </div>
+
+    <div id="panel">
+      <div id="btn_pointer" class="panel__item active"><img  src="res/pointer.png" /></div>
+      <div id="btn_rect" class="panel__item"><img src="res/rect.png" /></div>
+      <div id="btn_circle" class="panel__item"><img  src="res/circle.png" /></div>
+    </div>
+
+    <div id="window" style="position:relative;">
+        <canvas id="drawing"></canvas>
+    </div>
+
+    <div id="properties">
+      <p class="mg__l__medium">Colors</p>
+      <div class="grid">
+        <color id="turquoise"></color>
+        <color id="tangopink"></color>
+        <color id="ube"></color>
+        <color id="liberty"></color>
+        <color id="gargoyleglass"></color>
+      </div>
+
+    </div>
+  </div>
+  
+
+  <script src="domHelper.js"></script>
+  <script src="drawingHelper.js"></script>
+  <script src="rect.js"></script>
+  <script src="app.js"></script>
+</body>
+
+</html>
