@@ -1,5 +1,5 @@
 
-let drawingHelper = new DrawingHelper();
+drawingHelper = new DrawingHelper();
 
 
 

@@ -4,100 +4,109 @@ let mouseY;
 let down = false;
 
 let canvas
+let ctx
+let objectList = []
+let activeObject = null
 
+let drawingHelper
 
 class DrawingHelper {
 
     constructor() {
-        canvas = new fabric.Canvas('drawing', {
-            width: $('#window').clientWidth,
-            height: $('#window').clientHeight
+        canvas = document.getElementById('drawing');
+        ctx = canvas.getContext('2d');
+
+        canvas.width = $('#window').clientWidth;
+        canvas.height = $('#window').clientHeight - 4;
+
+        let rect = new Rect(10, 20, 100, 200, 10, 'blue', 'blue')
+
+        objectList.push(rect)
+        this.redraw()
+
+this._down = false
+        this._clickOffsetX
+        this._clickOffsetY
+
+
+        canvas.addEventListener('mousedown', (event) => {
+            this.down = true;
+
+            objectList.forEach((element) => {
+                if(element.isPointInPath(event.layerX)){
+                    activeObject = element;
+                }
+                else{
+                    //activeObject = null
+                }
+            })
+            //console.log(activeObject);
+            
+
+            this._clickOffsetX = event.layerX - activeObject._x;
+            this._clickOffsetY = event.layerY - activeObject._y;
+
         })
 
-        let rect
-        let down
-
-
-        canvas.on('mouse:down', function (options) {
-            down = true;
-
-            if (options.target === null && currentPanelElement === $('#btn_rect')) {
-                //console.log(options);
-
-                let x = options.pointer.x
-                let y = options.pointer.y
-
-                rect = new Rect(x, y, 1, 1)
-                
-
+        canvas.addEventListener('mousemove', (event) => {
+            if (this.down === true) {
+                activeObject.x = event.layerX - this._clickOffsetX
+                activeObject.y = event.layerY - this._clickOffsetY
+                this.redraw()
             }
-        });
+        })
 
-        canvas.on('mouse:move', function (options) {
-            if (down === true && currentPanelElement === $('#btn_rect')) {
-
-
-                if (typeof rect != 'undefined') {
-                    let x = options.pointer.x - rect.get('left')
-                    let y = options.pointer.y - rect.get('top')
-
-                    rect.set({ width: x, height: y });
-                    rect.setCoords()
-                    canvas.renderAll();
-                }
-            }
-        });
-
-        canvas.on('mouse:up', function (options) {
-            if (currentPanelElement === $('#btn_rect')) {
-                down = false;
-                rect = null;
-                $('#btn_pointer').click();
-            }
-        });
+        canvas.addEventListener('mouseup', (event) => {
+            this.down = false;            
+        })
+    }
 
 
+    redraw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-
-
+        objectList.forEach((element) => {
+            element.draw()
+            //ctx.stroke(); // change order maybe
+        })
     }
 
 }
 
 class Rect {
-    constructor(x, y, width, height) {
+    constructor(x, y, width, height, lineWidth, lineStyle, fillStyle) {
+        this._path
+        this._x = x;
+        this._y = y;
+        this._width = width;
+        this._height = height;
+        this._lineWidth = lineWidth;
+        this._strokeStyle = lineStyle;
+        this._fillStyle = fillStyle;
 
-        this._rect = new fabric.Rect({
-            left: x,
-            top: y,
-            fill: 'blue',
-            width: width,
-            height: height,
-            stroke: '#666',
-            strokeWidth: 5,
-            //cornerStyle: "circle"
-        });
-
-        canvas.add(this._rect)
-
-        this._rect.on('selected', options => {
-
-        });
-
-        return this._rect;
     }
+
+    draw() {
+        this._path = new Path2D()
+        this._path.moveTo(this._x, this._y);
+        this._path.lineTo(this._x + this._width, this._y);
+        this._path.lineTo(this._x + this._width, this._y + this._height);
+        this._path.lineTo(this._x, this._y + this._height);
+        this._path.closePath();
+
+        ctx.lineWidth = this._lineWidth;
+        ctx.strokeStyle = this._lineStyle;
+        ctx.fillStyle = this._fillStyle;
+
+        ctx.fill(this._path);
+
+    }
+
+    isPointInPath(x, y){
+        return ctx.isPointInPath(this._path, event.layerX, event.layerY)
+    }
+
+    set x (x) { this._x = x }
+    set y (y){ this._y = y }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
