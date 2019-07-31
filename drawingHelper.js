@@ -4,6 +4,9 @@ let ctx
 
 let drawingHelper
 
+objectList = []
+activeObject = null
+
 const MODES = {
     MOVE: 0,
     SCALE_TL: 1,
@@ -17,9 +20,8 @@ class DrawingHelper {
     constructor() {
         canvas = document.getElementById('drawing');
         ctx = canvas.getContext('2d');
-
-        this._objectList = []
-        this._activeObject = null
+        
+        
         this._down = false;
         this._clickOffsetX
         this._clickOffsetY
@@ -34,11 +36,10 @@ class DrawingHelper {
         let rect = new Rect(10, 20, 100, 200, 'blue')
         let rect2 = new Rect(100, 200, 200, 200, 'red')
 
-        this._objectList.push(rect)
-        this._objectList.push(rect2)
+        objectList.push(rect)
+        objectList.push(rect2)
 
         //this.redraw()
-
 
 
         canvas.addEventListener('mousedown', (event) => {
@@ -48,7 +49,7 @@ class DrawingHelper {
 
 
             
-            this._objectList.forEach((element) => {
+            objectList.forEach((element) => {
                 
                 if (element.isPointInCornerTL(event.layerX, event.layerY)) {
                     console.log("TL");
@@ -71,9 +72,9 @@ class DrawingHelper {
                     console.log("ab");
                     
                     this._mode = MODES.MOVE 
-                    this._activeObject = element;
-                    this._clickOffsetX = event.layerX - this._activeObject._x;
-                    this._clickOffsetY = event.layerY - this._activeObject._y;
+                    activeObject = element;
+                    this._clickOffsetX = event.layerX - activeObject._x;
+                    this._clickOffsetY = event.layerY - activeObject._y;
                 }
             })
             
@@ -82,39 +83,39 @@ class DrawingHelper {
 
         canvas.addEventListener('mousemove', (event) => {
             //Move whole object
-            if (this._activeObject != null && this.down === true && this._mode === MODES.MOVE) {
-                this._activeObject.x = event.layerX - this._clickOffsetX
-                this._activeObject.y = event.layerY - this._clickOffsetY
+            if (activeObject != null && this.down === true && this._mode === MODES.MOVE) {
+                activeObject.x = event.layerX - this._clickOffsetX
+                activeObject.y = event.layerY - this._clickOffsetY
 
                 //this.redraw()
             }
             //Scaling with top right corner
             else if (this.down === true && this._mode === MODES.SCALE_TL) {
-                this._activeObject.width += this._activeObject.x - event.layerX
-                this._activeObject.height += this._activeObject.y - event.layerY
+                activeObject.width += activeObject.x - event.layerX
+                activeObject.height += activeObject.y - event.layerY
 
-                this._activeObject.x = event.layerX
-                this._activeObject.y = event.layerY
+                activeObject.x = event.layerX
+                activeObject.y = event.layerY
             }
             //Scaling with top left corner
             else if (this.down === true && this._mode === MODES.SCALE_TR) {
-                this._activeObject.width = event.layerX - this._activeObject.x;
+                activeObject.width = event.layerX - activeObject.x;
 
-                this._activeObject.height += this._activeObject.y - event.layerY
-                this._activeObject.y = event.layerY
+                activeObject.height += activeObject.y - event.layerY
+                activeObject.y = event.layerY
             }
             //Scaling with bottom right corner
             else if (this.down === true && this._mode === MODES.SCALE_BR) {
-                this._activeObject.width = event.layerX - this._activeObject.x;
-                this._activeObject.height = event.layerY - this._activeObject.y;
+                activeObject.width = event.layerX - activeObject.x;
+                activeObject.height = event.layerY - activeObject.y;
 
             }
             //Scaling with bottom left corner
             else if (this.down === true && this._mode === MODES.SCALE_BL) {
-                this._activeObject.width += this._activeObject.x - event.layerX
-                this._activeObject.x = event.layerX
+                activeObject.width += activeObject.x - event.layerX
+                activeObject.x = event.layerX
 
-                this._activeObject.height = event.layerY - this._activeObject.y;
+                activeObject.height = event.layerY - activeObject.y;
             }
 
             //this.redraw()
@@ -126,18 +127,26 @@ class DrawingHelper {
     }
 
 
-    redraw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-        this._objectList.forEach((element) => {
-            element.draw()
-            if(element === this._activeObject){
-                element.drawActive()
-            }
-            //ctx.stroke(); // change order maybe
-        })
-    }
+    
 
 }
+
+function redraw() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    objectList.forEach((element) => {
+        element.draw()
+        if(element === activeObject){
+            element.drawActive()
+        }
+        //ctx.stroke(); // change order maybe
+    })
+
+    requestAnimationFrame(redraw);
+}
+requestAnimationFrame(redraw);
+
+
 
 
