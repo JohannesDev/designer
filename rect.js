@@ -42,16 +42,16 @@ class Rect {
         this._pathBoundingRect.closePath();
 
         this._pathCornerTL = new Path2D()
-        this._pathCornerTL.arc(this._x, this._y, 5, 0, 2* Math.PI, true)
+        this._pathCornerTL.arc(this._x, this._y, 5, 0, 2 * Math.PI, true)
 
         this._pathCornerTR = new Path2D()
-        this._pathCornerTR.arc(this._x + this._width, this._y, 5, 0, 2* Math.PI, true)
+        this._pathCornerTR.arc(this._x + this._width, this._y, 5, 0, 2 * Math.PI, true)
 
         this._pathCornerBR = new Path2D()
-        this._pathCornerBR.arc(this._x + this._width, this._y + this._height, 5, 0, 2* Math.PI, true)
+        this._pathCornerBR.arc(this._x + this._width, this._y + this._height, 5, 0, 2 * Math.PI, true)
 
         this._pathCornerBL = new Path2D()
-        this._pathCornerBL.arc(this._x, this._y + this._height, 5, 0, 2* Math.PI, true)
+        this._pathCornerBL.arc(this._x, this._y + this._height, 5, 0, 2 * Math.PI, true)
 
         ctx.strokeStyle = "green";
         ctx.lineWidth = 2;
@@ -69,33 +69,63 @@ class Rect {
         ctx.fill(this._pathCornerTR);
         ctx.fill(this._pathCornerBR);
         ctx.fill(this._pathCornerBL);
-        
+
     }
 
     isPointInObject(x, y) {
         return ctx.isPointInPath(this._path, event.layerX, event.layerY)
     }
-    
-    isPointInCornerTL(x, y) {
-        return ctx.isPointInPath(this._pathCornerTL, event.layerX, event.layerY)
-    }
 
-    isPointInCornerTR(x, y) {
-        return ctx.isPointInPath(this._pathCornerTR, event.layerX, event.layerY)
+    isPointInControlls(x, y) {
+        if (ctx.isPointInPath(this._pathCornerTL, event.layerX, event.layerY)) {
+            return 0;
+        }
+        else if (ctx.isPointInPath(this._pathCornerTR, event.layerX, event.layerY)) {
+            return 1;
+        }
+        else if (ctx.isPointInPath(this._pathCornerBR, event.layerX, event.layerY)) {
+            return 2;
+        }
+        else if (ctx.isPointInPath(this._pathCornerBL, event.layerX, event.layerY)) {
+            return 3;
+        }
     }
+    scale(mode, x, y) {
+        switch (mode) {
+            case MODES.SCALE.TL:
+                this._width += this._x - x
+                this._height += this._y - y
 
-    isPointInCornerBR(x, y) {
-        return ctx.isPointInPath(this._pathCornerBR, event.layerX, event.layerY)
-    }
+                this._x = x
+                this._y = y
+                break;
 
-    isPointInCornerBL(x, y) {
-        return ctx.isPointInPath(this._pathCornerBL, event.layerX, event.layerY)
+            case MODES.SCALE.TR:
+                this._width = x - this._x;
+
+                this._height += this._y - y
+                this._y = y
+                break;
+
+            case MODES.SCALE.BR:
+                this._width = x - this._x;
+                this._height = y - this._y;
+                break;
+
+            case MODES.SCALE.BL:
+                this._width += this._x - x
+                this._x = x
+
+                this._height = y - this._y;
+                break;
+        }
+
     }
 
     get x() { return this._x }
     get y() { return this._y }
-    get width() { return this._width}
-    get height() { return this._height}
+    get width() { return this._width }
+    get height() { return this._height }
 
     set x(x) { this._x = x }
     set y(y) { this._y = y }

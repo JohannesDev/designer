@@ -1,3 +1,16 @@
+//global consts
+const MODES = {
+    MOVE: 0,
+    SCALE: {
+        TL: 1,
+        TR: 2,
+        BR: 3,
+        BL: 4,
+    },
+    DRAWING: 5,
+}
+
+
 let $ = function (selector) {
 
 	'use strict';
@@ -19,7 +32,7 @@ let $ = function (selector) {
 
 //PANEL  on click events
 
-let currentPanelElement = ""
+let currentPanelElement = $('#btn_pointer')
 let previousPanelElement = $('#btn_pointer')
 
 let panelItems = $('.panel__item')
