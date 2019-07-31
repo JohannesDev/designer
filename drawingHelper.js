@@ -28,6 +28,7 @@ class DrawingHelper {
                 let y = options.pointer.y
 
                 rect = new Rect(x, y, 1, 1)
+                
 
             }
         });
@@ -61,11 +62,6 @@ class DrawingHelper {
 
     }
 
-    /*objectClicked() {
-        //returns true if object is active
-        return canvas.getActiveObject() === null || typeof canvas.getActiveObject() === 'undefined';
-    }*/
-
 }
 
 class Rect {
@@ -84,19 +80,12 @@ class Rect {
 
         canvas.add(this._rect)
 
-
-
-
         this._rect.on('selected', options => {
 
         });
 
-
-
         return this._rect;
     }
-
-
 }
 
 
