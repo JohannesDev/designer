@@ -82,33 +82,36 @@ class DrawingHelper {
             this.redraw()
         })
 
-        canvas.addEventListener('mousemove', (event) => {
+        document.addEventListener('mousemove', (event) => {
+            let mouseX = event.clientX - $('#window').offsetLeft
+            let mouseY = event.clientY - $('#window').offsetTop
+            
             
             //Move whole object
             if (this._activeObject != null && this.down === true && this._mode === MODES.MOVE) {
-                this._activeObject.x = event.layerX - this._clickOffsetX
-                this._activeObject.y = event.layerY - this._clickOffsetY
+                this._activeObject.x = mouseX - this._clickOffsetX
+                this._activeObject.y = mouseY - this._clickOffsetY
 
             }
 
             //Scaling
             else if (this.down === true && Object.values(MODES.SCALE).includes(this._mode)) {
-                this._activeObject.scale(this._mode, event.layerX, event.layerY)
+                this._activeObject.scale(this._mode, mouseX, mouseY)
             }
 
             //Draw new object
             if (this._activeObject === null && currentPanelElement === $('#btn_rect') && this._mode === MODES.DRAWING) {
                 let rect = this._objectList[this._objectList.length - 1]
 
-                rect.width = event.layerX - rect.x;
-                rect.height = event.layerY - rect.y;
+                rect.width = mouseX - rect.x;
+                rect.height = mouseY - rect.y;
 
             }
 
             this.redraw()
         })
 
-        canvas.addEventListener('mouseup', (event) => {
+        document.addEventListener('mouseup', (event) => {
             this.down = false;
 
             if (currentPanelElement === $('#btn_rect') && this._mode === MODES.DRAWING) {
