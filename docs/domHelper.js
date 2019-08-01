@@ -20,8 +20,8 @@ let $ = function (selector) {
 		return document.getElementById(id);
 	}
 	else if(selector[0]==="."){
-		let className = selector.substring(1)
-		return document.getElementsByClassName("panel__item")
+		let className = selector.substring(1)		
+		return document.getElementsByClassName(className)
 	
 	};
 	
@@ -54,6 +54,9 @@ for(let element of panelItems){
 		previousPanelElement = event.currentTarget
 	})
 }
+
+
+
 
 
 const UI = {

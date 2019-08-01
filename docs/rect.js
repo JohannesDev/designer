@@ -53,7 +53,7 @@ class Rect {
         this._pathCornerBL = new Path2D()
         this._pathCornerBL.arc(this._x, this._y + this._height, 5, 0, 2 * Math.PI, true)
 
-        ctx.strokeStyle = "green";
+        ctx.strokeStyle = "black";
         ctx.lineWidth = 2;
         ctx.stroke(this._pathBoundingRect);
 
@@ -126,9 +126,11 @@ class Rect {
     get y() { return this._y }
     get width() { return this._width }
     get height() { return this._height }
+    get fillStyle() { return this._fillStyle}
 
     set x(x) { this._x = x }
     set y(y) { this._y = y }
     set width(width) { this._width = width }
     set height(height) { this._height = height }
+    set fillStyle(fillStyle) { this._fillStyle = fillStyle }
 }
