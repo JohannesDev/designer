@@ -30,63 +30,81 @@ class DrawingHelper {
 
         this.redraw()
 
-
-
-        canvas.addEventListener('mousedown', (event) => {
-            //basic
-            this.down = true;
-            this._activeObject = null
-
-            //check for click event
-            this._objectList.forEach((element) => {
-
-                //check if object is clicked and set it active
-                if (element.isPointInObject(event.layerX, event.layerY)) {
-                    this._mode = MODES.MOVE
-                    this._activeObject = element;
-
-                    this._clickOffsetX = event.layerX - this._activeObject._x;
-                    this._clickOffsetY = event.layerY - this._activeObject._y;
-                }
-
-                //check if any control points are clicked and set the acording mode
-                switch (element.isPointInControlls(event.layerX, event.layerY)) {
-                    case 0:
-                        this._activeObject = element;
-                        this._mode = MODES.SCALE.TL;
-                        break;
-                    case 1:
-                        this._activeObject = element;
-                        this._mode = MODES.SCALE.TR;
-                        break;
-                    case 2:
-                        this._activeObject = element;
-                        this._mode = MODES.SCALE.BR;
-                        break;
-                    case 3:
-                        this._activeObject = element;
-                        this._mode = MODES.SCALE.BL
-                        break;
-                        
-                }
+        let colorItems = $('.color__item')
+        for (let element of colorItems) {
+            element.addEventListener('click', (event) => {
+                let color = window.getComputedStyle(element, null).getPropertyValue("background-color");
+                this._activeObject.fillStyle = color
+                this.redraw()
             })
+        }
 
-            //no click event => canvas clicked
-            if (this._activeObject === null && currentPanelElement === $('#btn_rect')) {
 
-                let rect = new Rect(event.layerX, event.layerY, 1, 1, "green");
-                this._objectList.push(rect);
-                this._mode = MODES.DRAWING;
+        document.addEventListener('mousedown', (event) => {
+
+            //canvas Clicked
+            if (event.target === $('#drawing')) {
+                //basic
+                this.down = true;
+                this._activeObject = null
+
+                //check for click event
+                this._objectList.forEach((element) => {
+
+                    //check if object is clicked and set it active
+                    if (element.isPointInObject(event.layerX, event.layerY)) {
+                        this._mode = MODES.MOVE
+                        this._activeObject = element;
+
+                        this._clickOffsetX = event.layerX - this._activeObject._x;
+                        this._clickOffsetY = event.layerY - this._activeObject._y;
+                    }
+
+                    //check if any control points are clicked and set the acording mode
+                    switch (element.isPointInControlls(event.layerX, event.layerY)) {
+                        case 0:
+                            this._activeObject = element;
+                            this._mode = MODES.SCALE.TL;
+                            break;
+                        case 1:
+                            this._activeObject = element;
+                            this._mode = MODES.SCALE.TR;
+                            break;
+                        case 2:
+                            this._activeObject = element;
+                            this._mode = MODES.SCALE.BR;
+                            break;
+                        case 3:
+                            this._activeObject = element;
+                            this._mode = MODES.SCALE.BL
+                            break;
+
+                    }
+                })
+
+                //no click event => canvas clicked
+                if (this._activeObject === null && currentPanelElement === $('#btn_rect')) {
+
+                    let rect = new Rect(event.layerX, event.layerY, 1, 1, "green");
+                    this._objectList.push(rect);
+                    this._mode = MODES.DRAWING;
+                }
+
+                this.redraw()
             }
 
-            this.redraw()
+            //other Ui element clicked
+            else {
+            }
+
+
         })
 
         document.addEventListener('mousemove', (event) => {
             let mouseX = event.clientX - $('#window').offsetLeft
             let mouseY = event.clientY - $('#window').offsetTop
-            
-            
+
+
             //Move whole object
             if (this._activeObject != null && this.down === true && this._mode === MODES.MOVE) {
                 this._activeObject.x = mouseX - this._clickOffsetX
