@@ -20,21 +20,6 @@ class Rect {
     }
 
     draw() {
-        /*
-        drawing rect without border radius
-
-        this._path = new Path2D()
-        this._path.moveTo(this._x, this._y);
-        this._path.lineTo(this._x + this._width, this._y);
-        this._path.lineTo(this._x + this._width, this._y + this._height);
-        this._path.lineTo(this._x, this._y + this._height);
-        this._path.closePath();
-
-        //ctx.lineWidth = this._lineWidth;
-        //ctx.strokeStyle = this._lineStyle;
-        ctx.fillStyle = this._fillStyle;
-        ctx.fill(this._path);*/
-
 
         let x = this._x
         let y = this._y

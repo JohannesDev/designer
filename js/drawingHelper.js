@@ -50,7 +50,7 @@ class DrawingHelper {
             //no click event => canvas clicked
             if (currentPanelElement === $('#btn_rect')) {
 
-                let rect = new Rect(event.layerX, event.layerY, 1, 1, 5 ,"green");
+                let rect = new Rect(event.layerX, event.layerY, 1, 1, 20 ,"green");
                 this._objectList.push(rect);
                 this._mode = MODES.DRAWING;
             }
