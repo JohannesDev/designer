@@ -23,8 +23,8 @@ class DrawingHelper {
         canvas.height = $('#window').clientHeight - 4;
 
         let demosetup = () => {
-            let rect = new Rect(10, 20, 100, 200, 'blue')
-            let rect2 = new Rect(100, 200, 200, 200, 'red')
+            let rect = new Rect(10, 20, 100, 200, 1, 'blue')
+            let rect2 = new Rect(100, 200, 200, 200, 20, 'red')
 
             this._objectList.push(rect)
             this._objectList.push(rect2)

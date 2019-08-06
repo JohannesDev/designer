@@ -23,3 +23,8 @@ const UI = {
 	color_liberty: $('#liberty'),
 	color_gargoyleglass: $('#gargoyleglass')
 }
+
+function toRad(degree){
+    return (degree * Math.PI)/180
+}
+
