@@ -40,7 +40,7 @@ class Rect {
         let y = this._y
         let width = this._width
         let height = this._height
-        let cornerRadius = 0
+        let cornerRadius = this._cornerRadius
 
         this._path = new Path2D();
         this._path.moveTo(x, y + cornerRadius);
