@@ -22,14 +22,19 @@ class DrawingHelper {
         canvas.width = $('#window').clientWidth;
         canvas.height = $('#window').clientHeight - 4;
 
-        let rect = new Rect(10, 20, 100, 200, 'blue')
-        let rect2 = new Rect(100, 200, 200, 200, 'red')
+        let demosetup = () => {
+            let rect = new Rect(10, 20, 100, 200, 'blue')
+            let rect2 = new Rect(100, 200, 200, 200, 'red')
 
-        this._objectList.push(rect)
-        this._objectList.push(rect2)
+            this._objectList.push(rect)
+            this._objectList.push(rect2)
 
-        this.redraw()
+            this.redraw()
+        }
+        demosetup();
 
+
+        //set listener on color items
         let colorItems = $('.color__item')
         for (let element of colorItems) {
             element.addEventListener('click', (event) => {
@@ -42,8 +47,16 @@ class DrawingHelper {
 
         document.addEventListener('mousedown', (event) => {
 
+            //no click event => canvas clicked
+            if (currentPanelElement === $('#btn_rect')) {
+
+                let rect = new Rect(event.layerX, event.layerY, 1, 1, "green");
+                this._objectList.push(rect);
+                this._mode = MODES.DRAWING;
+            }
+
             //canvas Clicked
-            if (event.target === $('#drawing')) {
+            else if (event.target === $('#drawing')) {
                 //basic
                 this.down = true;
                 this._activeObject = null
@@ -82,20 +95,10 @@ class DrawingHelper {
                     }
                 })
 
-                //no click event => canvas clicked
-                if (this._activeObject === null && currentPanelElement === $('#btn_rect')) {
-
-                    let rect = new Rect(event.layerX, event.layerY, 1, 1, "green");
-                    this._objectList.push(rect);
-                    this._mode = MODES.DRAWING;
-                }
-
                 this.redraw()
             }
 
-            //other Ui element clicked
-            else {
-            }
+
 
 
         })
@@ -103,6 +106,16 @@ class DrawingHelper {
         document.addEventListener('mousemove', (event) => {
             let mouseX = event.clientX - $('#window').offsetLeft
             let mouseY = event.clientY - $('#window').offsetTop
+
+
+            //Draw new object
+            if (currentPanelElement === $('#btn_rect') && this._mode === MODES.DRAWING) {
+                let rect = this._objectList[this._objectList.length - 1]
+
+                rect.width = mouseX - rect.x;
+                rect.height = mouseY - rect.y;
+
+            }
 
 
             //Move whole object
@@ -117,14 +130,7 @@ class DrawingHelper {
                 this._activeObject.scale(this._mode, mouseX, mouseY)
             }
 
-            //Draw new object
-            if (this._activeObject === null && currentPanelElement === $('#btn_rect') && this._mode === MODES.DRAWING) {
-                let rect = this._objectList[this._objectList.length - 1]
 
-                rect.width = mouseX - rect.x;
-                rect.height = mouseY - rect.y;
-
-            }
 
             this.redraw()
         })
