@@ -1,46 +1,49 @@
+$primary: #FFFFFF;
+$primary--dark: #EDF4F6;
 
 #app {
   display: grid;
   grid-template-columns: 1fr 300px;
-  grid-template-rows: 50px 1fr;
+  grid-template-rows: 70px 1fr;
 }
 
 #header {
-  background-color: white;
+  background-color: $primary;
   grid-column: 1/-1;
 }
 
 .txtbox {
-  background-color: white;
+  background-color: $primary;
   width: 50px;
   text-align: right;
 }
 
 img {
-  width:35px;
-  height: 35px;
+  width:25px;
+  height: 25px;
 }
 .btn {
-  //width: 45px;
-  height: 100%;
-  padding-right: 40px;
-  padding-left: 40px;
+  width: 45px;
+  height: 45px;
+
+  margin-right: 10px;
+  margin-left: 10px;
 
   display: flex;
   align-items: center;
   justify-content: center;
 }
-.panel__item.active {
-  background-color: grey;
-  border-radius: 100%;
+.active {
+  background-color: $primary--dark;
+  border-radius: 8px;
 }
 
 #drawing {
-  background-color: #EDF4F6;
+  background-color: $primary--dark;
 }
 
 #properties {
-  background-color: white;
+  background-color: $primary;
 }
 .properties-list {
   margin-top: 10px;

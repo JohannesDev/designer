@@ -66,13 +66,13 @@ class Rect {
         this._pathCornerBL = new Path2D()
         this._pathCornerBL.arc(this._x, this._y + this._height, 5, 0, 2 * Math.PI, true)
 
-        ctx.strokeStyle = "#FF5757";
+        ctx.strokeStyle = "#ee4bd8";
         ctx.lineWidth = 1;
         ctx.stroke(this._pathBoundingRect);
 
-        ctx.strokeStyle = "#FF5757";
+        ctx.strokeStyle = "#ee4bd8";
         ctx.lineWidth = 2;
-        ctx.fillStyle = "#FF5757"
+        ctx.fillStyle = "#ee4bd8"
 
         ctx.stroke(this._pathCornerTL);
         ctx.stroke(this._pathCornerTR);
