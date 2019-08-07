@@ -5,6 +5,9 @@
   <meta charset="UTF-8">
   <title>Designer</title>
 
+  <!--color picker-->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
+
   <link href="css/util.css" rel="stylesheet" type="text/css">
   <link href="css/style.css" rel="stylesheet" type="text/css">
 </head>
@@ -12,44 +15,50 @@
 <body>
   <div id="app" class="h100">
     <div id="header" class="flex__row">
-      <div class="txt__def mg__l__big">Position</div>
-      <div class="txt__def mg__lr__def">X</div>
-      <input type="text" class="br__def mg__lr__def txt__def" />
-      <div class="txt__def mg__lr__def">Y</div>
-      <input type="text" class="br__def mg__lr__def txt__def" />
-
-
-      <div class="txt__def mg__lr__def mg__l__big">Width</div>
-      <input type="text" class="br__def mg__lr__def txt__def" />
-      <div class="txt__def mg__lr__def">Height</div>
-      <input type="text" class="br__def mg__lr__def txt__def" />
-
-
+        <a id="btn_save" class="panel__item"><img src="res/save.png" /></a>
     </div>
 
     <div id="panel">
-      <div id="btn_pointer" class="panel__item active"><img  src="res/pointer.png" /></div>
+      <div id="btn_pointer" class="panel__item active"><img src="res/pointer.png" /></div>
       <div id="btn_rect" class="panel__item"><img src="res/rect.png" /></div>
-      <div id="btn_circle" class="panel__item"><img  src="res/circle.png" /></div>
+      <div id="btn_circle" class="panel__item"><img src="res/circle.png" /></div>
     </div>
 
     <div id="window" style="position:relative;">
-        <canvas id="drawing"></canvas>
+      <canvas id="drawing"></canvas>
     </div>
 
     <div id="properties">
-      <p class="mg__l__medium">Colors</p>
-      <div class="grid">
-        <color id="turquoise" class="color__item"></color>
-        <color id="tangopink" class="color__item"></color>
-        <color id="ube" class="color__item"></color>
-        <color id="liberty" class="color__item"></color>
-        <color id="gargoyleglass" class="color__item"></color>
+      <div class="properties-list pd__left--medium" >
+          <div class="txt__def">Position X</div>
+          <input type="text" class="txtbox br__def txt__def" />
+
+          <div class="txt__def">Position Y</div>
+          <input type="text" class="txtbox br__def txt__def" />
+
+          <div class="txt__def">Width</div>
+          <input type="text" class="txtbox br__def txt__def" />
+
+          <div class="txt__def">Height</div>
+          <input type="text" class="txtbox br__def txt__def" />
+
+          <p>Colors</p>
+          <div id="color-picker"></div>
+
+          <p>corner radius</p>
+          <div class="slidecontainer">
+              <input type="range" min="1" max="80" value="50" class="slider" id="myRange" style="width: 100px">
+            </div>
+
+
       </div>
 
     </div>
   </div>
-  
+
+
+    <!--color picker-->
+    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
 
   <script src="js/domHelper.js"></script>
   <script src="js/constants.js"></script>

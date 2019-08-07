@@ -22,27 +22,13 @@ class DrawingHelper {
         canvas.width = $('#window').clientWidth;
         canvas.height = $('#window').clientHeight - 4;
 
-        let demosetup = () => {
-            let rect = new Rect(10, 20, 100, 200, 1, 'blue')
-            let rect2 = new Rect(100, 200, 200, 200, 20, 'red')
 
-            this._objectList.push(rect)
-            this._objectList.push(rect2)
-
-            this.redraw()
-        }
-        demosetup();
-
-
-        //set listener on color items
-        let colorItems = $('.color__item')
-        for (let element of colorItems) {
-            element.addEventListener('click', (event) => {
-                let color = window.getComputedStyle(element, null).getPropertyValue("background-color");
-                this._activeObject.fillStyle = color
-                this.redraw()
-            })
-        }
+        //demo setup
+        let rect = new Rect(10, 20, 100, 200, 1, 'blue')
+        let rect2 = new Rect(100, 200, 200, 200, 20, 'red')
+        this._objectList.push(rect)
+        this._objectList.push(rect2)
+        this.redraw()
 
 
         document.addEventListener('mousedown', (event) => {
@@ -50,7 +36,7 @@ class DrawingHelper {
             //no click event => canvas clicked
             if (currentPanelElement === $('#btn_rect')) {
 
-                let rect = new Rect(event.layerX, event.layerY, 1, 1, 20 ,"green");
+                let rect = new Rect(event.layerX, event.layerY, 1, 1, 20, "green");
                 this._objectList.push(rect);
                 this._mode = MODES.DRAWING;
             }
@@ -98,9 +84,6 @@ class DrawingHelper {
                 this.redraw()
             }
 
-
-
-
         })
 
         document.addEventListener('mousemove', (event) => {
@@ -114,22 +97,18 @@ class DrawingHelper {
 
                 rect.width = mouseX - rect.x;
                 rect.height = mouseY - rect.y;
-
             }
 
 
             //Move whole object
             if (this._activeObject != null && this.down === true && this._mode === MODES.MOVE) {
-                this._activeObject.x = mouseX - this._clickOffsetX
-                this._activeObject.y = mouseY - this._clickOffsetY
-
+                this.move(mouseX - this._clickOffsetX, mouseY - this._clickOffsetY);
             }
 
             //Scaling
             else if (this.down === true && Object.values(MODES.SCALE).includes(this._mode)) {
-                this._activeObject.scale(this._mode, mouseX, mouseY)
+                this.scale(mouseX, mouseY)
             }
-
 
 
             this.redraw()
@@ -158,6 +137,29 @@ class DrawingHelper {
             }
             //ctx.stroke(); // change order maybe
         })
+    }
+
+
+
+    //Actions for the active object
+    setColor(color) {
+        if (this._activeObject != null) {
+            this._activeObject.fillStyle = color;
+        }
+    }
+    move(x, y) {
+        this._activeObject.x = x
+        this._activeObject.y = y
+    }
+    scale(x, y) {
+        this._activeObject.scale(this._mode, x, y)
+    }
+
+
+    //other functions
+    save() {
+        $('#btn_save').href = canvas.toDataURL();
+        $('#btn_save').download = "mypainting.png";
     }
 
 }
