@@ -18,34 +18,6 @@ let $ = function (selector) {
 
 
 
-//PANEL  on click events
-
-/*let currentPanelElement = $('#btn_pointer')
-let previousPanelElement = $('#btn_pointer')
-
-let panelItems = $('.panel__item')
-for(let element of panelItems){
-	element.addEventListener('click', (event) => {
-		currentPanelElement = event.currentTarget
-		
-		if(event.currentTarget === $('#btn_pointer')){
-			canvas.selection = true;
-		}
-		else{
-			canvas.selection = false;
-		}
-	
-		//remove and add highlight for the buttons
-		previousPanelElement.classList.remove('active')
-		event.currentTarget.classList.add('active')
-		
-		previousPanelElement = event.currentTarget
-	})
-}*/
-
-
-
-
 
 
 

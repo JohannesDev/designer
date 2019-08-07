@@ -52,7 +52,6 @@ pickr.on('change', (color, instance) => {
 })
 
 
-
 $('#btn_save').addEventListener('click', (event) => {
     drawingHelper.save()
 })
