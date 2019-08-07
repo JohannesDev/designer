@@ -1,10 +1,12 @@
-class UI_ELEMENT{
-    constructor(buttonName){
-        return $(buttonName)
-    }
+import {$} from './domHelper.js';
 
-    
+class UI_BUTTON{
+    constructor(element){
+        return element;
+    }
 
 } 
 
-let textbox_positionX = new UI_ELEMENT('#btn_pointer');
+export let button_pointer = new UI_BUTTON($('#btn_pointer'));
+
+//export let textbox_positionX = new UI_ELEMENT($('#tb_positionX'));

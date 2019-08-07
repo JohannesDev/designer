@@ -15,16 +15,6 @@ export const MODES = {
 }
 
 
-
-const UI = {
-	button_pointer: $('#btn_pointer'),
-	button_rect: $('#btn_rect'),
-	button_circle: $('#btn_circle'),
-}
-
-
-
-
 export function toRad(degree){
     return (degree * Math.PI)/180
 }

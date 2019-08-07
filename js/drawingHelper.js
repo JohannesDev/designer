@@ -192,7 +192,7 @@ export class DrawingHelper {
 
     //other functions
     save() {
-        $('#btn_save').href = canvas.toDataURL();
+        $('#btn_save').href = this._canvas.toDataURL();
         $('#btn_save').download = "mypainting.png";
     }
 
