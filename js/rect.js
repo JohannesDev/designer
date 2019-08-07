@@ -25,12 +25,13 @@ export class Rect {
     }
 
     draw() {
-
         let x = this._x
         let y = this._y
         let width = this._width
         let height = this._height
         let cornerRadius = this._cornerRadius
+
+        console.log(this._x);
 
         this._path = new Path2D();
         this._path.moveTo(x, y + cornerRadius);

@@ -1,6 +1,6 @@
-import {$} from './domHelper.js';
-import {MODES, getClickedButton} from './constants.js';
-import {Rect} from './rect.js';
+import { $ } from './domHelper.js';
+import { MODES, getClickedButton } from './constants.js';
+import { Rect } from './rect.js';
 
 let currentSelectedButton = $('#btn_pointer')
 let previousSelectedButton = $('#btn_pointer')
@@ -30,12 +30,31 @@ export class DrawingHelper {
         this._objectList.push(rect)
         this._objectList.push(rect2)
         this.redraw()
+        
 
 
-        document.addEventListener('mousedown', (event) => {  
-            
+        document.addEventListener('mousedown', (event) => {
+
             //control button clicked
-            if(getClickedButton(event)){
+            if (getClickedButton(event)) {
+                currentSelectedButton = getClickedButton(event)
+
+                if (currentSelectedButton === $('#btn_pointer')) {
+                    this._mode = MODES.MOVE;
+                }
+                else if (currentSelectedButton === $('#btn_rect')) {
+                    this._mode = MODES.DRAWING_READY;
+                }
+                else if (currentSelectedButton === $('#btn_circle')) {
+                }
+
+                previousSelectedButton.classList.remove('active')
+                currentSelectedButton.classList.add('active')
+
+                previousSelectedButton = currentSelectedButton
+            }
+
+            if (getClickedButton(event)) {
                 currentSelectedButton = getClickedButton(event)
 
                 if (currentSelectedButton === $('#btn_pointer')) {
@@ -57,31 +76,31 @@ export class DrawingHelper {
             // Canvas Clicked
             else if (event.target === $('#drawing')) {
                 // Drawing new object on canvas
-                if(this._mode === MODES.DRAWING_READY){
+                if (this._mode === MODES.DRAWING_READY) {
                     let rect = new Rect(event.layerX, event.layerY, 1, 1, 20, "green");
                     this._objectList.push(rect);
                     this._mode = MODES.DRAWING_STARTED
-                    
+
                 }
 
                 // select object on canvas
-                else{
-                    
+                else {
+
                     this._down = true;
                     this._activeObject = null
-    
+
                     //check for click event
                     this._objectList.forEach((element) => {
-    
+
                         //check if object is clicked and set it active
                         if (element.isPointInObject(event.layerX, event.layerY)) {
                             this._mode = MODES.MOVE
                             this._activeObject = element;
-    
+
                             this._clickOffsetX = event.layerX - this._activeObject._x;
                             this._clickOffsetY = event.layerY - this._activeObject._y;
                         }
-    
+
                         //check if any control points are clicked and set the acording mode
                         switch (element.isPointInControlls(event.layerX, event.layerY)) {
                             case 0:
@@ -100,26 +119,26 @@ export class DrawingHelper {
                                 this._activeObject = element;
                                 this._mode = MODES.SCALE.BL
                                 break;
-    
+
                         }
                     })
                 }
-                
+
 
                 this.redraw()
             }
 
         })
 
-        document.addEventListener('mousemove', (event) => {            
+        document.addEventListener('mousemove', (event) => {
             let mouseX = event.clientX - $('#window').offsetLeft
             let mouseY = event.clientY - $('#window').offsetTop
-            
+
             //Draw new object
             if (currentSelectedButton === $('#btn_rect') && this._mode === MODES.DRAWING_STARTED) {
                 let rect = this._objectList[this._objectList.length - 1]
-                
-                
+
+
 
                 rect.width = mouseX - rect.x;
                 rect.height = mouseY - rect.y;
@@ -127,8 +146,8 @@ export class DrawingHelper {
 
             //Move whole object
             if (this._activeObject != null && this._down === true && this._mode === MODES.MOVE) {
-                
-                
+
+
                 this.move(mouseX - this._clickOffsetX, mouseY - this._clickOffsetY);
             }
 
@@ -147,17 +166,39 @@ export class DrawingHelper {
             if (currentSelectedButton === $('#btn_rect') && this._mode === MODES.DRAWING_STARTED) {
                 this._activeObject = this._objectList[this._objectList.length - 1]
                 this.redraw()
-            
-                
+
+
                 currentSelectedButton = $('#btn_pointer')
                 this._mode = MODES.MOVE;
                 previousSelectedButton.classList.remove('active')
                 currentSelectedButton.classList.add('active')
                 previousSelectedButton = currentSelectedButton
-                
+
+            }
+
+            if (currentSelectedButton === $('#btn_circle')) {
+                //this._activeObject.x = Math.random()*100
+
             }
 
         })
+
+
+        document.addEventListener('input', (event) => {
+            if (this._activeObject != null) {
+                switch(event.target){
+                    case $('#tb_positionX'):
+                        console.log("changed");
+                        this._activeObject.x = event.target.value
+                        
+                        
+                        break;
+                }
+
+            }
+
+
+        });
     }
 
 
