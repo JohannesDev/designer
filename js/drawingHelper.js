@@ -22,17 +22,17 @@ class DrawingHelper {
         canvas.width = $('#window').clientWidth;
         canvas.height = $('#window').clientHeight - 4;
 
-        let demosetup = () => {
-            let rect = new Rect(10, 20, 100, 200, 1, 'blue')
-            let rect2 = new Rect(100, 200, 200, 200, 20, 'red')
 
-            this._objectList.push(rect)
-            this._objectList.push(rect2)
+        //demo setup
+        let rect = new Rect(10, 20, 100, 200, 1, 'blue')
+        let rect2 = new Rect(100, 200, 200, 200, 20, 'red')
+        this._objectList.push(rect)
+        this._objectList.push(rect2)
+        this.redraw()
 
-            this.redraw()
-        }
-        demosetup();
 
+
+        
 
         //set listener on color items
         let colorItems = $('.color__item')
@@ -120,9 +120,7 @@ class DrawingHelper {
 
             //Move whole object
             if (this._activeObject != null && this.down === true && this._mode === MODES.MOVE) {
-                this._activeObject.x = mouseX - this._clickOffsetX
-                this._activeObject.y = mouseY - this._clickOffsetY
-
+                this.move(mouseX - this._clickOffsetX, mouseY - this._clickOffsetY);
             }
 
             //Scaling
@@ -158,6 +156,21 @@ class DrawingHelper {
             }
             //ctx.stroke(); // change order maybe
         })
+    }
+
+
+
+    //Actions for the active object
+    setColor(color){
+        if(this._activeObject != null){
+            console.log('setcolor ' + color);
+        }
+    }
+    move(x, y){
+        this._activeObject.x = x
+        this._activeObject.y = y
+    }
+    scale(color){
     }
 
 }
