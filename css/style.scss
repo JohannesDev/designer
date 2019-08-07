@@ -2,8 +2,6 @@ $primary--light: #454545;
 $primary: #373737;
 $primary--dark: #2B2B2B;
 
-$black: #181818;
-
 #app{
     display: grid;
     grid-template-columns: 60px 1fr 300px;    
@@ -16,14 +14,11 @@ $black: #181818;
     background-color: $primary--dark;
     grid-column: 1/-1;
 }
-input{
+.txtbox{
     background-color: $primary--light;
     width: 40px;
-    text-align: end;
+    text-align: right;
 }
-
-/**************************************************************************************/
-/**************************************************************************************/
 
 
 //PANEL
@@ -52,45 +47,10 @@ img{
 }
 
 
-/*#drawing{
-    //background-color: rgb(175, 13, 13);
-    
-    //border: 2px solid red;
-
-}*/
-
-
 #properties{
-    background-color: $primary--dark;
+    //background-color: $primary--dark;
 
-    display: flex;
-    flex-direction: column;
+    display: grid;
 
 }
-    
-color{
-    width: 40px;
-    height: 40px;
-
-    margin-left: auto;
-    margin-right: auto;
-
-    border-radius: 100%;
-}
-
-#turquoise{
-    background-color: #23f0c7;
-}
-#tangopink{
-    background-color: #EF767A;
-}
-#ube{
-    background-color: #7D7ABC;
-}
-#liberty{
-    background-color: #6457A6;
-}
-#gargoyleglass{
-    background-color: #FFE347;
-}
-
+ 
