@@ -20,7 +20,7 @@ let $ = function (selector) {
 
 //PANEL  on click events
 
-let currentPanelElement = $('#btn_pointer')
+/*let currentPanelElement = $('#btn_pointer')
 let previousPanelElement = $('#btn_pointer')
 
 let panelItems = $('.panel__item')
@@ -41,7 +41,13 @@ for(let element of panelItems){
 		
 		previousPanelElement = event.currentTarget
 	})
-}
+}*/
+
+
+
+
+
+
 
 
 

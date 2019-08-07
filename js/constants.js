@@ -7,7 +7,8 @@ const MODES = {
         BR: 3,
         BL: 4,
     },
-    DRAWING: 5,
+    DRAWING_READY: 5,
+    DRAWING_STARTED: 6,
 }
 
 
@@ -16,17 +17,25 @@ const UI = {
 	button_pointer: $('#btn_pointer'),
 	button_rect: $('#btn_rect'),
 	button_circle: $('#btn_circle'),
-
-	color_turquoise: $('#turquoise'),
-	color_tangopink: $('#tangopink'),
-	color_ube: $('#ube'),
-	color_liberty: $('#liberty'),
-	color_gargoyleglass: $('#gargoyleglass')
 }
+
+
 
 function toRad(degree){
     return (degree * Math.PI)/180
 }
 
-
-
+function getClickedButton(event) {
+    if(event.target === $('#btn_pointer') || event.target.parentElement === $('#btn_pointer')){
+        return $('#btn_pointer')
+    }
+    else if(event.target === $('#btn_rect') || event.target.parentElement === $('#btn_rect')){
+        return $('#btn_rect')
+    }
+    else if(event.target === $('#btn_circle') || event.target.parentElement === $('#btn_circle')){
+        return $('#btn_circle')
+    }
+    else{
+        return null;
+    }
+}

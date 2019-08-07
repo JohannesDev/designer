@@ -6,7 +6,7 @@
   <title>Designer</title>
 
   <!--color picker-->
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
 
   <link href="css/util.css" rel="stylesheet" type="text/css">
   <link href="css/style.css" rel="stylesheet" type="text/css">
@@ -15,41 +15,38 @@
 <body>
   <div id="app" class="h100">
     <div id="header" class="flex__row">
-        <a id="btn_save" class="panel__item"><img src="res/save.png" /></a>
+      <a id="btn_save" class="btn br__r"><img src="res/save.png" /></a>
+      <div id="btn_pointer" class="btn active"><img src="res/pointer.png" /></div>
+      <div id="btn_rect" class="btn "><img src="res/rect.png" /></div>
+      <div id="btn_circle" class="btn br__r"><img src="res/circle.png" /></div>
     </div>
 
-    <div id="panel">
-      <div id="btn_pointer" class="panel__item active"><img src="res/pointer.png" /></div>
-      <div id="btn_rect" class="panel__item"><img src="res/rect.png" /></div>
-      <div id="btn_circle" class="panel__item"><img src="res/circle.png" /></div>
-    </div>
 
     <div id="window" style="position:relative;">
       <canvas id="drawing"></canvas>
     </div>
 
     <div id="properties">
-      <div class="properties-list pd__left--medium" >
-          <div class="txt__def">Position X</div>
-          <input type="text" class="txtbox br__def txt__def" />
+      <div class="properties-list pd__left--medium">
+        <div class="txt__def">Position X</div>
+        <input type="text" class="txtbox br__def txt__def" />
 
-          <div class="txt__def">Position Y</div>
-          <input type="text" class="txtbox br__def txt__def" />
+        <div class="txt__def">Position Y</div>
+        <input type="text" class="txtbox br__def txt__def" />
 
-          <div class="txt__def">Width</div>
-          <input type="text" class="txtbox br__def txt__def" />
+        <div class="txt__def">Width</div>
+        <input type="text" class="txtbox br__def txt__def" />
 
-          <div class="txt__def">Height</div>
-          <input type="text" class="txtbox br__def txt__def" />
+        <div class="txt__def">Height</div>
+        <input type="text" class="txtbox br__def txt__def" />
 
-          <p>Colors</p>
-          <div id="color-picker"></div>
+        <p>Colors</p>
+        <div id="color-picker"></div>
 
-          <p>corner radius</p>
-          <div class="slidecontainer">
-              <input type="range" min="1" max="80" value="50" class="slider" id="myRange" style="width: 100px">
-            </div>
-
+        <p>corner radius</p>
+        <div class="slidecontainer">
+          <input type="range" min="1" max="80" value="50" class="slider" id="myRange" style="width: 100px">
+        </div>
 
       </div>
 
@@ -57,8 +54,8 @@
   </div>
 
 
-    <!--color picker-->
-    <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
+  <!--color picker-->
+  <script src="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js"></script>
 
   <script src="js/domHelper.js"></script>
   <script src="js/constants.js"></script>

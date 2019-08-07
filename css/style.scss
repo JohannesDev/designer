@@ -1,49 +1,46 @@
-$primary--light: #454545;
-$primary: #373737;
-$primary--dark: #2b2b2b;
 
 #app {
   display: grid;
-  grid-template-columns: 60px 1fr 300px;
+  grid-template-columns: 1fr 300px;
   grid-template-rows: 50px 1fr;
 }
 
 #header {
-  background-color: $primary--dark;
+  background-color: white;
   grid-column: 1/-1;
 }
+
 .txtbox {
-  background-color: $primary--light;
+  background-color: white;
   width: 50px;
   text-align: right;
 }
 
-#panel {
-  background-color: $primary;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
 img {
-  width: 100%;
-  height: 100%;
+  width:35px;
+  height: 35px;
 }
-.panel__item {
-  width: 47px;
-  height: 47px;
-  padding: 12px;
-  margin-top: 5px;
+.btn {
+  //width: 45px;
+  height: 100%;
+  padding-right: 40px;
+  padding-left: 40px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .panel__item.active {
-  background-color: $primary--dark;
+  background-color: grey;
   border-radius: 100%;
 }
 
+#drawing {
+  background-color: #EDF4F6;
+}
+
 #properties {
-
-
-  background-color: $primary;
+  background-color: white;
 }
 .properties-list {
   margin-top: 10px;
