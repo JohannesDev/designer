@@ -1,3 +1,16 @@
+/*<script src="js/domHelper.js"></script>
+<script src="js/constants.js"></script>
+<script src="js/ui.js"></script>
+<script src="js/drawingHelper.js"></script>
+<script src="js/rect.js"></script>*/
+
+
+
+
+
+
+
+
 
 drawingHelper = new DrawingHelper();
 
