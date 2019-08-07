@@ -1,11 +1,12 @@
 
 class Rect {
-    constructor(x, y, width, height, fillStyle) {
+    constructor(x, y, width, height, cornerRadius, fillStyle) {
         this._path
         this._x = x;
         this._y = y;
         this._width = width;
         this._height = height;
+        this._cornerRadius = cornerRadius;
         //this._lineWidth = lineWidth;
         //this._strokeStyle = lineStyle;
         this._fillStyle = fillStyle;
@@ -19,17 +20,29 @@ class Rect {
     }
 
     draw() {
-        this._path = new Path2D()
-        this._path.moveTo(this._x, this._y);
-        this._path.lineTo(this._x + this._width, this._y);
-        this._path.lineTo(this._x + this._width, this._y + this._height);
-        this._path.lineTo(this._x, this._y + this._height);
+
+        let x = this._x
+        let y = this._y
+        let width = this._width
+        let height = this._height
+        let cornerRadius = this._cornerRadius
+
+        this._path = new Path2D();
+        this._path.moveTo(x, y + cornerRadius);
+
+        this._path.arc(x  + cornerRadius, y + cornerRadius, cornerRadius, toRad(180), toRad(270));
+        this._path.lineTo(x + width - cornerRadius, y);
+
+        this._path.arc(x + width - cornerRadius, y + cornerRadius, cornerRadius, toRad(270), toRad(0));
+        this._path.lineTo(x + width, y + height - cornerRadius);
+
+        this._path.arc(x + width - cornerRadius, y + height - cornerRadius, cornerRadius, toRad(0), toRad(90));
+        this._path.lineTo(x + cornerRadius, y + height);
+
+        this._path.arc(x + cornerRadius, y + this._height - cornerRadius, cornerRadius, toRad(90), toRad(180));
         this._path.closePath();
 
-        //ctx.lineWidth = this._lineWidth;
-        //ctx.strokeStyle = this._lineStyle;
         ctx.fillStyle = this._fillStyle;
-
         ctx.fill(this._path);
     }
 
