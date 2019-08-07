@@ -1,5 +1,6 @@
 
-let $ = function (selector) {
+//domHelper
+export let $ = function (selector) {
 
 	'use strict';
 
@@ -14,7 +15,6 @@ let $ = function (selector) {
 	};
 	
 };
-
 
 
 

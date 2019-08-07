@@ -1,17 +1,15 @@
-//globals
-let canvas
-let ctx
-
-let drawingHelper
+import {$} from './domHelper.js';
+import {MODES, getClickedButton} from './constants.js';
+import {Rect} from './rect.js';
 
 let currentSelectedButton = $('#btn_pointer')
 let previousSelectedButton = $('#btn_pointer')
 
-class DrawingHelper {
+export class DrawingHelper {
 
     constructor() {
-        canvas = document.getElementById('drawing');
-        ctx = canvas.getContext('2d');
+        this._canvas = document.getElementById('drawing');
+        this._ctx = this._canvas.getContext('2d');
 
         this._objectList = []
         this._activeObject = null
@@ -22,8 +20,8 @@ class DrawingHelper {
 
         this._mode
 
-        canvas.width = $('#window').clientWidth;
-        canvas.height = $('#window').clientHeight - 4;
+        this._canvas.width = $('#window').clientWidth;
+        this._canvas.height = $('#window').clientHeight - 4;
 
 
         //demo setup
@@ -164,7 +162,7 @@ class DrawingHelper {
 
 
     redraw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
 
         this._objectList.forEach((element) => {
             element.draw()

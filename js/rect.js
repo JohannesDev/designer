@@ -1,5 +1,10 @@
+import {MODES, toRad} from './constants.js'
 
-class Rect {
+//remove
+let canvas = document.getElementById('drawing');
+let ctx = canvas.getContext('2d');
+
+export class Rect {
     constructor(x, y, width, height, cornerRadius, fillStyle) {
         this._path
         this._x = x;

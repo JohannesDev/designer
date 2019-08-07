@@ -1,5 +1,8 @@
+import {$} from './domHelper.js';
+
+
 //global consts
-const MODES = {
+export const MODES = {
     MOVE: 0,
     SCALE: {
         TL: 1,
@@ -22,12 +25,11 @@ const UI = {
 
 
 
-
-function toRad(degree){
+export function toRad(degree){
     return (degree * Math.PI)/180
 }
 
-function getClickedButton(event) {
+export function getClickedButton(event) {
     if(event.target === $('#btn_pointer') || event.target.parentElement === $('#btn_pointer')){
         return $('#btn_pointer')
     }

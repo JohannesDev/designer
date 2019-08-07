@@ -1,18 +1,8 @@
-/*<script src="js/domHelper.js"></script>
-<script src="js/constants.js"></script>
-<script src="js/ui.js"></script>
-<script src="js/drawingHelper.js"></script>
-<script src="js/rect.js"></script>*/
+import {$} from './domHelper.js';
+import {DrawingHelper} from './drawingHelper.js';
 
 
-
-
-
-
-
-
-
-drawingHelper = new DrawingHelper();
+let drawingHelper = new DrawingHelper();
 
 // Simple example, see optional options for more configuration.
 const pickr = Pickr.create({
