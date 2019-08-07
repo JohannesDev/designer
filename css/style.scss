@@ -14,7 +14,7 @@ $primary--dark: #2b2b2b;
 }
 .txtbox {
   background-color: $primary--light;
-  width: 40px;
+  width: 50px;
   text-align: right;
 }
 
@@ -41,8 +41,18 @@ img {
 }
 
 #properties {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
+
 
   background-color: $primary;
 }
+.properties-list {
+  margin-top: 10px;
+
+  display: grid;
+  grid-template-columns: 80px 1fr;
+
+  align-items: center;
+  grid-column-gap: 30px;
+  grid-row-gap: 20px;
+}
+

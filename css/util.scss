@@ -36,7 +36,7 @@ p, .txt__def {
 
 //BORDER
 .br__def {
-  border: 2px solid red;
+  border: 2px solid black;
   border-radius: 3px;
 }
 
@@ -58,6 +58,9 @@ p, .txt__def {
 .pd__lr__def {
   padding-left: 5px;
   padding-right: 5px;
+}
+.pd__left--medium {
+  padding-left: 40px;
 }
 
 .unselectable {
