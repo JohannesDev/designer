@@ -31,8 +31,6 @@ export class Rect {
         let height = this._height
         let cornerRadius = this._cornerRadius
 
-        console.log(this._x);
-
         this._path = new Path2D();
         this._path.moveTo(x, y + cornerRadius);
 

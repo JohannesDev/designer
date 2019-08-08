@@ -1,6 +1,5 @@
 import {$} from './domHelper.js';
 
-
 //global consts
 export const MODES = {
     MOVE: 0,
