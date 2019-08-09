@@ -1,5 +1,5 @@
-import {$} from './domHelper.js';
-import {DrawingHelper} from './drawingHelper.js';
+import { $ } from './domHelper.js';
+import { DrawingHelper } from './canvas/drawingHelper.js';
 
 
 let drawingHelper = new DrawingHelper();
@@ -26,7 +26,7 @@ const pickr = Pickr.create({
         'rgba(255, 193, 7, 1)'
     ],
 
-    
+
     components: {
 
         // Main components
@@ -44,20 +44,20 @@ const pickr = Pickr.create({
     }
 });
 
-pickr.on('change', (color, instance) => {    
+pickr.on('change', (color, instance) => {
     let combinedColor = '#' + color.toHEXA()[0] + color.toHEXA()[1] + color.toHEXA()[2]
-    if(typeof color.toHEXA()[3] != 'undefined'){
+    if (typeof color.toHEXA()[3] != 'undefined') {
         combinedColor = combinedColor + color.toHEXA()[3]
     }
 
     drawingHelper.setColor(combinedColor)
-    
+
 })
 
 
 $('#btn_save').addEventListener('click', (event) => {
     //drawingHelper.save()
-    
+
 
 })
 

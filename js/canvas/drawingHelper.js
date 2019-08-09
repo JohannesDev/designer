@@ -1,5 +1,5 @@
-import { $ } from './domHelper.js';
-import { MODES, getClickedButton } from './constants.js';
+import { $ } from '../domHelper.js';
+import { MODES, getClickedButton } from '../constants.js';
 import { Rect } from './rect.js';
 
 let currentSelectedButton = $('#btn_pointer')
@@ -30,7 +30,7 @@ export class DrawingHelper {
         this._objectList.push(rect)
         this._objectList.push(rect2)
         this.redraw()
-        
+
 
 
         document.addEventListener('mousedown', (event) => {
@@ -186,12 +186,12 @@ export class DrawingHelper {
 
         document.addEventListener('input', (event) => {
             if (this._activeObject != null) {
-                switch(event.target){
+                switch (event.target) {
                     case $('#tb_positionX'):
                         console.log("changed");
                         this._activeObject.x = event.target.value
-                        
-                        
+
+
                         break;
                 }
 

@@ -1,4 +1,4 @@
-import {MODES, toRad} from './constants.js'
+import { MODES, toRad } from '../constants.js'
 
 //remove
 let canvas = document.getElementById('drawing');
@@ -34,7 +34,7 @@ export class Rect {
         this._path = new Path2D();
         this._path.moveTo(x, y + cornerRadius);
 
-        this._path.arc(x  + cornerRadius, y + cornerRadius, cornerRadius, toRad(180), toRad(270));
+        this._path.arc(x + cornerRadius, y + cornerRadius, cornerRadius, toRad(180), toRad(270));
         this._path.lineTo(x + width - cornerRadius, y);
 
         this._path.arc(x + width - cornerRadius, y + cornerRadius, cornerRadius, toRad(270), toRad(0));
@@ -143,7 +143,7 @@ export class Rect {
     get y() { return this._y }
     get width() { return this._width }
     get height() { return this._height }
-    get fillStyle() { return this._fillStyle}
+    get fillStyle() { return this._fillStyle }
 
     set x(x) { this._x = x }
     set y(y) { this._y = y }
