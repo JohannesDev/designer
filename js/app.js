@@ -4,6 +4,7 @@ import { DrawingHelper } from './canvas/drawingHelper.js';
 
 let drawingHelper = new DrawingHelper();
 
+/*
 // Simple example, see optional options for more configuration.
 const pickr = Pickr.create({
     el: '#color-picker',
@@ -52,14 +53,15 @@ pickr.on('change', (color, instance) => {
 
     drawingHelper.setColor(combinedColor)
 
-})
+})*/
 
 
-$('#btn_save').addEventListener('click', (event) => {
-    //drawingHelper.save()
+
+/*$('#btn_save').addEventListener('click', (event) => {
+    drawingHelper.save()
 
 
-})
+})*/
 
 
 

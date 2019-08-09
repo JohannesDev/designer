@@ -12,18 +12,12 @@
   <link href="css/style.css" rel="stylesheet" type="text/css">
 
 
-  <!--<script src="./js/components/canvasToolbar.js"></script>-->
+  <script src="./js/components/canvasToolbar.js"></script>
 </head>
 
 <body>
   <div id="app" class="h100">
-    <div id="header" class="flex__row">
-      <a id="btn_save" class="btn br__r"><img src="res/save.png" /></a>
-      <div id="btn_pointer" class="btn active"><img src="res/pointer.png" /></div>
-      <div id="btn_rect" class="btn "><img src="res/rect.png" /></div>
-      <div id="btn_circle" class="btn br__r"><img src="res/circle.png" /></div>
-    </div>
-
+    <canvas-toolbar></canvas-toolbar>
 
     <div id="window" style="position:relative;">
       <canvas id="drawing"></canvas>
@@ -54,7 +48,8 @@
       </div>
 
     </div>
-    <canvas-toolbar></canvas-toolbar>
+
+
   </div>
 
   <!--color picker-->
