@@ -1,3 +1,5 @@
+let event = new Event('CanvasToolbar_ButtonClicked');
+
 class CanvasToolbar extends HTMLElement {
   constructor() {
     super();
@@ -33,13 +35,22 @@ class CanvasToolbar extends HTMLElement {
           <div id="btn_pointer" class="btn active"><img src="res/pointer.png" /></div>
           <div id="btn_rect" class="btn "><img src="res/rect.png" /></div>
           <div id="btn_circle" class="btn br__r"><img src="res/circle.png" /></div>
-
+          
 
         `;
+
+    let $ = (selector) => {
+      return this.shadowRoot.getElementById(selector.substring(1));
+    };
+
+    this.shadowRoot.addEventListener('click', (event) => {
+      console.log(event.target);
+    })
+
   }
 }
 
 window.customElements.define('canvas-toolbar', CanvasToolbar);
 
-/*
-*/
+
+

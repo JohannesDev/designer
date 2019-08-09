@@ -1,4 +1,4 @@
-import { MODES, toRad } from '../constants.js'
+import { MODES, toRad } from './constants.js'
 
 //remove
 let canvas = document.getElementById('drawing');

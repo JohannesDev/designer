@@ -1,5 +1,5 @@
 import { $ } from '../domHelper.js';
-import { MODES, getClickedButton } from '../constants.js';
+import { MODES, getClickedButton } from './constants.js';
 import { Rect } from './rect.js';
 
 let currentSelectedButton = $('#btn_pointer')
