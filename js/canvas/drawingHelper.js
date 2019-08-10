@@ -1,9 +1,8 @@
 import { $ } from '../domHelper.js';
-import { MODES, getClickedButton } from './constants.js';
+import { MODES } from './constants.js';
 import { Rect } from './rect.js';
 
 let currentSelectedButton = $('#btn_pointer')
-let previousSelectedButton = $('#btn_pointer')
 
 export class DrawingHelper {
 
@@ -18,7 +17,7 @@ export class DrawingHelper {
         this._clickOffsetX
         this._clickOffsetY
 
-        this._mode
+        this._mode = "rrr"
 
         this._canvas.width = $('#window').clientWidth;
         this._canvas.height = $('#window').clientHeight - 4;
@@ -32,10 +31,18 @@ export class DrawingHelper {
         this.redraw()
 
 
+        let emitEvent = () => {
+            let drawingEvent = new CustomEvent('drawing_finished');
+            this._canvas.dispatchEvent(drawingEvent);
+        }
+
+
 
         document.addEventListener('mousedown', (event) => {
+
             // Canvas Clicked
             if (event.target === $('#drawing')) {
+
                 // Drawing new object on canvas
                 if (this._mode === MODES.DRAWING_READY) {
                     let rect = new Rect(event.layerX, event.layerY, 1, 1, 20, "green");
@@ -131,9 +138,7 @@ export class DrawingHelper {
 
                 currentSelectedButton = $('#btn_pointer')
                 this._mode = MODES.MOVE;
-                previousSelectedButton.classList.remove('active')
-                currentSelectedButton.classList.add('active')
-                previousSelectedButton = currentSelectedButton
+                emitEvent()
 
             }
 
@@ -176,7 +181,6 @@ export class DrawingHelper {
     }
 
 
-
     //Actions for the active object
     setColor(color) {
         if (this._activeObject != null) {
@@ -198,7 +202,7 @@ export class DrawingHelper {
         $('#btn_save').download = "mypainting.png";
     }
 
-
+    get canvas() { return this._canvas }
 
     set mode(mode) { this._mode = mode }
 

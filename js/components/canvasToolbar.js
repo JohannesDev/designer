@@ -1,7 +1,3 @@
-//events
-//let event = new Event('CanvasToolbar_ButtonClicked');
-
-
 
 class CanvasToolbar extends HTMLElement {
   constructor() {
@@ -42,39 +38,47 @@ class CanvasToolbar extends HTMLElement {
 
         `;
 
-    let $ = (selector) => {
+    this.$ = (selector) => {
       return this.shadowRoot.getElementById(selector.substring(1));
     };
 
-    let previousTarget = $('#btn_pointer')
+    this._previousTarget = this.$('#btn_pointer')
 
 
     this.shadowRoot.addEventListener('click', (event) => {
 
-      if (event.target === $('#btn_pointer') || event.target === $('#btn_rect') || event.target === $('#btn_circle')) {
-        setActive(event.target)
-        emitEvent(event.target)
+      if (event.target === this.$('#btn_pointer') || event.target === this.$('#btn_rect') || event.target === this.$('#btn_circle')) {
+        this._setActive(event.target)
+        this._emitEvent(event.target)
       }
 
-      else if (event.target.parentElement === $('#btn_pointer') || event.target.parentElement === $('#btn_rect') || event.target.parentElement === $('#btn_circle')) {
-        setActive(event.target.parentElement)
-        emitEvent(event.target.parentElement)
+      else if (event.target.parentElement === this.$('#btn_pointer') || event.target.parentElement === this.$('#btn_rect') || event.target.parentElement === this.$('#btn_circle')) {
+        this._setActive(event.target.parentElement)
+        this._emitEvent(event.target.parentElement)
       }
 
     })
 
-    let setActive = (target) => {
-      previousTarget.classList.remove('active')
+    this._setActive = (target) => {
+      this._previousTarget.classList.remove('active')
       target.classList.add('active')
-      previousTarget = target
+      this._previousTarget = target
     }
 
-    let emitEvent = (target) => {
+    this._emitEvent = (target) => {
       let buttonEvent = new CustomEvent('button_clicked', { detail: target });
       this.dispatchEvent(buttonEvent);
     }
+  }
 
 
+  getButtonById(id) {
+    return this.shadowRoot.getElementById(id)
+  }
+
+  clickPointer() {
+    this._setActive(this.$('#btn_pointer'))
+    this._emitEvent(this.$('#btn_pointer'))
   }
 }
 

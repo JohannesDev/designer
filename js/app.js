@@ -1,22 +1,34 @@
 import { $ } from './domHelper.js';
+import { MODES } from './canvas/constants.js';
 import { DrawingHelper } from './canvas/drawingHelper.js';
 
 
 let drawingHelper = new DrawingHelper();
 
+let canvasToolbar = $('#canvas-toolbar')
 
-$('#canvas-toolbar').addEventListener('button_clicked', (event) => {
-    console.log(event.detail);
 
-    if (event.detail === $('#btn_pointer')) {
-        drawingHelper._mode = MODES.MOVE;
+canvasToolbar.addEventListener('button_clicked', (event) => {
+
+    if (event.detail === canvasToolbar.getButtonById('btn_pointer')) {
+        drawingHelper.mode = MODES.MOVE;
     }
-    else if (event.detail === $('#btn_rect')) {
-        drawingHelper._mode = MODES.DRAWING_READY;
+    else if (event.detail === canvasToolbar.getButtonById('btn_rect')) {
+        drawingHelper.mode = MODES.DRAWING_READY;
     }
     else if (event.detail === $('#btn_circle')) {
     }
 })
+
+
+drawingHelper.canvas.addEventListener('drawing_finished', (event) => {
+    console.log("event");
+    canvasToolbar.clickPointer();
+})
+
+
+
+
 
 /*
 // Simple example, see optional options for more configuration.
