@@ -2,8 +2,6 @@ import { $ } from '../domHelper.js';
 import { MODES } from './constants.js';
 import { Rect } from './rect.js';
 
-let currentSelectedButton = $('#btn_pointer')
-
 export class DrawingHelper {
 
     constructor() {
@@ -17,7 +15,7 @@ export class DrawingHelper {
         this._clickOffsetX
         this._clickOffsetY
 
-        this._mode = "rrr"
+        this._mode
 
         this._canvas.width = $('#window').clientWidth;
         this._canvas.height = $('#window').clientHeight - 4;
@@ -103,7 +101,7 @@ export class DrawingHelper {
             let mouseY = event.clientY - $('#window').offsetTop
 
             //Draw new object
-            if (currentSelectedButton === $('#btn_rect') && this._mode === MODES.DRAWING_STARTED) {
+            if (this._mode === MODES.DRAWING_STARTED) {
                 let rect = this._objectList[this._objectList.length - 1]
 
 
@@ -131,19 +129,11 @@ export class DrawingHelper {
         document.addEventListener('mouseup', (event) => {
             this._down = false;
 
-            if (currentSelectedButton === $('#btn_rect') && this._mode === MODES.DRAWING_STARTED) {
+            if (this._mode === MODES.DRAWING_STARTED) {
                 this._activeObject = this._objectList[this._objectList.length - 1]
                 this.redraw()
 
-
-                currentSelectedButton = $('#btn_pointer')
-                this._mode = MODES.MOVE;
                 emitEvent()
-
-            }
-
-            if (currentSelectedButton === $('#btn_circle')) {
-                //this._activeObject.x = Math.random()*100
 
             }
 
