@@ -8,11 +8,14 @@
   <!--color picker-->
   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css" />
 
+  <link href="https://fonts.googleapis.com/css?family=Roboto&display=swap" rel="stylesheet">
+
   <link href="css/util.css" rel="stylesheet" type="text/css">
   <link href="css/style.css" rel="stylesheet" type="text/css">
 
 
   <script src="./js/components/canvasToolbar.js"></script>
+  <script src="./js/components/textProperty.js"></script>
 </head>
 
 <body>
@@ -24,18 +27,14 @@
     </div>
 
     <div id="properties" class="br__t">
-      <div class="properties-list pd__left--medium">
-        <div class="txt__def">Position X</div>
-        <input id="tb_positionX" type="text" class="txtbox br__def txt__def" />
+      <div class="properties-list">
+        <text-property></text-property>
 
-        <div class="txt__def">Position Y</div>
-        <input id="tb_positionY" type="text" class="txtbox br__def txt__def" />
+        <text-property></text-property>
 
-        <div class="txt__def">Width</div>
-        <input type="text" class="txtbox br__def txt__def" />
+        <text-property></text-property>
 
-        <div class="txt__def">Height</div>
-        <input type="text" class="txtbox br__def txt__def" />
+        <text-property></text-property>
 
         <p>Colors</p>
         <div id="color-picker"></div>

@@ -3,6 +3,8 @@ body {
   height: 100%;
   margin: 0px;
   padding: 0px;
+
+  font-family: "Roboto", sans-serif;
 }
 
 * {
@@ -31,7 +33,8 @@ body {
 }
 
 //TEXT/FONT
-p, .txt__def {
+p,
+.txt__def {
   color: #636363;
 }
 
@@ -40,11 +43,11 @@ p, .txt__def {
   border: 2px solid black;
   border-radius: 3px;
 }
-.br__t{
-  border-top: 1px solid #EDEFF3;
+.br__t {
+  border-top: 1px solid #edeff3;
 }
-.br__r{
-  border-right: 1px solid #EDEFF3;
+.br__r {
+  border-right: 1px solid #edeff3;
 }
 
 //MARGIN
@@ -78,3 +81,5 @@ p, .txt__def {
   -ms-user-select: none;
   user-select: none;
 }
+
+//////////////////////////////////////////////////////////////
