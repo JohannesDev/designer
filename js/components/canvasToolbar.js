@@ -1,4 +1,7 @@
-let event = new Event('CanvasToolbar_ButtonClicked');
+//events
+//let event = new Event('CanvasToolbar_ButtonClicked');
+
+
 
 class CanvasToolbar extends HTMLElement {
   constructor() {
@@ -43,9 +46,34 @@ class CanvasToolbar extends HTMLElement {
       return this.shadowRoot.getElementById(selector.substring(1));
     };
 
+    let previousTarget = $('#btn_pointer')
+
+
     this.shadowRoot.addEventListener('click', (event) => {
-      console.log(event.target);
+
+      if (event.target === $('#btn_pointer') || event.target === $('#btn_rect') || event.target === $('#btn_circle')) {
+        setActive(event.target)
+        emitEvent(event.target)
+      }
+
+      else if (event.target.parentElement === $('#btn_pointer') || event.target.parentElement === $('#btn_rect') || event.target.parentElement === $('#btn_circle')) {
+        setActive(event.target.parentElement)
+        emitEvent(event.target.parentElement)
+      }
+
     })
+
+    let setActive = (target) => {
+      previousTarget.classList.remove('active')
+      target.classList.add('active')
+      previousTarget = target
+    }
+
+    let emitEvent = (target) => {
+      let buttonEvent = new CustomEvent('button_clicked', { detail: target });
+      this.dispatchEvent(buttonEvent);
+    }
+
 
   }
 }

@@ -4,6 +4,20 @@ import { DrawingHelper } from './canvas/drawingHelper.js';
 
 let drawingHelper = new DrawingHelper();
 
+
+$('#canvas-toolbar').addEventListener('button_clicked', (event) => {
+    console.log(event.detail);
+
+    if (event.detail === $('#btn_pointer')) {
+        drawingHelper._mode = MODES.MOVE;
+    }
+    else if (event.detail === $('#btn_rect')) {
+        drawingHelper._mode = MODES.DRAWING_READY;
+    }
+    else if (event.detail === $('#btn_circle')) {
+    }
+})
+
 /*
 // Simple example, see optional options for more configuration.
 const pickr = Pickr.create({

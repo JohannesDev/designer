@@ -34,47 +34,8 @@ export class DrawingHelper {
 
 
         document.addEventListener('mousedown', (event) => {
-
-            //control button clicked
-            if (getClickedButton(event)) {
-                currentSelectedButton = getClickedButton(event)
-
-                if (currentSelectedButton === $('#btn_pointer')) {
-                    this._mode = MODES.MOVE;
-                }
-                else if (currentSelectedButton === $('#btn_rect')) {
-                    this._mode = MODES.DRAWING_READY;
-                }
-                else if (currentSelectedButton === $('#btn_circle')) {
-                }
-
-                previousSelectedButton.classList.remove('active')
-                currentSelectedButton.classList.add('active')
-
-                previousSelectedButton = currentSelectedButton
-            }
-
-            if (getClickedButton(event)) {
-                currentSelectedButton = getClickedButton(event)
-
-                if (currentSelectedButton === $('#btn_pointer')) {
-                    this._mode = MODES.MOVE;
-                }
-                else if (currentSelectedButton === $('#btn_rect')) {
-                    this._mode = MODES.DRAWING_READY;
-                }
-                else if (currentSelectedButton === $('#btn_circle')) {
-                }
-
-                previousSelectedButton.classList.remove('active')
-                currentSelectedButton.classList.add('active')
-
-                previousSelectedButton = currentSelectedButton
-            }
-
-
             // Canvas Clicked
-            else if (event.target === $('#drawing')) {
+            if (event.target === $('#drawing')) {
                 // Drawing new object on canvas
                 if (this._mode === MODES.DRAWING_READY) {
                     let rect = new Rect(event.layerX, event.layerY, 1, 1, 20, "green");
@@ -236,6 +197,10 @@ export class DrawingHelper {
         $('#btn_save').href = this._canvas.toDataURL();
         $('#btn_save').download = "mypainting.png";
     }
+
+
+
+    set mode(mode) { this._mode = mode }
 
 }
 
