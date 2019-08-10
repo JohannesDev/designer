@@ -21,8 +21,7 @@ canvasToolbar.addEventListener('button_clicked', (event) => {
 })
 
 
-drawingHelper.canvas.addEventListener('drawing_finished', (event) => {
-    console.log("event");
+drawingHelper.canvas.addEventListener('drawing_finished', () => {
     canvasToolbar.clickPointer();
 })
 
