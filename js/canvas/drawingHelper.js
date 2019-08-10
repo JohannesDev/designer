@@ -2,6 +2,7 @@ import { $ } from '../domHelper.js';
 import { MODES } from './constants.js';
 import { Rect } from './rect.js';
 
+
 export class DrawingHelper {
 
     constructor() {
@@ -29,10 +30,6 @@ export class DrawingHelper {
         this.redraw()
 
 
-        let emitEvent = () => {
-            let drawingEvent = new CustomEvent('drawing_finished');
-            this._canvas.dispatchEvent(drawingEvent);
-        }
 
 
 
@@ -65,6 +62,8 @@ export class DrawingHelper {
 
                             this._clickOffsetX = event.layerX - this._activeObject._x;
                             this._clickOffsetY = event.layerY - this._activeObject._y;
+
+                            this.updateProps()
                         }
 
                         //check if any control points are clicked and set the acording mode
@@ -133,7 +132,7 @@ export class DrawingHelper {
                 this._activeObject = this._objectList[this._objectList.length - 1]
                 this.redraw()
 
-                emitEvent()
+                this.emitEvent('drawing_finished');
 
             }
 
@@ -156,6 +155,20 @@ export class DrawingHelper {
 
         });
     }
+
+    //these functions should later be moved to other files
+    emitEvent(eventName, object) {
+        this._canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
+    }
+    updateProps() {
+        this.emitEvent('property_changed', { "x": this._activeObject.x })
+        this.emitEvent('property_changed', { "y": this._activeObject.y })
+        this.emitEvent('property_changed', { "width": this._activeObject.width })
+        this.emitEvent('property_changed', { "height": this._activeObject.height })
+    }
+
+
+    //till here
 
 
     redraw() {
@@ -180,9 +193,13 @@ export class DrawingHelper {
     move(x, y) {
         this._activeObject.x = x
         this._activeObject.y = y
+
+        this.updateProps()
     }
     scale(x, y) {
         this._activeObject.scale(this._mode, x, y)
+
+        this.updateProps()
     }
 
 

@@ -6,6 +6,10 @@ import { DrawingHelper } from './canvas/drawingHelper.js';
 let drawingHelper = new DrawingHelper();
 
 let canvasToolbar = $('#canvas-toolbar')
+let propertyX = $('#property-x')
+let propertyY = $('#property-y')
+let propertyWidth = $('#property-width')
+let propertyHeight = $('#property-height')
 
 
 canvasToolbar.addEventListener('button_clicked', (event) => {
@@ -25,11 +29,26 @@ drawingHelper.canvas.addEventListener('drawing_finished', () => {
     canvasToolbar.clickPointer();
 })
 
+drawingHelper.canvas.addEventListener('property_changed', (event) => {
+    if (event.detail.x) {
+        propertyX.setValue(event.detail.x)
+    }
+    else if (event.detail.y) {
+        propertyY.setValue(event.detail.y)
+    }
+    else if (event.detail.width) {
+        propertyWidth.setValue(event.detail.width)
+    }
+    else if (event.detail.height) {
+        propertyHeight.setValue(event.detail.height)
+    }
+})
 
 
 
 
-/*
+
+
 // Simple example, see optional options for more configuration.
 const pickr = Pickr.create({
     el: '#color-picker',
@@ -78,7 +97,7 @@ pickr.on('change', (color, instance) => {
 
     drawingHelper.setColor(combinedColor)
 
-})*/
+})
 
 
 

@@ -28,12 +28,16 @@ canvas-toolbar {
 #properties {
   background-color: $primary;
 }
-.properties-list {
-  padding: 10px;
 
+.properties-list {
   display: grid;
   grid-template-columns: 1fr 1fr;
 
+  grid-column-gap: 18px;
+  grid-row-gap: 18px;
+
   align-items: center;
-  justify-content: space-around;
+  margin: 20px;
 }
+
+/////////////////////////////////////////////////////////////////////////////////////////
