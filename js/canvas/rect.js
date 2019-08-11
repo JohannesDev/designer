@@ -128,6 +128,7 @@ export class Rect {
             return 3;
         }
     }
+
     scale(mode, x, y) {
         switch (mode) {
             case MODES.SCALE.TL:
