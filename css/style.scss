@@ -5,6 +5,7 @@ $primary--dark: #edf4f6;
   display: grid;
   grid-template-columns: 1fr 300px;
   grid-template-rows: 70px 1fr;
+  height: 100%;
 }
 
 canvas-toolbar {
@@ -47,7 +48,16 @@ canvas-toolbar {
 .properties-list2 {
   border-bottom: 2px solid #edeff3;
 
-  padding: 10px;
+  padding: 20px;
+}
+
+.color-container {
+  display: flex;
+  align-items: center;
+}
+
+.pickr {
+  margin-left: 20px;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////

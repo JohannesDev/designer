@@ -2,7 +2,7 @@ import { $ } from './domHelper.js';
 import { MODES } from './canvas/constants.js';
 import { DrawingHelper } from './canvas/drawingHelper.js';
 
-
+let updateObjectColor = true
 let drawingHelper = new DrawingHelper();
 
 let canvasToolbar = $('#canvas-toolbar')
@@ -47,6 +47,11 @@ drawingHelper.canvas.addEventListener('property_changed', (event) => {
     }
     else if (event.detail.cornerRadius) {
         propertyCornerRadius.setValue(event.detail.cornerRadius)
+    }
+    else if (event.detail.fillStyle) {
+        updateObjectColor = false;
+        pickr.setColor(event.detail.fillStyle)
+        updateObjectColor = true;
     }
 })
 
@@ -101,12 +106,15 @@ const pickr = Pickr.create({
 });
 
 pickr.on('change', (color, instance) => {
-    let combinedColor = '#' + color.toHEXA()[0] + color.toHEXA()[1] + color.toHEXA()[2]
-    if (typeof color.toHEXA()[3] != 'undefined') {
-        combinedColor = combinedColor + color.toHEXA()[3]
+    if (updateObjectColor) {
+        let combinedColor = '#' + color.toHEXA()[0] + color.toHEXA()[1] + color.toHEXA()[2]
+        if (typeof color.toHEXA()[3] != 'undefined') {
+            combinedColor = combinedColor + color.toHEXA()[3]
+        }
+
+        drawingHelper.setColor(combinedColor)
     }
 
-    drawingHelper.setColor(combinedColor)
 
 })
 
