@@ -23,8 +23,8 @@ export class DrawingHelper {
 
 
         //demo setup
-        let rect = new Rect(10, 20, 100, 200, 1, 'blue')
-        let rect2 = new Rect(100, 200, 200, 200, 20, 'red')
+        let rect = new Rect(10, 20, 100, 200, 1, '#FF0000')
+        let rect2 = new Rect(100, 200, 200, 200, 20, '#0000FF')
         this._objectList.push(rect)
         this._objectList.push(rect2)
         this.redraw()
@@ -40,7 +40,7 @@ export class DrawingHelper {
 
                 // Drawing new object on canvas
                 if (this._mode === MODES.DRAWING_READY) {
-                    let rect = new Rect(event.layerX, event.layerY, 1, 1, 20, "green");
+                    let rect = new Rect(event.layerX, event.layerY, 1, 1, 20, "#00AA00");
                     this._objectList.push(rect);
                     this._mode = MODES.DRAWING_STARTED
 
@@ -152,6 +152,8 @@ export class DrawingHelper {
         this.emitEvent('property_changed', { "width": this._activeObject.width })
         this.emitEvent('property_changed', { "height": this._activeObject.height })
         this.emitEvent('property_changed', { "cornerRadius": this._activeObject.cornerRadius })
+        this.emitEvent('property_changed', { "fillStyle": this._activeObject.fillStyle })
+
     }
 
 

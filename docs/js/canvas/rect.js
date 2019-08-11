@@ -30,8 +30,8 @@ export class Rect {
         let y = this._y
         let width = this._width
         let height = this._height
-        let cornerRadius = (Math.min(width, height) / 2) * (this._cornerRadius / 100)
 
+        //let cornerRadius = this._cornerRadius;
 
         //reorient rect if tansformation is negative
         if (height < 0) {
@@ -42,6 +42,8 @@ export class Rect {
             x = x + width
             width = -width
         }
+
+        let cornerRadius = (Math.min(width, height) / 2) * (this._cornerRadius / 100)
 
         //change corner Radius if too big for width/height
         if (2 * cornerRadius > width || 2 * cornerRadius > height) {
@@ -126,6 +128,7 @@ export class Rect {
             return 3;
         }
     }
+
     scale(mode, x, y) {
         switch (mode) {
             case MODES.SCALE.TL:
@@ -163,7 +166,7 @@ export class Rect {
     get width() { return this._width }
     get height() { return this._height }
     get fillStyle() { return this._fillStyle }
-    get cornerRadius() { return (Math.min(this._width, this._height) / 2) * (this._cornerRadius / 100) }
+    get cornerRadius() { return this._cornerRadius }
 
     set x(x) { this._x = x }
     set y(y) { this._y = y }

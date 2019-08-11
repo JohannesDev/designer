@@ -27,17 +27,17 @@ class ValueSlider extends HTMLElement {
             }
 
             #textbox {
-                width: 50px;
+                width: 60px;
                 background-color: #ffffff;
                 color: #1b2440;
 
-                text-align: left;
+                text-align: center;
 
                 border: 1px solid #d7d9e1;
                 border-radius: 4px;
 
-                padding-left: 15px;
-                padding-right: 15px;
+                padding-left: 10px;
+                padding-right: 10px;
 
                 padding-top: 10px;
                 padding-bottom: 10px;
@@ -45,7 +45,7 @@ class ValueSlider extends HTMLElement {
             }
 
             img {
-                width: 30px;
+                min-width: 30px;
                 height: 30px;
             }
 
@@ -86,7 +86,7 @@ class ValueSlider extends HTMLElement {
             
             
             <img class="margin" src="res/cornerRadius.png" />
-            <input type="range" min="0" max="100" value="5" class="slider margin" id="myRange">
+            <input type="range" min="0" max="100" value="5" class="slider margin" id="slider">
             <input id="textbox" type="text" class="text margin" />
             
             
@@ -108,6 +108,7 @@ class ValueSlider extends HTMLElement {
 
     setValue(value) {
         this.shadowRoot.getElementById('textbox').value = value
+        this.shadowRoot.getElementById('slider').value = value
     }
 }
 
