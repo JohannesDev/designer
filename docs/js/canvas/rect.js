@@ -1,5 +1,10 @@
+import { MODES, toRad } from './constants.js'
 
-class Rect {
+//remove
+let canvas = document.getElementById('drawing');
+let ctx = canvas.getContext('2d');
+
+export class Rect {
     constructor(x, y, width, height, cornerRadius, fillStyle) {
         this._path
         this._x = x;
@@ -20,17 +25,35 @@ class Rect {
     }
 
     draw() {
-
+        //temp vars
         let x = this._x
         let y = this._y
         let width = this._width
         let height = this._height
-        let cornerRadius = this._cornerRadius
+        let cornerRadius = (Math.min(width, height) / 2) * (this._cornerRadius / 100)
+
+
+        //reorient rect if tansformation is negative
+        if (height < 0) {
+            y = y + height
+            height = -height
+        }
+        if (width < 0) {
+            x = x + width
+            width = -width
+        }
+
+        //change corner Radius if too big for width/height
+        if (2 * cornerRadius > width || 2 * cornerRadius > height) {
+            cornerRadius = Math.min(width, height) / 2
+        }
+
+
 
         this._path = new Path2D();
         this._path.moveTo(x, y + cornerRadius);
 
-        this._path.arc(x  + cornerRadius, y + cornerRadius, cornerRadius, toRad(180), toRad(270));
+        this._path.arc(x + cornerRadius, y + cornerRadius, cornerRadius, toRad(180), toRad(270));
         this._path.lineTo(x + width - cornerRadius, y);
 
         this._path.arc(x + width - cornerRadius, y + cornerRadius, cornerRadius, toRad(270), toRad(0));
@@ -39,7 +62,7 @@ class Rect {
         this._path.arc(x + width - cornerRadius, y + height - cornerRadius, cornerRadius, toRad(0), toRad(90));
         this._path.lineTo(x + cornerRadius, y + height);
 
-        this._path.arc(x + cornerRadius, y + this._height - cornerRadius, cornerRadius, toRad(90), toRad(180));
+        this._path.arc(x + cornerRadius, y + height - cornerRadius, cornerRadius, toRad(90), toRad(180));
         this._path.closePath();
 
         ctx.fillStyle = this._fillStyle;
@@ -66,13 +89,13 @@ class Rect {
         this._pathCornerBL = new Path2D()
         this._pathCornerBL.arc(this._x, this._y + this._height, 5, 0, 2 * Math.PI, true)
 
-        ctx.strokeStyle = "#FF5757";
+        ctx.strokeStyle = "#ee4bd8";
         ctx.lineWidth = 1;
         ctx.stroke(this._pathBoundingRect);
 
-        ctx.strokeStyle = "#FF5757";
+        ctx.strokeStyle = "#ee4bd8";
         ctx.lineWidth = 2;
-        ctx.fillStyle = "#FF5757"
+        ctx.fillStyle = "#ee4bd8"
 
         ctx.stroke(this._pathCornerTL);
         ctx.stroke(this._pathCornerTR);
@@ -139,11 +162,13 @@ class Rect {
     get y() { return this._y }
     get width() { return this._width }
     get height() { return this._height }
-    get fillStyle() { return this._fillStyle}
+    get fillStyle() { return this._fillStyle }
+    get cornerRadius() { return (Math.min(this._width, this._height) / 2) * (this._cornerRadius / 100) }
 
     set x(x) { this._x = x }
     set y(y) { this._y = y }
     set width(width) { this._width = width }
     set height(height) { this._height = height }
     set fillStyle(fillStyle) { this._fillStyle = fillStyle }
+    set cornerRadius(cornerRadius) { this._cornerRadius = cornerRadius }
 }
