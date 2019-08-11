@@ -6,10 +6,13 @@ import { DrawingHelper } from './canvas/drawingHelper.js';
 let drawingHelper = new DrawingHelper();
 
 let canvasToolbar = $('#canvas-toolbar')
+
 let propertyX = $('#property-x')
 let propertyY = $('#property-y')
 let propertyWidth = $('#property-width')
 let propertyHeight = $('#property-height')
+
+let propertyCornerRadius = $('#property-cornerRadius')
 
 
 canvasToolbar.addEventListener('button_clicked', (event) => {
@@ -42,6 +45,13 @@ drawingHelper.canvas.addEventListener('property_changed', (event) => {
     else if (event.detail.height) {
         propertyHeight.setValue(event.detail.height)
     }
+    else if (event.detail.cornerRadius) {
+        propertyCornerRadius.setValue(event.detail.cornerRadius)
+    }
+})
+
+propertyCornerRadius.addEventListener('corner_radius_changed', (event) => {
+    drawingHelper.setCornerRadius(event.detail)
 })
 
 
@@ -53,6 +63,7 @@ drawingHelper.canvas.addEventListener('property_changed', (event) => {
 const pickr = Pickr.create({
     el: '#color-picker',
     theme: 'classic', // or 'monolith', or 'nano'
+    comparison: false,
 
     swatches: [
         'rgba(244, 67, 54, 1)',

@@ -139,21 +139,7 @@ export class DrawingHelper {
         })
 
 
-        document.addEventListener('input', (event) => {
-            if (this._activeObject != null) {
-                switch (event.target) {
-                    case $('#tb_positionX'):
-                        console.log("changed");
-                        this._activeObject.x = event.target.value
 
-
-                        break;
-                }
-
-            }
-
-
-        });
     }
 
     //these functions should later be moved to other files
@@ -165,6 +151,7 @@ export class DrawingHelper {
         this.emitEvent('property_changed', { "y": this._activeObject.y })
         this.emitEvent('property_changed', { "width": this._activeObject.width })
         this.emitEvent('property_changed', { "height": this._activeObject.height })
+        this.emitEvent('property_changed', { "cornerRadius": this._activeObject.cornerRadius })
     }
 
 
@@ -189,6 +176,13 @@ export class DrawingHelper {
         if (this._activeObject != null) {
             this._activeObject.fillStyle = color;
         }
+    }
+    setCornerRadius(value) {
+        if (this._activeObject != null) {
+            this._activeObject.cornerRadius = parseInt(value);
+        }
+
+        this.updateProps()
     }
     move(x, y) {
         this._activeObject.x = x

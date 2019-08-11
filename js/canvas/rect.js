@@ -25,11 +25,30 @@ export class Rect {
     }
 
     draw() {
+        //temp vars
         let x = this._x
         let y = this._y
         let width = this._width
         let height = this._height
-        let cornerRadius = this._cornerRadius
+        let cornerRadius = (Math.min(width, height) / 2) * (this._cornerRadius / 100)
+
+
+        //reorient rect if tansformation is negative
+        if (height < 0) {
+            y = y + height
+            height = -height
+        }
+        if (width < 0) {
+            x = x + width
+            width = -width
+        }
+
+        //change corner Radius if too big for width/height
+        if (2 * cornerRadius > width || 2 * cornerRadius > height) {
+            cornerRadius = Math.min(width, height) / 2
+        }
+
+
 
         this._path = new Path2D();
         this._path.moveTo(x, y + cornerRadius);
@@ -43,7 +62,7 @@ export class Rect {
         this._path.arc(x + width - cornerRadius, y + height - cornerRadius, cornerRadius, toRad(0), toRad(90));
         this._path.lineTo(x + cornerRadius, y + height);
 
-        this._path.arc(x + cornerRadius, y + this._height - cornerRadius, cornerRadius, toRad(90), toRad(180));
+        this._path.arc(x + cornerRadius, y + height - cornerRadius, cornerRadius, toRad(90), toRad(180));
         this._path.closePath();
 
         ctx.fillStyle = this._fillStyle;
@@ -144,10 +163,12 @@ export class Rect {
     get width() { return this._width }
     get height() { return this._height }
     get fillStyle() { return this._fillStyle }
+    get cornerRadius() { return (Math.min(this._width, this._height) / 2) * (this._cornerRadius / 100) }
 
     set x(x) { this._x = x }
     set y(y) { this._y = y }
     set width(width) { this._width = width }
     set height(height) { this._height = height }
     set fillStyle(fillStyle) { this._fillStyle = fillStyle }
+    set cornerRadius(cornerRadius) { this._cornerRadius = cornerRadius }
 }

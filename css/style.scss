@@ -33,11 +33,21 @@ canvas-toolbar {
   display: grid;
   grid-template-columns: 1fr 1fr;
 
-  grid-column-gap: 18px;
-  grid-row-gap: 18px;
+  grid-column-gap: 25px;
+  grid-row-gap: 25px;
 
   align-items: center;
-  margin: 20px;
+  padding: 20px;
+  padding-top: 30px;
+  padding-bottom: 30px;
+
+  border-bottom: 2px solid #edeff3;
+}
+
+.properties-list2 {
+  border-bottom: 2px solid #edeff3;
+
+  padding: 10px;
 }
 
 /////////////////////////////////////////////////////////////////////////////////////////

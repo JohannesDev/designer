@@ -13,9 +13,10 @@
   <link href="css/util.css" rel="stylesheet" type="text/css">
   <link href="css/style.css" rel="stylesheet" type="text/css">
 
-
+  <!--components-->
   <script src="./js/components/canvasToolbar.js"></script>
   <script src="./js/components/textProperty.js"></script>
+  <script src="./js/components/valueSlider.js"></script>
 </head>
 
 <body>
@@ -37,16 +38,17 @@
 
         <text-property text-label="H" id="property-height"></text-property>
 
+      </div>
 
-        <p>Colors</p>
+
+      <div class="properties-list2">
+        <span>Colors</span>
         <div id="color-picker"></div>
 
-        <p>corner radius</p>
-        <div class="slidecontainer">
-          <input type="range" min="1" max="80" value="50" class="slider" id="myRange" style="width: 100px">
-        </div>
-
+        <value-slider id="property-cornerRadius"></value-slider>
       </div>
+
+
 
     </div>
 
