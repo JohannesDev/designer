@@ -1,8 +1,24 @@
-import { MODES, toRad } from './constants.js'
+import { toRad } from './constants.js'
+import { $ } from '../domHelper.js';
 
 //remove
 let canvas = document.getElementById('drawing');
 let ctx = canvas.getContext('2d');
+
+export const MODES = {
+    MOVE: 0,
+    SCALE: {
+        TL: 1,
+        TR: 2,
+        BR: 3,
+        BL: 4,
+    }
+}
+
+
+
+
+
 
 export class Rect {
     constructor(x, y, width, height, cornerRadius, fillStyle) {
@@ -22,7 +38,83 @@ export class Rect {
         this._pathCornerBR = new Path2D()
         this._pathCornerBL = new Path2D()
 
+
+        //canvas variables
+        this._down = false;
+        this._active = false
+        this._clickOffsetX = 0
+        this._clickOffsetY = 0
+
+        this._mode = MODES.MOVE;
+
+        document.addEventListener('mousedown', (event) => {
+
+            //canvas clicked
+            if (event.target === $('#drawing')) {
+                this._down = true;
+
+                //check if object is clicked and set it active
+                if (ctx.isPointInPath(this._path, event.layerX, event.layerY)) {
+                    this._active = true
+                    this._mode = MODES.MOVE;
+
+                    this._clickOffsetX = event.layerX - this._x;
+                    this._clickOffsetY = event.layerY - this._y;
+
+                    //this.updateProps()
+                }
+                //check if any control points are clicked and set the acording mode
+                else if (ctx.isPointInPath(this._pathCornerTL, event.layerX, event.layerY)) {
+                    this._active = true
+                    this._mode = MODES.SCALE.TL;
+                }
+                else if (ctx.isPointInPath(this._pathCornerTR, event.layerX, event.layerY)) {
+                    this._active = true
+                    this._mode = MODES.SCALE.TR;
+                }
+                else if (ctx.isPointInPath(this._pathCornerBR, event.layerX, event.layerY)) {
+                    this._active = true
+                    this._mode = MODES.SCALE.BR;
+                }
+                else if (ctx.isPointInPath(this._pathCornerBL, event.layerX, event.layerY)) {
+                    this._active = true
+                    this._mode = MODES.SCALE.BL;
+                }
+                //object not clicked
+                else {
+                    this._active = false
+                }
+
+
+            }
+        })
+
+
+        document.addEventListener('mousemove', (event) => {
+            let mouseX = event.clientX - $('#window').offsetLeft
+            let mouseY = event.clientY - $('#window').offsetTop
+
+            //Move whole object
+            if (this._active === true && this._down === true && this._mode === MODES.MOVE) {
+                let x = mouseX - this._clickOffsetX
+                let y = mouseY - this._clickOffsetY
+                this.move(x, y)
+            }
+            else if (this._active === true && this._down === true) {
+                this.scale(this._mode, mouseX, mouseY)
+            }
+
+
+        })
+
+
+        document.addEventListener('mouseup', (event) => {
+            this._down = false;
+        })
     }
+
+
+
 
     draw() {
         //temp vars
@@ -49,8 +141,6 @@ export class Rect {
         if (2 * cornerRadius > width || 2 * cornerRadius > height) {
             cornerRadius = Math.min(width, height) / 2
         }
-
-
 
         this._path = new Path2D();
         this._path.moveTo(x, y + cornerRadius);
@@ -108,25 +198,14 @@ export class Rect {
         ctx.fill(this._pathCornerBR);
         ctx.fill(this._pathCornerBL);
 
+        this.updateProps()
     }
 
-    isPointInObject(x, y) {
-        return ctx.isPointInPath(this._path, event.layerX, event.layerY)
-    }
 
-    isPointInControlls(x, y) {
-        if (ctx.isPointInPath(this._pathCornerTL, event.layerX, event.layerY)) {
-            return 0;
-        }
-        else if (ctx.isPointInPath(this._pathCornerTR, event.layerX, event.layerY)) {
-            return 1;
-        }
-        else if (ctx.isPointInPath(this._pathCornerBR, event.layerX, event.layerY)) {
-            return 2;
-        }
-        else if (ctx.isPointInPath(this._pathCornerBL, event.layerX, event.layerY)) {
-            return 3;
-        }
+    move(x, y) {
+        this._x = x
+        this._y = y
+        this.updateProps()
     }
 
     scale(mode, x, y) {
@@ -159,6 +238,25 @@ export class Rect {
                 break;
         }
 
+        this.updateProps()
+    }
+
+
+    /////////////////////////////////////////////////////////////////////////////////////
+
+
+    //these functions should later be moved to other files
+    emitEvent(eventName, object) {
+        canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
+    }
+    updateProps() {
+        this.emitEvent('property_changed', { "x": this._x })
+        this.emitEvent('property_changed', { "y": this._y })
+        this.emitEvent('property_changed', { "width": this._width })
+        this.emitEvent('property_changed', { "height": this._height })
+        this.emitEvent('property_changed', { "cornerRadius": this._cornerRadius })
+        this.emitEvent('property_changed', { "fillStyle": this._fillStyle })
+
     }
 
     get x() { return this._x }
@@ -167,6 +265,7 @@ export class Rect {
     get height() { return this._height }
     get fillStyle() { return this._fillStyle }
     get cornerRadius() { return this._cornerRadius }
+    get active() { return this._active }
 
     set x(x) { this._x = x }
     set y(y) { this._y = y }

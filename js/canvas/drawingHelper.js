@@ -31,8 +31,6 @@ export class DrawingHelper {
 
 
 
-
-
         document.addEventListener('mousedown', (event) => {
 
             // Canvas Clicked
@@ -46,52 +44,9 @@ export class DrawingHelper {
 
                 }
 
-                // select object on canvas
-                else {
-
-                    this._down = true;
-                    this._activeObject = null
-
-                    //check for click event
-                    this._objectList.forEach((element) => {
-
-                        //check if object is clicked and set it active
-                        if (element.isPointInObject(event.layerX, event.layerY)) {
-                            this._mode = MODES.MOVE
-                            this._activeObject = element;
-
-                            this._clickOffsetX = event.layerX - this._activeObject._x;
-                            this._clickOffsetY = event.layerY - this._activeObject._y;
-
-                            this.updateProps()
-                        }
-
-                        //check if any control points are clicked and set the acording mode
-                        switch (element.isPointInControlls(event.layerX, event.layerY)) {
-                            case 0:
-                                this._activeObject = element;
-                                this._mode = MODES.SCALE.TL;
-                                break;
-                            case 1:
-                                this._activeObject = element;
-                                this._mode = MODES.SCALE.TR;
-                                break;
-                            case 2:
-                                this._activeObject = element;
-                                this._mode = MODES.SCALE.BR;
-                                break;
-                            case 3:
-                                this._activeObject = element;
-                                this._mode = MODES.SCALE.BL
-                                break;
-
-                        }
-                    })
-                }
-
-
-                this.redraw()
             }
+
+            this.redraw()
 
         })
 
@@ -109,18 +64,6 @@ export class DrawingHelper {
                 rect.height = mouseY - rect.y;
             }
 
-            //Move whole object
-            if (this._activeObject != null && this._down === true && this._mode === MODES.MOVE) {
-
-
-                this.move(mouseX - this._clickOffsetX, mouseY - this._clickOffsetY);
-            }
-
-            //Scaling
-            else if (this._down === true && Object.values(MODES.SCALE).includes(this._mode)) {
-                this.scale(mouseX, mouseY)
-            }
-
 
             this.redraw()
         })
@@ -130,31 +73,18 @@ export class DrawingHelper {
 
             if (this._mode === MODES.DRAWING_STARTED) {
                 this._activeObject = this._objectList[this._objectList.length - 1]
-                this.redraw()
+
 
                 this.emitEvent('drawing_finished');
 
             }
-
+            this.redraw()
         })
 
 
 
     }
 
-    //these functions should later be moved to other files
-    emitEvent(eventName, object) {
-        this._canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
-    }
-    updateProps() {
-        this.emitEvent('property_changed', { "x": this._activeObject.x })
-        this.emitEvent('property_changed', { "y": this._activeObject.y })
-        this.emitEvent('property_changed', { "width": this._activeObject.width })
-        this.emitEvent('property_changed', { "height": this._activeObject.height })
-        this.emitEvent('property_changed', { "cornerRadius": this._activeObject.cornerRadius })
-        this.emitEvent('property_changed', { "fillStyle": this._activeObject.fillStyle })
-
-    }
 
 
     //till here
@@ -165,9 +95,10 @@ export class DrawingHelper {
 
         this._objectList.forEach((element) => {
             element.draw()
-            if (element === this._activeObject) {
+            if (element.active) {
                 element.drawActive()
-            }
+
+            };
             //ctx.stroke(); // change order maybe
         })
     }
@@ -186,16 +117,10 @@ export class DrawingHelper {
 
         this.updateProps()
     }
-    move(x, y) {
-        this._activeObject.x = x
-        this._activeObject.y = y
-
-        this.updateProps()
-    }
     scale(x, y) {
         this._activeObject.scale(this._mode, x, y)
 
-        this.updateProps()
+
     }
 
 
