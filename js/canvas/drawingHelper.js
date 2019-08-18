@@ -10,11 +10,8 @@ export class DrawingHelper {
         this._ctx = this._canvas.getContext('2d');
 
         this._objectList = []
-        this._activeObject = null
 
         this._down = false;
-        this._clickOffsetX
-        this._clickOffsetY
 
         this._mode
 
@@ -58,8 +55,6 @@ export class DrawingHelper {
             if (this._mode === MODES.DRAWING_STARTED) {
                 let rect = this._objectList[this._objectList.length - 1]
 
-
-
                 rect.width = mouseX - rect.x;
                 rect.height = mouseY - rect.y;
             }
@@ -72,6 +67,8 @@ export class DrawingHelper {
             this._down = false;
 
             if (this._mode === MODES.DRAWING_STARTED) {
+                console.log("now");
+
                 this._activeObject = this._objectList[this._objectList.length - 1]
 
 
@@ -85,9 +82,6 @@ export class DrawingHelper {
 
     }
 
-
-
-    //till here
 
 
     redraw() {
@@ -106,22 +100,24 @@ export class DrawingHelper {
 
     //Actions for the active object
     setColor(color) {
-        if (this._activeObject != null) {
-            this._activeObject.fillStyle = color;
+        const activeObject = this._objectList.filter(object => object.active === true)[0]
+        if (typeof activeObject != "undefined") {
+            activeObject.fillStyle = color;
         }
     }
     setCornerRadius(value) {
-        if (this._activeObject != null) {
-            this._activeObject.cornerRadius = parseInt(value);
+        const activeObject = this._objectList.filter(object => object.active === true)[0]
+        if (typeof activeObject != "undefined") {
+            activeObject.cornerRadius = parseInt(value);
         }
-
-        this.updateProps()
     }
-    scale(x, y) {
-        this._activeObject.scale(this._mode, x, y)
 
 
+    //these functions should later be moved to other files
+    emitEvent(eventName, object) {
+        this._canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
     }
+
 
 
     //other functions
