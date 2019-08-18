@@ -17,9 +17,6 @@ export const MODES = {
 
 
 
-
-
-
 export class Rect {
     constructor(x, y, width, height, cornerRadius, fillStyle) {
         this._path
@@ -44,7 +41,6 @@ export class Rect {
         this._active = false
         this._clickOffsetX = 0
         this._clickOffsetY = 0
-
         this._mode = MODES.MOVE;
 
         document.addEventListener('mousedown', (event) => {
@@ -53,31 +49,18 @@ export class Rect {
             if (event.target === $('#drawing')) {
                 this._down = true;
 
-                //check if object is clicked and set it active
-                if (ctx.isPointInPath(this._path, event.layerX, event.layerY)) {
-                    this._active = true
-                    this._mode = MODES.MOVE;
 
-                    this._clickOffsetX = event.layerX - this._x;
-                    this._clickOffsetY = event.layerY - this._y;
-
-                    //this.updateProps()
-                }
                 //check if any control points are clicked and set the acording mode
-                else if (ctx.isPointInPath(this._pathCornerTL, event.layerX, event.layerY)) {
-                    this._active = true
+                if (ctx.isPointInPath(this._pathCornerTL, event.layerX, event.layerY) && this._active === true) {
                     this._mode = MODES.SCALE.TL;
                 }
-                else if (ctx.isPointInPath(this._pathCornerTR, event.layerX, event.layerY)) {
-                    this._active = true
+                else if (ctx.isPointInPath(this._pathCornerTR, event.layerX, event.layerY) && this._active === true) {
                     this._mode = MODES.SCALE.TR;
                 }
-                else if (ctx.isPointInPath(this._pathCornerBR, event.layerX, event.layerY)) {
-                    this._active = true
+                else if (ctx.isPointInPath(this._pathCornerBR, event.layerX, event.layerY) && this._active === true) {
                     this._mode = MODES.SCALE.BR;
                 }
-                else if (ctx.isPointInPath(this._pathCornerBL, event.layerX, event.layerY)) {
-                    this._active = true
+                else if (ctx.isPointInPath(this._pathCornerBL, event.layerX, event.layerY) && this._active === true) {
                     this._mode = MODES.SCALE.BL;
                 }
                 //object not clicked
@@ -87,6 +70,7 @@ export class Rect {
 
 
             }
+
         })
 
 
@@ -96,6 +80,9 @@ export class Rect {
 
             //Move whole object
             if (this._active === true && this._down === true && this._mode === MODES.MOVE) {
+
+
+
                 let x = mouseX - this._clickOffsetX
                 let y = mouseY - this._clickOffsetY
                 this.move(x, y)
@@ -201,6 +188,10 @@ export class Rect {
         this.updateProps()
     }
 
+    isPointInRect() {
+        return ctx.isPointInPath(this._path, event.layerX, event.layerY)
+    }
+
 
     move(x, y) {
         this._x = x
@@ -273,4 +264,8 @@ export class Rect {
     set height(height) { this._height = height }
     set fillStyle(fillStyle) { this._fillStyle = fillStyle }
     set cornerRadius(cornerRadius) { this._cornerRadius = cornerRadius }
+    set active(active) { this._active = active }
+    set mode(mode) { this._mode = mode }
+    set clickOffsetX(clickOffsetX) { this._clickOffsetX = clickOffsetX }
+    set clickOffsetY(clickOffsetY) { this._clickOffsetY = clickOffsetY }
 }

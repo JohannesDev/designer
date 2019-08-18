@@ -10,11 +10,12 @@ export class DrawingHelper {
         this._ctx = this._canvas.getContext('2d');
 
         this._objectList = []
+        this._activeElement = null
 
         this._down = false;
+        this._mode = MODES.MOVE
 
-        this._mode
-
+        //set width and height of canvas
         this._canvas.width = $('#window').clientWidth;
         this._canvas.height = $('#window').clientHeight - 4;
 
@@ -38,6 +39,28 @@ export class DrawingHelper {
                     let rect = new Rect(event.layerX, event.layerY, 1, 1, 20, "#00AA00");
                     this._objectList.push(rect);
                     this._mode = MODES.DRAWING_STARTED
+                }
+                else if (this._mode === MODES.MOVE) {
+                    this._activeElement = null;
+
+                    this._objectList.forEach((element) => {
+                        //check if object is clicked and set it active
+                        if (element.isPointInRect()) {
+                            this._activeElement = element;
+
+                        }
+                        else {
+                            element.active = false;
+                        }
+
+                    })
+
+                    if (this._activeElement != null) {
+                        this._activeElement.active = true
+                        this._activeElement.mode = MODES.MOVE;
+                        this._activeElement.clickOffsetX = event.layerX - this._activeElement.x;
+                        this._activeElement.clickOffsetY = event.layerY - this._activeElement.y;
+                    }
 
                 }
 
@@ -67,7 +90,6 @@ export class DrawingHelper {
             this._down = false;
 
             if (this._mode === MODES.DRAWING_STARTED) {
-                console.log("now");
 
                 this._activeObject = this._objectList[this._objectList.length - 1]
 
@@ -97,6 +119,19 @@ export class DrawingHelper {
         })
     }
 
+    //other functions
+    save() {
+        $('#btn_save').href = this._canvas.toDataURL();
+        $('#btn_save').download = "mypainting.png";
+    }
+
+
+    //COMMUNICATION
+
+    //these functions should later be moved to other files
+    emitEvent(eventName, object) {
+        this._canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
+    }
 
     //Actions for the active object
     setColor(color) {
@@ -113,18 +148,9 @@ export class DrawingHelper {
     }
 
 
-    //these functions should later be moved to other files
-    emitEvent(eventName, object) {
-        this._canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
-    }
 
 
-
-    //other functions
-    save() {
-        $('#btn_save').href = this._canvas.toDataURL();
-        $('#btn_save').download = "mypainting.png";
-    }
+    //SETTERS AND GETTERS
 
     get canvas() { return this._canvas }
 
