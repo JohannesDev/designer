@@ -14,6 +14,8 @@ let propertyHeight = $('#property-height')
 
 let propertyCornerRadius = $('#property-cornerRadius')
 
+let layerList = $('#layer-list')
+
 
 canvasToolbar.addEventListener('button_clicked', (event) => {
 
@@ -52,6 +54,9 @@ drawingHelper.canvas.addEventListener('property_changed', (event) => {
         updateObjectColor = false;
         pickr.setColor(event.detail.fillStyle)
         updateObjectColor = true;
+    }
+    else if (event.detail.objectList) {
+        layerList.updateObjectList(event.detail.objectList)
     }
 })
 

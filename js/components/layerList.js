@@ -37,16 +37,29 @@ class LayerList extends HTMLElement {
             </style>
   
             
-            
+            <div id="layers">
             <div class="layer-item active">Rect 1</div>
             <div class="layer-item">Rect 2</div>
             
-
+</div>
           `;
 
     }
 
-    addItem(id, name) {
+    updateObjectList(objectList) {
+        const parent = this.shadowRoot.getElementById('layers');
+
+        while (parent.firstChild) {
+            parent.removeChild(parent.firstChild);
+        }
+
+        objectList.forEach(element => {
+            let div = document.createElement('div')
+            div.innerHTML = element.name
+            div.className = 'layer-item'
+
+            parent.appendChild(div)
+        });
 
     }
 

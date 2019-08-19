@@ -23,9 +23,9 @@ export class DrawingHelper {
 
 
         //demo setup
-        let rect = new Rect(10, 20, 100, 200, 1, '#FF0000')
-        let rect2 = new Rect(100, 200, 200, 200, 20, '#0000FF')
+        let rect = new Rect(this._objectList.length, 10, 20, 100, 200, 1, '#FF0000')
         this._objectList.push(rect)
+        let rect2 = new Rect(this._objectList.length, 100, 200, 200, 200, 20, '#0000FF')
         this._objectList.push(rect2)
         this.redraw()
 
@@ -39,9 +39,10 @@ export class DrawingHelper {
 
                 // Drawing new object on canvas
                 if (this._mode === MODES.DRAWING_READY) {
-                    let rect = new Rect(event.layerX, event.layerY, 1, 1, 20, "#00AA00");
+                    let rect = new Rect(this._objectList.length, event.layerX, event.layerY, 1, 1, 20, "#00AA00");
                     this._objectList.push(rect);
                     this._mode = MODES.DRAWING_STARTED
+                    this.updateProps()
                 }
                 else {
                     this._activeElement = null;
@@ -174,7 +175,7 @@ export class DrawingHelper {
     /////////////////////////////////////////////////////////////////////////////////////
     //these functions should later be moved to other files
     emitEvent(eventName, object) {
-        canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
+        this._canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
     }
     updateProps() {
         this.emitEvent('property_changed', { "x": this._x })
@@ -183,6 +184,7 @@ export class DrawingHelper {
         this.emitEvent('property_changed', { "height": this._height })
         this.emitEvent('property_changed', { "cornerRadius": this._cornerRadius })
         this.emitEvent('property_changed', { "fillStyle": this._fillStyle })
+        this.emitEvent('property_changed', { "objectList": this._objectList })
 
     }
 

@@ -18,7 +18,7 @@ export const MODES = {
 
 
 export class Rect {
-    constructor(x, y, width, height, cornerRadius, fillStyle) {
+    constructor(id, x, y, width, height, cornerRadius, fillStyle) {
         this._path
         this._x = x;
         this._y = y;
@@ -35,6 +35,12 @@ export class Rect {
         this._pathCornerBR = new Path2D()
         this._pathCornerBL = new Path2D()
 
+
+        //cometic values
+        console.log(id);
+
+        this._id = id
+        this._name = "Rect " + (id + 1)
     }
 
 
@@ -122,7 +128,6 @@ export class Rect {
         ctx.fill(this._pathCornerBR);
         ctx.fill(this._pathCornerBL);
 
-        this.updateProps()
     }
 
     isPointInControlPoint() {
@@ -152,7 +157,6 @@ export class Rect {
     move(x, y) {
         this._x = x
         this._y = y
-        this.updateProps()
     }
 
     scale(mode, x, y) {
@@ -199,6 +203,7 @@ export class Rect {
     get height() { return this._height }
     get fillStyle() { return this._fillStyle }
     get cornerRadius() { return this._cornerRadius }
+    get name() { return this._name }
 
     set x(x) { this._x = x }
     set y(y) { this._y = y }
