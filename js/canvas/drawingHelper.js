@@ -109,7 +109,7 @@ export class DrawingHelper {
 
             if (this._mode === MODES.DRAWING_STARTED) {
 
-                this._activeObject = this._objectList[this._objectList.length - 1]
+                this._activeElement = this._objectList[this._objectList.length - 1]
 
                 this.emitEvent('drawing_finished');
 
@@ -169,6 +169,21 @@ export class DrawingHelper {
         if (typeof activeObject != "undefined") {
             activeObject.cornerRadius = parseInt(value);
         }
+    }
+
+    /////////////////////////////////////////////////////////////////////////////////////
+    //these functions should later be moved to other files
+    emitEvent(eventName, object) {
+        canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
+    }
+    updateProps() {
+        this.emitEvent('property_changed', { "x": this._x })
+        this.emitEvent('property_changed', { "y": this._y })
+        this.emitEvent('property_changed', { "width": this._width })
+        this.emitEvent('property_changed', { "height": this._height })
+        this.emitEvent('property_changed', { "cornerRadius": this._cornerRadius })
+        this.emitEvent('property_changed', { "fillStyle": this._fillStyle })
+
     }
 
 

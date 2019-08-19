@@ -185,26 +185,13 @@ export class Rect {
                 break;
         }
 
-        this.updateProps()
     }
 
 
-    /////////////////////////////////////////////////////////////////////////////////////
 
 
-    //these functions should later be moved to other files
-    emitEvent(eventName, object) {
-        canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
-    }
-    updateProps() {
-        this.emitEvent('property_changed', { "x": this._x })
-        this.emitEvent('property_changed', { "y": this._y })
-        this.emitEvent('property_changed', { "width": this._width })
-        this.emitEvent('property_changed', { "height": this._height })
-        this.emitEvent('property_changed', { "cornerRadius": this._cornerRadius })
-        this.emitEvent('property_changed', { "fillStyle": this._fillStyle })
 
-    }
+
 
     get x() { return this._x }
     get y() { return this._y }
