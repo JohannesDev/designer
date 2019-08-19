@@ -38,26 +38,32 @@ drawingHelper.canvas.addEventListener('property_changed', (event) => {
     if (event.detail.x) {
         propertyX.setValue(event.detail.x)
     }
-    else if (event.detail.y) {
+    if (event.detail.y) {
         propertyY.setValue(event.detail.y)
     }
-    else if (event.detail.width) {
+    if (event.detail.width) {
         propertyWidth.setValue(event.detail.width)
     }
-    else if (event.detail.height) {
+    if (event.detail.height) {
         propertyHeight.setValue(event.detail.height)
     }
-    else if (event.detail.cornerRadius) {
+    if (event.detail.cornerRadius) {
         propertyCornerRadius.setValue(event.detail.cornerRadius)
     }
-    else if (event.detail.fillStyle) {
+    if (event.detail.fillStyle) {
         updateObjectColor = false;
         pickr.setColor(event.detail.fillStyle)
         updateObjectColor = true;
     }
-    else if (event.detail.objectList) {
-        layerList.updateObjectList(event.detail.objectList)
+    if (event.detail.objectList && event.detail.activeElement) {
+        layerList.updateObjectList(event.detail.objectList, event.detail.activeElement)
     }
+
+})
+
+layerList.addEventListener('selectElement', (event) => {
+    let id = event.detail
+    drawingHelper.selectElement(id)
 })
 
 propertyCornerRadius.addEventListener('corner_radius_changed', (event) => {

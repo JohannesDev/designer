@@ -49,7 +49,7 @@ class LayerList extends HTMLElement {
 
     }
 
-    updateObjectList(objectList) {
+    updateObjectList(objectList, activeElement) {
         const parent = this.shadowRoot.getElementById('layers');
 
         while (parent.firstChild) {
@@ -61,13 +61,17 @@ class LayerList extends HTMLElement {
             div.id = element.id
             div.innerHTML = element.name
             div.className = 'layer-item'
+            if (element === activeElement) {
+                div.className = 'layer-item active'
+            }
 
             div.addEventListener('click', (event) => {
-                if (this._previousSelection != null) {
-                    this._previousSelection.classList.remove('active')
-                }
-                event.target.classList.add('active')
-                this._previousSelection = event.target
+                //if (this._previousSelection != null) {
+                //    this._previousSelection.classList.remove('active')
+                //}
+                //event.target.classList.add('active')
+                //this._previousSelection = event.target
+                this.emitEvent(event.target.id)
             })
 
             parent.appendChild(div)
@@ -75,6 +79,10 @@ class LayerList extends HTMLElement {
 
 
 
+    }
+
+    emitEvent(object) {
+        this.dispatchEvent(new CustomEvent('selectElement', { detail: object }));
     }
 
 

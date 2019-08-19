@@ -42,6 +42,7 @@ export class DrawingHelper {
                     let rect = new Rect(this._objectList.length, event.layerX, event.layerY, 1, 1, 20, "#00AA00");
                     this._objectList.push(rect);
                     this._mode = MODES.DRAWING_STARTED
+                    this._activeElement = rect
                     this.updateProps()
                 }
                 else {
@@ -59,6 +60,8 @@ export class DrawingHelper {
                             this._activeElement = element;
                             this._clickOffsetX = event.layerX - this._activeElement.x
                             this._clickOffsetY = event.layerY - this._activeElement.y
+
+                            this.updateProps()
                         }
 
                     })
@@ -95,6 +98,7 @@ export class DrawingHelper {
                 let x = mouseX - this._clickOffsetX
                 let y = mouseY - this._clickOffsetY
                 this._activeElement.move(x, y)
+                this.updateProps()
             }
             //Scale object 
             else if (this._activeElement != null && this._down === true && Object.values(MODES.SCALE).includes(this._mode)) {
@@ -116,9 +120,7 @@ export class DrawingHelper {
 
             }
             if (Object.values(MODES.SCALE).includes(this._mode)) {
-
                 this._mode = MODES.MOVE
-
             }
             this.redraw()
         })
@@ -156,11 +158,6 @@ export class DrawingHelper {
 
     //COMMUNICATION
 
-    //these functions should later be moved to other files
-    emitEvent(eventName, object) {
-        this._canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
-    }
-
     //Actions for the active object
     setColor(color) {
         const activeObject = this._objectList.filter(object => object.active === true)[0]
@@ -174,6 +171,12 @@ export class DrawingHelper {
             activeObject.cornerRadius = parseInt(value);
         }
     }
+    selectElement(id) {
+        console.log(this._objectList[id]);
+
+        this.activeElement = this._objectList[id]
+        this.redraw()
+    }
 
     /////////////////////////////////////////////////////////////////////////////////////
     //these functions should later be moved to other files
@@ -181,14 +184,16 @@ export class DrawingHelper {
         this._canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
     }
     updateProps() {
-        this.emitEvent('property_changed', { "x": this._x })
-        this.emitEvent('property_changed', { "y": this._y })
-        this.emitEvent('property_changed', { "width": this._width })
-        this.emitEvent('property_changed', { "height": this._height })
-        this.emitEvent('property_changed', { "cornerRadius": this._cornerRadius })
-        this.emitEvent('property_changed', { "fillStyle": this._fillStyle })
-        this.emitEvent('property_changed', { "objectList": this._objectList })
-
+        this.emitEvent('property_changed', {
+            "x": this._activeElement.x,
+            "y": this._activeElement.y,
+            "width": this._activeElement.width,
+            "height": this._activeElement.height,
+            "cornerRadius": this._activeElement.cornerRadius,
+            "fillStyle": this._activeElement.fillStyle,
+            "objectList": this._objectList,
+            "activeElement": this._activeElement
+        })
     }
 
 
