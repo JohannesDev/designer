@@ -14,6 +14,8 @@ export class DrawingHelper {
 
         this._down = false;
         this._mode = MODES.MOVE
+        this._clickOffsetX = 0
+        this._clickOffsetY = 0
 
         //set width and height of canvas
         this._canvas.width = $('#window').clientWidth;
@@ -29,7 +31,8 @@ export class DrawingHelper {
 
 
 
-        document.addEventListener('mousedown', (event) => {
+        this._canvas.addEventListener('mousedown', (event) => {
+            this._down = true;
 
             // Canvas Clicked
             if (event.target === $('#drawing')) {
@@ -40,17 +43,21 @@ export class DrawingHelper {
                     this._objectList.push(rect);
                     this._mode = MODES.DRAWING_STARTED
                 }
-                else if (this._mode === MODES.MOVE) {
+                else {
                     this._activeElement = null;
 
                     this._objectList.forEach((element) => {
                         //check if object is clicked and set it active
-                        if (element.isPointInRect()) {
-                            this._activeElement = element;
+                        //check if any control points are clicked and set the acording mode
 
+                        if (element.isPointInControlPoint()) {
+                            this._mode = element.isPointInControlPoint()
+                            this._activeElement = element;
                         }
-                        else {
-                            element.active = false;
+                        else if (element.isPointInRect(event.layerX, event.layerY)) {
+                            this._activeElement = element;
+                            this._clickOffsetX = event.layerX - this._activeElement.x
+                            this._clickOffsetY = event.layerY - this._activeElement.y
                         }
 
                     })
@@ -81,6 +88,17 @@ export class DrawingHelper {
                 rect.width = mouseX - rect.x;
                 rect.height = mouseY - rect.y;
             }
+            //Move whole object
+            if (this._activeElement != null && this._down === true && this._mode === MODES.MOVE) {
+
+                let x = mouseX - this._clickOffsetX
+                let y = mouseY - this._clickOffsetY
+                this._activeElement.move(x, y)
+            }
+            //Scale object 
+            else if (this._activeElement != null && this._down === true && Object.values(MODES.SCALE).includes(this._mode)) {
+                this._activeElement.scale(this._mode, mouseX, mouseY)
+            }
 
 
             this.redraw()
@@ -93,8 +111,12 @@ export class DrawingHelper {
 
                 this._activeObject = this._objectList[this._objectList.length - 1]
 
-
                 this.emitEvent('drawing_finished');
+
+            }
+            if (Object.values(MODES.SCALE).includes(this._mode)) {
+
+                this._mode = MODES.MOVE
 
             }
             this.redraw()
@@ -111,7 +133,9 @@ export class DrawingHelper {
 
         this._objectList.forEach((element) => {
             element.draw()
-            if (element.active) {
+            if (element === this._activeElement) {
+
+
                 element.drawActive()
 
             };

@@ -35,69 +35,6 @@ export class Rect {
         this._pathCornerBR = new Path2D()
         this._pathCornerBL = new Path2D()
 
-
-        //canvas variables
-        this._down = false;
-        this._active = false
-        this._clickOffsetX = 0
-        this._clickOffsetY = 0
-        this._mode = MODES.MOVE;
-
-        document.addEventListener('mousedown', (event) => {
-
-            //canvas clicked
-            if (event.target === $('#drawing')) {
-                this._down = true;
-
-
-                //check if any control points are clicked and set the acording mode
-                if (ctx.isPointInPath(this._pathCornerTL, event.layerX, event.layerY) && this._active === true) {
-                    this._mode = MODES.SCALE.TL;
-                }
-                else if (ctx.isPointInPath(this._pathCornerTR, event.layerX, event.layerY) && this._active === true) {
-                    this._mode = MODES.SCALE.TR;
-                }
-                else if (ctx.isPointInPath(this._pathCornerBR, event.layerX, event.layerY) && this._active === true) {
-                    this._mode = MODES.SCALE.BR;
-                }
-                else if (ctx.isPointInPath(this._pathCornerBL, event.layerX, event.layerY) && this._active === true) {
-                    this._mode = MODES.SCALE.BL;
-                }
-                //object not clicked
-                else {
-                    this._active = false
-                }
-
-
-            }
-
-        })
-
-
-        document.addEventListener('mousemove', (event) => {
-            let mouseX = event.clientX - $('#window').offsetLeft
-            let mouseY = event.clientY - $('#window').offsetTop
-
-            //Move whole object
-            if (this._active === true && this._down === true && this._mode === MODES.MOVE) {
-
-
-
-                let x = mouseX - this._clickOffsetX
-                let y = mouseY - this._clickOffsetY
-                this.move(x, y)
-            }
-            else if (this._active === true && this._down === true) {
-                this.scale(this._mode, mouseX, mouseY)
-            }
-
-
-        })
-
-
-        document.addEventListener('mouseup', (event) => {
-            this._down = false;
-        })
     }
 
 
@@ -188,8 +125,27 @@ export class Rect {
         this.updateProps()
     }
 
-    isPointInRect() {
-        return ctx.isPointInPath(this._path, event.layerX, event.layerY)
+    isPointInControlPoint() {
+        if (ctx.isPointInPath(this._pathCornerTL, event.layerX, event.layerY)) {
+            return MODES.SCALE.TL;
+        }
+        else if (ctx.isPointInPath(this._pathCornerTR, event.layerX, event.layerY)) {
+            return MODES.SCALE.TR;
+        }
+        else if (ctx.isPointInPath(this._pathCornerBR, event.layerX, event.layerY)) {
+            return MODES.SCALE.BR;
+        }
+        else if (ctx.isPointInPath(this._pathCornerBL, event.layerX, event.layerY)) {
+            return MODES.SCALE.BL;
+        }
+        else {
+            return false
+        }
+    }
+
+
+    isPointInRect(x, y) {
+        return ctx.isPointInPath(this._path, x, y)
     }
 
 
@@ -256,7 +212,6 @@ export class Rect {
     get height() { return this._height }
     get fillStyle() { return this._fillStyle }
     get cornerRadius() { return this._cornerRadius }
-    get active() { return this._active }
 
     set x(x) { this._x = x }
     set y(y) { this._y = y }
@@ -264,8 +219,4 @@ export class Rect {
     set height(height) { this._height = height }
     set fillStyle(fillStyle) { this._fillStyle = fillStyle }
     set cornerRadius(cornerRadius) { this._cornerRadius = cornerRadius }
-    set active(active) { this._active = active }
-    set mode(mode) { this._mode = mode }
-    set clickOffsetX(clickOffsetX) { this._clickOffsetX = clickOffsetX }
-    set clickOffsetY(clickOffsetY) { this._clickOffsetY = clickOffsetY }
 }

@@ -13,31 +13,25 @@ class LayerList extends HTMLElement {
 
             }
             :host{
-                position: absolute;
-                top: 25%;
-                width: 12%;
-                height: 500px;
+                width: 100%;
+                height: 100%px;
                 background-color: #ffffff;
-                border-top-right-radius: 10px;
-                border-bottom-right-radius: 10px;
 
-                //filter: drop-shadow(0px 0px 5px #0000004d);
 
                 display: flex;
                 flex-direction: column;
             }
 
             .layer-item {
-                font-size: 140%;
+                font-size: 100%;
                 border-bottom: 2px solid #edeff3;
                 background-color: #ffffff;
-                border-top-right-radius: 10px;
 
                 padding: 10px;
             }
 
             .active {
-                background-color: #b8b7b7;
+                background-color: #dddddd;
             }
 
             </style>
