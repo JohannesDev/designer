@@ -3,6 +3,7 @@ class LayerList extends HTMLElement {
     constructor() {
         super();
 
+
         this.attachShadow({ mode: 'open' });
         this.shadowRoot.innerHTML = /*html*/`
             <style>
@@ -38,11 +39,13 @@ class LayerList extends HTMLElement {
   
             
             <div id="layers">
-            <div class="layer-item active">Rect 1</div>
+            <div id="0" class="layer-item active">Rect 1</div>
             <div class="layer-item">Rect 2</div>
             
 </div>
           `;
+
+        this._previousSelection = null
 
     }
 
@@ -55,11 +58,22 @@ class LayerList extends HTMLElement {
 
         objectList.forEach(element => {
             let div = document.createElement('div')
+            div.id = element.id
             div.innerHTML = element.name
             div.className = 'layer-item'
 
+            div.addEventListener('click', (event) => {
+                if (this._previousSelection != null) {
+                    this._previousSelection.classList.remove('active')
+                }
+                event.target.classList.add('active')
+                this._previousSelection = event.target
+            })
+
             parent.appendChild(div)
         });
+
+
 
     }
 

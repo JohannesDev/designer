@@ -37,8 +37,6 @@ export class Rect {
 
 
         //cometic values
-        console.log(id);
-
         this._id = id
         this._name = "Rect " + (id + 1)
     }
@@ -203,7 +201,9 @@ export class Rect {
     get height() { return this._height }
     get fillStyle() { return this._fillStyle }
     get cornerRadius() { return this._cornerRadius }
+
     get name() { return this._name }
+    get id() { return this._id }
 
     set x(x) { this._x = x }
     set y(y) { this._y = y }

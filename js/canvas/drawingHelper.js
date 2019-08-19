@@ -124,6 +124,12 @@ export class DrawingHelper {
         })
 
 
+        document.addEventListener('key', (event) => {
+            console.log(event);
+
+        });
+
+
 
     }
 
@@ -135,10 +141,7 @@ export class DrawingHelper {
         this._objectList.forEach((element) => {
             element.draw()
             if (element === this._activeElement) {
-
-
                 element.drawActive()
-
             };
             //ctx.stroke(); // change order maybe
         })
