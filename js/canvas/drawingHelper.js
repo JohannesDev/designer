@@ -43,7 +43,6 @@ export class DrawingHelper {
                     this._objectList.push(rect);
                     this._mode = MODES.DRAWING_STARTED
                     this._activeElement = rect
-                    this.updateProps()
                 }
                 else {
                     this._activeElement = null;
@@ -61,7 +60,6 @@ export class DrawingHelper {
                             this._clickOffsetX = event.layerX - this._activeElement.x
                             this._clickOffsetY = event.layerY - this._activeElement.y
 
-                            this.updateProps()
                         }
 
                     })
@@ -98,7 +96,6 @@ export class DrawingHelper {
                 let x = mouseX - this._clickOffsetX
                 let y = mouseY - this._clickOffsetY
                 this._activeElement.move(x, y)
-                this.updateProps()
             }
             //Scale object 
             else if (this._activeElement != null && this._down === true && Object.values(MODES.SCALE).includes(this._mode)) {
@@ -123,6 +120,7 @@ export class DrawingHelper {
                 this._mode = MODES.MOVE
             }
             this.redraw()
+            this.updateProps()
         })
 
 
@@ -139,6 +137,7 @@ export class DrawingHelper {
 
     redraw() {
         this._ctx.clearRect(0, 0, this._canvas.width, this._canvas.height);
+
 
         this._objectList.forEach((element) => {
             element.draw()
@@ -174,7 +173,7 @@ export class DrawingHelper {
     selectElement(id) {
         console.log(this._objectList[id]);
 
-        this.activeElement = this._objectList[id]
+        this.activeElement = this._objectList[0]
         this.redraw()
     }
 
@@ -184,16 +183,19 @@ export class DrawingHelper {
         this._canvas.dispatchEvent(new CustomEvent(eventName, { detail: object }));
     }
     updateProps() {
-        this.emitEvent('property_changed', {
-            "x": this._activeElement.x,
-            "y": this._activeElement.y,
-            "width": this._activeElement.width,
-            "height": this._activeElement.height,
-            "cornerRadius": this._activeElement.cornerRadius,
-            "fillStyle": this._activeElement.fillStyle,
-            "objectList": this._objectList,
-            "activeElement": this._activeElement
-        })
+        if (this._activeElement != null) {
+            this.emitEvent('property_changed', {
+                "x": this._activeElement.x,
+                "y": this._activeElement.y,
+                "width": this._activeElement.width,
+                "height": this._activeElement.height,
+                "cornerRadius": this._activeElement.cornerRadius,
+                "fillStyle": this._activeElement.fillStyle,
+                "objectList": this._objectList,
+                "activeElement": this._activeElement
+            })
+        }
+
     }
 
 

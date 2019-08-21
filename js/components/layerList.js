@@ -71,6 +71,8 @@ class LayerList extends HTMLElement {
                 //}
                 //event.target.classList.add('active')
                 //this._previousSelection = event.target
+                console.log("rr");
+
                 this.emitEvent(event.target.id)
             })
 
