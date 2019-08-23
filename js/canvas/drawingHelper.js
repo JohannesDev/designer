@@ -28,7 +28,7 @@ export class DrawingHelper {
         let rect2 = new Rect(this._objectList.length, 100, 200, 200, 200, 20, '#0000FF')
         this._objectList.push(rect2)
         this.redraw()
-
+        this.updateProps()
 
 
         this._canvas.addEventListener('mousedown', (event) => {
@@ -76,7 +76,7 @@ export class DrawingHelper {
             }
 
             this.redraw()
-
+            this.updateProps()
         })
 
         document.addEventListener('mousemove', (event) => {
@@ -104,6 +104,7 @@ export class DrawingHelper {
 
 
             this.redraw()
+            this.updateProps()
         })
 
         document.addEventListener('mouseup', (event) => {
@@ -120,7 +121,7 @@ export class DrawingHelper {
                 this._mode = MODES.MOVE
             }
             this.redraw()
-            this.updateProps()
+
         })
 
 
@@ -159,21 +160,20 @@ export class DrawingHelper {
 
     //Actions for the active object
     setColor(color) {
-        const activeObject = this._objectList.filter(object => object.active === true)[0]
+        const activeObject = this._objectList.filter(object => object === this._activeElement)[0]
         if (typeof activeObject != "undefined") {
             activeObject.fillStyle = color;
         }
     }
     setCornerRadius(value) {
-        const activeObject = this._objectList.filter(object => object.active === true)[0]
+        const activeObject = this._objectList.filter(object => object === this._activeElement)[0]
         if (typeof activeObject != "undefined") {
             activeObject.cornerRadius = parseInt(value);
         }
     }
     selectElement(id) {
-        console.log(this._objectList[id]);
-
-        this.activeElement = this._objectList[0]
+        this._activeElement = this._objectList[id]
+        this.updateProps()
         this.redraw()
     }
 

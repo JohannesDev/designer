@@ -17,7 +17,7 @@ class LayerList extends HTMLElement {
                 width: 100%;
                 height: 100%px;
                 background-color: #ffffff;
-
+                border-top: 2px solid #edeff3;
 
                 display: flex;
                 flex-direction: column;
@@ -39,13 +39,11 @@ class LayerList extends HTMLElement {
   
             
             <div id="layers">
-            <div id="0" class="layer-item active">Rect 1</div>
+            <div id="0" class="layer-item">Rect 1</div>
             <div class="layer-item">Rect 2</div>
             
 </div>
           `;
-
-        this._previousSelection = null
 
     }
 
@@ -66,12 +64,6 @@ class LayerList extends HTMLElement {
             }
 
             div.addEventListener('click', (event) => {
-                //if (this._previousSelection != null) {
-                //    this._previousSelection.classList.remove('active')
-                //}
-                //event.target.classList.add('active')
-                //this._previousSelection = event.target
-                console.log("rr");
 
                 this.emitEvent(event.target.id)
             })
